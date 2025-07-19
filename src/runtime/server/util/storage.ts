@@ -1,4 +1,5 @@
-import { useRuntimeConfig, useStorage } from "#build/types/nitro-imports";
+// @ts-ignore
+import { useRuntimeConfig, useStorage } from '#imports'
 
 export const useDefaultStorage = () => {
     const storageKey = useRuntimeConfig().editableContent?.storageKey;

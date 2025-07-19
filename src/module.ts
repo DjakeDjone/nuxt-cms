@@ -1,4 +1,4 @@
-import { defineNuxtModule, addComponent, createResolver, addServerHandler, addImportsDir } from '@nuxt/kit'
+import { defineNuxtModule, addComponent, createResolver, addServerHandler, addImportsDir, addComponentsDir } from '@nuxt/kit'
 
 // Define the module options interface
 export interface ModuleOptions {
@@ -22,10 +22,14 @@ export default defineNuxtModule<ModuleOptions>({
     }
 
     // From the runtime directory
-    addComponent({
-      name: 'EditableContent', // name of the component to be used in vue templates
-      filePath: resolver.resolve('runtime/components/editable/Content.vue')
+    // addComponent({
+    //   name: 'EditableContent', // name of the component to be used in vue templates
+    //   filePath: resolver.resolve('runtime/components/editable/Content.vue')
+    // })
+    addComponentsDir({
+      path: resolver.resolve('runtime/components'),
     })
+      
 
     addServerHandler({
       route: '/api/editable/content/:id',

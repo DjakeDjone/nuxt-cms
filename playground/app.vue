@@ -1,6 +1,7 @@
 <template>
   <div>
-    <EditableContent></EditableContent>
+    <EditableContent content-id="test"></EditableContent>
+    <EditableAdminContent content-id="test"></EditableAdminContent>
   </div>
 </template>
 

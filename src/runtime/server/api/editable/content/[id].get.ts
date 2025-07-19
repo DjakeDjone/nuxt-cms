@@ -1,13 +1,15 @@
 import { defineEventHandler, getRouterParam } from 'h3'
 // @ts-ignore
 import { createError, useRuntimeConfig } from '#imports'
+import { useDefaultStorage } from '../../../util/storage'
+import { ApiResponse } from '../../../model/response'
 
-export default defineEventHandler(event => {
+export default defineEventHandler(async (event) => {
   const id = getRouterParam(event, 'id')??"content"
   const config = useRuntimeConfig()
 
   const storage = useDefaultStorage()
-  const content = storage.getItem(id)
+  const content = await storage.getItem(id)
 
   if (!content) {
     throw createError({
@@ -20,5 +22,5 @@ export default defineEventHandler(event => {
     id: id,
     message: 'Content retrieved successfully',
     content: content
-  }
+  } as ApiResponse<string>
 })
