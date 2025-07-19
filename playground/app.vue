@@ -1,9 +1,9 @@
 <template>
   <div>
-    <EditableContent content-id="test"></EditableContent>
-    <EditableAdminContent content-id="test"></EditableAdminContent>
+    <nav class="flex gap-2 p-4 justify-center items-center w-full">
+      <NuxtLink to="/">Home</NuxtLink>
+      <NuxtLink to="/admin">Admin</NuxtLink>
+    </nav>
+    <NuxtPage />
   </div>
 </template>
-
-<script setup>
-</script>
