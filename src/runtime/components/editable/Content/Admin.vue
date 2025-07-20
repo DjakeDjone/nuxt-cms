@@ -48,6 +48,8 @@ watch(content, (newContent) => {
             props.contentId,
             () => onSave(),
         )
+    } else {
+        saveHandler.removeSaveEvent(props.contentId);
     }
 }, { immediate: true });
 

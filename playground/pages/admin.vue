@@ -11,16 +11,12 @@ const save = async () => {
 
 <template>
     <main>
-        <div class="flex justify-center items-center my-4">
-            <button @click="save()" 
-            class="bg-blue-500 text-white px-4 py-2 rounded">
-                Save All Changes
-            </button>
-        </div>
+        <EditableSaveBtn></EditableSaveBtn>
         <h1 class="text-2xl font-bold text-center my-4">
-            <EditableAdminContent content-id="heading-text" class="text-center w-fit">
-            </EditableAdminContent>
+            <EditableContentAdmin content-id="heading-text" class="text-center w-fit">
+            </EditableContentAdmin>
         </h1>
+        <EditableContentAreaAdmin content-id="area-a" class="text-center w-fit"></EditableContentAreaAdmin>
     </main>
 </template>
 

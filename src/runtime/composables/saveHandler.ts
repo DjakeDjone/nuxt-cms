@@ -28,6 +28,14 @@ export const useSaveHandler = () => {
         }
     }
 
+    const removeSaveEvent = (id: string) => {
+        const index = saveEvents.value.findIndex(event => event.id === id);
+        if (index !== -1) {
+            saveEvents.value.splice(index, 1);
+            saveFunctions.delete(id);
+        }
+    }
+
     const getSaveEvents = () => saveEvents;
 
     const saveAll = async () => {
@@ -53,6 +61,7 @@ export const useSaveHandler = () => {
         addSaveEventWrapper,
         getSaveEvents,
         saveAll,
+        removeSaveEvent,
         hasChanges
     }
 
