@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useFetch } from '#app';
+import { useSaveHandler } from '#imports';
 import { ref, watch } from 'vue';
 
 const props = defineProps<{
@@ -7,6 +8,8 @@ const props = defineProps<{
 }>();
 
 const emit = defineEmits(['save', 'error', 'loading']);
+
+const saveHandler = useSaveHandler();
 
 const { data, error } = useFetch(`/api/editable/content/${props.contentId}`, {
     watch: [() => props.contentId],
@@ -16,14 +19,14 @@ if (!data) {
     console.warn(`No content found for ID: ${props.contentId}`);
 }
 
-const onSave = async (c: string) => {
+const onSave = async () => {
     emit('loading', true);
     try {
         await $fetch(`/api/editable/content/${props.contentId}`, {
             method: 'POST',
-            body: { content: c }
+            body: { content: content.value },
         });
-        emit('save', c);
+        emit('save', content.value);
     } catch (err) {
         console.error('Error saving content:', err);
         emit('error', err);
@@ -38,12 +41,19 @@ watch(() => data.value, (newData) => {
     }
 }, { immediate: true });
 
+watch(content, (newContent) => {
+    if (newContent !== data.value?.content) {
+        
+        saveHandler.addSaveEventWrapper(
+            props.contentId,
+            () => onSave(),
+        )
+    }
+}, { immediate: true });
+
 </script>
 
 
 <template>
-    <slot :content="content" :data="data" :onSave="onSave" :error="error">
-        <input v-model="content" placeholder="Editable content here..." />
-    </slot>
-    <slot name="append" :content="content" :data="data" :onSave="onSave" :error="error"></slot>
+    <input v-model="content" placeholder="Editable content here..." />
 </template>

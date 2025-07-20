@@ -29,7 +29,7 @@ export default defineNuxtModule<ModuleOptions>({
     addComponentsDir({
       path: resolver.resolve('runtime/components'),
     })
-      
+
 
     addServerHandler({
       route: '/api/editable/content/:id',
@@ -37,6 +37,8 @@ export default defineNuxtModule<ModuleOptions>({
     })
 
     addImportsDir(resolver.resolve('runtime/server/util'))
+    addImportsDir(resolver.resolve('runtime/composables'))
+
 
     addServerHandler({
       route: '/api/editable/content/:id',
