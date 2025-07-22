@@ -7,78 +7,64 @@ Find and replace all on all files (CMD+SHIFT+F):
 - Description: My new Nuxt module
 -->
 
-# My Module
+# Nuxt data manager
 
-[![npm version][npm-version-src]][npm-version-href]
-[![npm downloads][npm-downloads-src]][npm-downloads-href]
-[![License][license-src]][license-href]
-[![Nuxt][nuxt-src]][nuxt-href]
-
-My new Nuxt module for doing amazing things.
-
-- [✨ &nbsp;Release Notes](/CHANGELOG.md)
-<!-- - [🏀 Online playground](https://stackblitz.com/github/your-org/my-module?file=playground%2Fapp.vue) -->
-<!-- - [📖 &nbsp;Documentation](https://example.com) -->
+A nuxt module with easy to use components for creating editable content and storing them in a kv database using nitro.
 
 ## Features
 
-<!-- Highlight some of the features your module provide here -->
-- ⛰ &nbsp;Foo
-- 🚠 &nbsp;Bar
-- 🌲 &nbsp;Baz
+- edit simple text in an input field
 
 ## Quick Setup
 
 Install the module to your Nuxt application with one command:
 
 ```bash
-npx nuxi module add my-module
+npx nuxi module add nuxt-data-mngr
 ```
 
-That's it! You can now use My Module in your Nuxt app ✨
+That's it! You can now use the nuxt data manager in your Nuxt app ✨
 
 
-## Contribution
+## Usage
 
-<details>
-  <summary>Local development</summary>
-  
-  ```bash
-  # Install dependencies
-  npm install
-  
-  # Generate type stubs
-  npm run dev:prepare
-  
-  # Develop with the playground
-  npm run dev
-  
-  # Build the playground
-  npm run dev:build
-  
-  # Run ESLint
-  npm run lint
-  
-  # Run Vitest
-  npm run test
-  npm run test:watch
-  
-  # Release new version
-  npm run release
-  ```
+### Components
 
-</details>
+- `<EditableContent>`: A component for editing simple text content.
+- `useSaveHandler`: A composable for handling save operations.
 
+### Example
 
-<!-- Badges -->
-[npm-version-src]: https://img.shields.io/npm/v/my-module/latest.svg?style=flat&colorA=020420&colorB=00DC82
-[npm-version-href]: https://npmjs.com/package/my-module
+```vue
+<script setup lang="ts">
+const saveHandler = useSaveHandler()
 
-[npm-downloads-src]: https://img.shields.io/npm/dm/my-module.svg?style=flat&colorA=020420&colorB=00DC82
-[npm-downloads-href]: https://npm.chart.dev/my-module
+const _save = async () => {
+  console.log('Saving all changes...')
+  await saveHandler.saveAll()
+}
+</script>
 
-[license-src]: https://img.shields.io/npm/l/my-module.svg?style=flat&colorA=020420&colorB=00DC82
-[license-href]: https://npmjs.com/package/my-module
+<template>
+  <main>
+    <EditableSaveBtn />
+    <h1 class="text-2xl font-bold text-center my-4">
+      <EditableContentAdmin
+        content-id="heading-text"
+        class="text-center w-fit"
+      />
+    </h1>
+    <EditableContentAreaAdmin
+      content-id="area-a"
+      class="text-center w-fit"
+    />
+  </main>
+</template>
 
-[nuxt-src]: https://img.shields.io/badge/Nuxt-020420?logo=nuxt.js
-[nuxt-href]: https://nuxt.com
+<style scoped>
+textarea:focus,
+input:focus {
+    outline: none;
+}
+</style>
+```
