@@ -1,0 +1,20 @@
+# Changelog
+
+
+## v1.1.0
+
+
+### 🚀 Enhancements
+
+- Init ([d6d6f50](https://github.com/your-org/my-module/commit/d6d6f50))
+- Add editable content module with storage functionality ([cd82ad7](https://github.com/your-org/my-module/commit/cd82ad7))
+- Content editing works! ([fec8225](https://github.com/your-org/my-module/commit/fec8225))
+- Refactor editable content components and add admin page ([f174544](https://github.com/your-org/my-module/commit/f174544))
+- Enhance editable content functionality with save handler and UI improvements ([71ad2d3](https://github.com/your-org/my-module/commit/71ad2d3))
+- Refactor editable content components and add save button with event handling ([06e1f36](https://github.com/your-org/my-module/commit/06e1f36))
+- Improve editable content components with code cleanup and formatting adjustments ([bb52866](https://github.com/your-org/my-module/commit/bb52866))
+
+### ❤️ Contributors
+
+- DjakeDjone <benjamin.friedl@htlstp.at>
+
