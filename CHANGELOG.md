@@ -1,6 +1,10 @@
 # Changelog
 
 
+## v0.0.17
+
+[compare changes](https://github.com/DjakeDjone/nuxt-cms/compare/v0.0.2...v0.0.17)
+
 ## v0.0.2
 
 [compare changes](https://github.com/DjakeDjone/nuxt-cms/compare/v1.1.0...v0.0.2)
