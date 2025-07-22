@@ -1,6 +1,6 @@
 {
   "name": "nuxt-data-mngr",
-  "version": "0.0.19",
+  "version": "0.0.20",
   "description": "A Nuxt module for creating editable content",
   "repository": "https://github.com/DjakeDjone/nuxt-cms",
   "license": "MIT",

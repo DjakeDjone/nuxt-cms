@@ -1,6 +1,25 @@
 # Changelog
 
 
+## v0.0.20
+
+[compare changes](https://github.com/DjakeDjone/nuxt-cms/compare/v1.1.0...v0.0.20)
+
+### 💅 Refactors
+
+- Update README for clarity and module name change ([801e64e](https://github.com/DjakeDjone/nuxt-cms/commit/801e64e))
+
+### 🏡 Chore
+
+- **release:** V0.0.2 ([e8f97a9](https://github.com/DjakeDjone/nuxt-cms/commit/e8f97a9))
+- **release:** V0.0.17 ([661a958](https://github.com/DjakeDjone/nuxt-cms/commit/661a958))
+- **release:** V0.0.19 ([aeb894c](https://github.com/DjakeDjone/nuxt-cms/commit/aeb894c))
+- Update version in CHANGELOG from v1.1.0 to v0.1.19 ([761f888](https://github.com/DjakeDjone/nuxt-cms/commit/761f888))
+
+### ❤️ Contributors
+
+- DjakeDjone <benjamin.friedl@htlstp.at>
+
 ## v0.0.19
 
 [compare changes](https://github.com/DjakeDjone/nuxt-cms/compare/v0.0.17...v0.0.19)
