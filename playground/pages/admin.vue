@@ -1,23 +1,26 @@
 <script setup lang="ts">
+const saveHandler = useSaveHandler()
 
-const saveHandler = useSaveHandler();
-
-const save = async () => {
-    console.log('Saving all changes...');
-    await saveHandler.saveAll();
-};
-
+const _save = async () => {
+  console.log('Saving all changes...')
+  await saveHandler.saveAll()
+}
 </script>
 
 <template>
-    <main>
-        <EditableSaveBtn></EditableSaveBtn>
-        <h1 class="text-2xl font-bold text-center my-4">
-            <EditableContentAdmin content-id="heading-text" class="text-center w-fit">
-            </EditableContentAdmin>
-        </h1>
-        <EditableContentAreaAdmin content-id="area-a" class="text-center w-fit"></EditableContentAreaAdmin>
-    </main>
+  <main>
+    <EditableSaveBtn />
+    <h1 class="text-2xl font-bold text-center my-4">
+      <EditableContentAdmin
+        content-id="heading-text"
+        class="text-center w-fit"
+      />
+    </h1>
+    <EditableContentAreaAdmin
+      content-id="area-a"
+      class="text-center w-fit"
+    />
+  </main>
 </template>
 
 <style scoped>

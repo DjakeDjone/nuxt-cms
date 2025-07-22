@@ -1,4 +1,4 @@
-import { defineNuxtModule, addComponent, createResolver, addServerHandler, addImportsDir, addComponentsDir } from '@nuxt/kit'
+import { defineNuxtModule, createResolver, addServerHandler, addImportsDir, addComponentsDir } from '@nuxt/kit'
 
 // Define the module options interface
 export interface ModuleOptions {
@@ -8,17 +8,17 @@ export interface ModuleOptions {
 export default defineNuxtModule<ModuleOptions>({
   meta: {
     name: 'editable-content',
-    configKey: 'editableContent'
+    configKey: 'editableContent',
   },
   defaults: {
-    storageKey: 'editable-content'
+    storageKey: 'editable-content',
   },
   setup(options, nuxt) {
     const resolver = createResolver(import.meta.url)
 
     // Add runtime config for the storage key
     nuxt.options.runtimeConfig.editableContent = {
-      storageKey: options.storageKey ?? ""
+      storageKey: options.storageKey ?? '',
     }
 
     // From the runtime directory
@@ -30,20 +30,18 @@ export default defineNuxtModule<ModuleOptions>({
       path: resolver.resolve('runtime/components'),
     })
 
-
     addServerHandler({
       route: '/api/editable/content/:id',
-      handler: resolver.resolve('./runtime/server/api/editable/content/[id].get')
+      handler: resolver.resolve('./runtime/server/api/editable/content/[id].get'),
     })
 
     addImportsDir(resolver.resolve('runtime/server/util'))
     addImportsDir(resolver.resolve('runtime/composables'))
 
-
     addServerHandler({
       route: '/api/editable/content/:id',
       method: 'post',
-      handler: resolver.resolve('./runtime/server/api/editable/content/[id].post')
+      handler: resolver.resolve('./runtime/server/api/editable/content/[id].post'),
     })
-  }
+  },
 })

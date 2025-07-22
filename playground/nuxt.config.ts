@@ -3,8 +3,8 @@ export default defineNuxtConfig({
     '../src/module',
     '@nuxtjs/tailwindcss',
   ],
-  editableContent: {
-    storageKey: ''
-  },
   devtools: { enabled: true },
+  editableContent: {
+    storageKey: '',
+  },
 })

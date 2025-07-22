@@ -1,61 +1,67 @@
 <script setup lang="ts">
-import { useFetch } from '#app';
-import { useSaveHandler } from '#imports';
-import { ref, watch } from 'vue';
+import { useFetch } from '#app'
+import { useSaveHandler } from '#imports'
+import { ref, watch } from 'vue'
+
+defineOptions({
+  name: 'EditableContentAdmin',
+})
 
 const props = defineProps<{
-    contentId: string;
-}>();
+  contentId: string
+}>()
 
-const emit = defineEmits(['save', 'error', 'loading']);
+const emit = defineEmits(['save', 'error', 'loading'])
 
-const saveHandler = useSaveHandler();
+const saveHandler = useSaveHandler()
 
-const { data, error } = useFetch(`/api/editable/content/${props.contentId}`, {
-    watch: [() => props.contentId],
-});
+const { data, error: _error } = useFetch(`/api/editable/content/${props.contentId}`, {
+  watch: [() => props.contentId],
+})
 
 if (!data) {
-    console.warn(`No content found for ID: ${props.contentId}`);
+  console.warn(`No content found for ID: ${props.contentId}`)
 }
 
 const onSave = async () => {
-    emit('loading', true);
-    try {
-        await $fetch(`/api/editable/content/${props.contentId}`, {
-            method: 'POST',
-            body: { content: content.value },
-        });
-        emit('save', content.value);
-    } catch (err) {
-        console.error('Error saving content:', err);
-        emit('error', err);
-    }
-};
+  emit('loading', true)
+  try {
+    await $fetch(`/api/editable/content/${props.contentId}`, {
+      method: 'POST',
+      body: { content: content.value },
+    })
+    emit('save', content.value)
+  }
+  catch (err) {
+    console.error('Error saving content:', err)
+    emit('error', err)
+  }
+}
 
-const content = ref(data.value?.content || '');
+const content = ref(data.value?.content || '')
 
 watch(() => data.value, (newData) => {
-    if (newData) {
-        content.value = newData.content;
-    }
-}, { immediate: true });
+  if (newData) {
+    content.value = newData.content
+  }
+}, { immediate: true })
 
 watch(content, (newContent) => {
-    if (newContent !== data.value?.content) {
-        
-        saveHandler.addSaveEventWrapper(
-            props.contentId,
-            () => onSave(),
-        )
-    } else {
-        saveHandler.removeSaveEvent(props.contentId);
-    }
-}, { immediate: true });
-
+  if (newContent !== data.value?.content) {
+    saveHandler.addSaveEventWrapper(
+      props.contentId,
+      () => onSave(),
+    )
+  }
+  else {
+    saveHandler.removeSaveEvent(props.contentId)
+  }
+}, { immediate: true })
 </script>
 
-
 <template>
-    <input v-model="content" placeholder="Editable content here..." />
+  <input
+    v-model="content"
+    placeholder="Editable content here..."
+  >
 </template>
