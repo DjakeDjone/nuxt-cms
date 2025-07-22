@@ -1,19 +1,15 @@
-<!--
-Get your module up and running quickly.
-
-Find and replace all on all files (CMD+SHIFT+F):
-- Name: My Module
-- Package name: my-module
-- Description: My new Nuxt module
--->
-
-# Nuxt data manager
+# Nuxt data manager ⚙️
 
 A nuxt module with easy to use components for creating editable content and storing them in a kv database using nitro.
 
 ## Features
 
 - edit simple text in an input field
+
+> ### Styling ✨
+>
+> All components are unstyled by default, except for some basic styles.
+> You can easily add your own styles or use a CSS framework like Tailwind CSS to style the components.
 
 ## Quick Setup
 
@@ -26,7 +22,7 @@ npx nuxi module add nuxt-data-mngr
 That's it! You can now use the nuxt data manager in your Nuxt app ✨
 
 
-## Usage
+## Usage 💡
 
 ### Components
 
@@ -68,3 +64,12 @@ input:focus {
 }
 </style>
 ```
+
+## TODO
+
+- [ ] WYSIWYG editor Component
+- [ ] layout component
+- [ ] file upload component
+- [ ] image upload component
+- [ ] List component (cards, grid, etc.)
+- [ ] **auth**

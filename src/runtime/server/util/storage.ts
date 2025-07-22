@@ -1,4 +1,3 @@
-// @ts-expect-error Runtime import issue
 import { useRuntimeConfig, useStorage } from '#imports'
 
 export const useDefaultStorage = () => {
