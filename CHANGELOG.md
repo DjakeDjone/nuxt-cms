@@ -1,6 +1,29 @@
 # Changelog
 
 
+## v0.1.2
+
+[compare changes](https://github.com/DjakeDjone/nuxt-cms/compare/v0.1.1...v0.1.2)
+
+### 🚀 Enhancements
+
+- Remove unused login, auth, and session files ([b7de5e2](https://github.com/DjakeDjone/nuxt-cms/commit/b7de5e2))
+- Add Tiptap extensions for underline and bubble menu; enhance editor functionality and UI components ([3e33c0c](https://github.com/DjakeDjone/nuxt-cms/commit/3e33c0c))
+- Enhance pre-push hook to auto-commit formatting changes; ([2254817](https://github.com/DjakeDjone/nuxt-cms/commit/2254817))
+- Add component names to TiptapNav and UiBtn; improve code clarity ([f61b81b](https://github.com/DjakeDjone/nuxt-cms/commit/f61b81b))
+
+### 🩹 Fixes
+
+- Update release script to correctly pass lint options; refactor MyMenu and SaveBtn components for improved readability ([0ca6952](https://github.com/DjakeDjone/nuxt-cms/commit/0ca6952))
+
+### 🏡 Chore
+
+- Auto-format code before push ([658d791](https://github.com/DjakeDjone/nuxt-cms/commit/658d791))
+
+### ❤️ Contributors
+
+- DjakeDjone <benjamin.friedl@htlstp.at>
+
 ## v0.1.1
 
 [compare changes](https://github.com/DjakeDjone/nuxt-cms/compare/v0.0.20...v0.1.1)
