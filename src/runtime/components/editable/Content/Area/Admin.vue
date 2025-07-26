@@ -40,18 +40,9 @@ const onSave = async () => {
 
 const content = ref(data.value?.content || '')
 
-const editor = useEditor({
-  extensions: [TiptapStarterKit],
-  content: content.value,
-  onUpdate: ({ editor }) => {
-    content.value = editor.getHTML()
-  },
-});
-
 watch(() => data.value, (newData) => {
   if (newData) {
     content.value = newData.content;
-    editor.value?.commands.setContent(newData.content);
   }
 }, { immediate: true })
 
@@ -70,5 +61,5 @@ watch(content, (newContent) => {
 </script>
 
 <template>
-  <TiptapEditorContent :editor="editor" />
+  <TiptapEditorWrapper v-model="content" />
 </template>
