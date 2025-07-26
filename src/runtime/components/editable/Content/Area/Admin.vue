@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useFetch } from '#app'
-import { useSaveHandler } from '#imports'
+import { TiptapStarterKit, useEditor, useSaveHandler } from '#imports'
 import { ref, watch } from 'vue'
 
 defineOptions({
@@ -42,7 +42,7 @@ const content = ref(data.value?.content || '')
 
 watch(() => data.value, (newData) => {
   if (newData) {
-    content.value = newData.content
+    content.value = newData.content;
   }
 }, { immediate: true })
 
@@ -57,11 +57,9 @@ watch(content, (newContent) => {
     saveHandler.removeSaveEvent(props.contentId)
   }
 }, { immediate: true })
+
 </script>
 
 <template>
-  <textarea
-    v-model="content"
-    placeholder="Editable content here..."
-  />
+  <TiptapEditorWrapper v-model="content" />
 </template>

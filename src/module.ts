@@ -1,4 +1,4 @@
-import { defineNuxtModule, createResolver, addServerHandler, addImportsDir, addComponentsDir } from '@nuxt/kit'
+import { defineNuxtModule, createResolver, addServerHandler, addImportsDir, addComponentsDir, installModule } from '@nuxt/kit'
 
 // Define the module options interface
 export interface ModuleOptions {
@@ -13,7 +13,7 @@ export default defineNuxtModule<ModuleOptions>({
   defaults: {
     storageKey: 'editable-content',
   },
-  setup(options, nuxt) {
+  async setup(options, nuxt) {
     const resolver = createResolver(import.meta.url)
 
     // Add runtime config for the storage key
@@ -21,11 +21,11 @@ export default defineNuxtModule<ModuleOptions>({
       storageKey: options.storageKey ?? '',
     }
 
-    // From the runtime directory
-    // addComponent({
-    //   name: 'EditableContent', // name of the component to be used in vue templates
-    //   filePath: resolver.resolve('runtime/components/editable/Content.vue')
-    // })
+    await installModule('nuxt-tiptap-editor', {
+    });
+
+    addImportsDir(resolver.resolve('runtime/assets'));
+
     addComponentsDir({
       path: resolver.resolve('runtime/components'),
     })

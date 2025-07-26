@@ -8,7 +8,7 @@ const _save = async () => {
 </script>
 
 <template>
-  <main>
+  <main class="prose">
     <EditableSaveBtn />
     <h1 class="text-2xl font-bold text-center my-4">
       <EditableContentAdmin
@@ -18,7 +18,7 @@ const _save = async () => {
     </h1>
     <EditableContentAreaAdmin
       content-id="area-a"
-      class="text-center w-fit"
+      class="w-full"
     />
   </main>
 </template>

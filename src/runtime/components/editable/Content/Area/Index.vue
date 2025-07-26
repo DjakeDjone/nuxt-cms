@@ -19,7 +19,8 @@ const { data: content, error, status } = useFetch(`/api/editable/content/${props
     v-if="content"
     :content="content"
   >
-    {{ content.content }}
+    <!-- {{ content.content }} -->
+      <div v-html="content.content" class="prose"></div>
   </slot>
   <slot
     v-else-if="status==='pending'"
