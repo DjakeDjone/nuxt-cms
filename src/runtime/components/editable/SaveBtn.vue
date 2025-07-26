@@ -1,11 +1,22 @@
 <script setup lang="ts">
-import { useSaveHandler } from '#imports'
+import { onMounted, useSaveHandler } from '#imports'
+import { on } from 'events'
 
 const saveHandler = useSaveHandler()
 const save = async () => {
   await saveHandler.saveAll()
   // TODO: error handling
 }
+
+onMounted(() => {
+  document.addEventListener('keydown', (event) => {
+    if (event.ctrlKey && event.key === 's') {
+      event.preventDefault()
+      save()
+    }
+  })
+})
+
 </script>
 
 <template>

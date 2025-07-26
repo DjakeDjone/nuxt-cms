@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { TiptapStarterKit, useEditor, watch } from '#imports'
+import { onBeforeUnmount, TiptapStarterKit, unref, useEditor, watch } from '#imports'
+import Underline from '@tiptap/extension-underline'
 
 const props = defineProps<{
   default?: string
@@ -15,29 +16,42 @@ if (props.default) {
 }
 
 const editor = useEditor({
-  extensions: [TiptapStarterKit],
+  extensions: [TiptapStarterKit, Underline],
   content: modelValue.value,
   onUpdate: ({ editor }) => {
-    modelValue.value = editor.getHTML()
+    if (editor.getHTML() !== modelValue.value) {
+      modelValue.value = editor.getHTML()
+    }
   },
 })
 
 watch(modelValue, (newValue) => {
-  console.log('Model value changed:', newValue)
   if (editor.value) {
-    editor.value.commands.setContent(newValue)
+    if (editor.value.getHTML() !== newValue) {
+      editor.value.commands.setContent(newValue)
+    }
   }
 }, { immediate: true })
+
+onBeforeUnmount(() => {
+  unref(editor)!.destroy();
+});
+
 </script>
 
 <template>
   <div>
-    <TiptapEditorContent :editor="editor as any" />
+    <TiptapNav :editor="editor" />
+    <TiptapMyMenu :editor="editor" />
+    <TiptapEditorContent :editor="editor!" />
   </div>
 </template>
 
 <style>
+.ProseMirror {
+  padding-top: 1rem;
+}
 .ProseMirror:focus {
-    outline: none;
+  outline: none;
 }
 </style>
