@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { onMounted, useSaveHandler } from '#imports'
-import { on } from 'node:events'
 
 const saveHandler = useSaveHandler()
 const save = async () => {

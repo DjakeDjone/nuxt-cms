@@ -20,7 +20,7 @@ const focusedChain = () => {
     <div class="bubble-menu">
       <UiBtn
         :active="editor.isActive('bold')"
-        @click="editor.chain().focus().toggleBold().run()"
+        @click="focusedChain()?.toggleBold().run()"
       >
         <b>
           B
@@ -28,7 +28,7 @@ const focusedChain = () => {
       </UiBtn>
       <UiBtn
         :active="editor.isActive('italic')"
-        @click="editor.chain().focus().toggleItalic().run()"
+        @click="focusedChain()?.toggleItalic().run()"
       >
         <i>
           I
@@ -36,7 +36,7 @@ const focusedChain = () => {
       </UiBtn>
       <UiBtn
         :active="editor.isActive('strike')"
-        @click="editor.chain().focus().toggleStrike().run()"
+        @click="focusedChain()?.toggleStrike().run()"
       >
         <s>
           S
@@ -44,7 +44,7 @@ const focusedChain = () => {
       </UiBtn>
       <UiBtn
         :active="editor.isActive('underline')"
-        @click="editor.chain().focus().toggleUnderline().run()"
+        @click="focusedChain()?.toggleUnderline().run()"
       >
         <u>
           U
