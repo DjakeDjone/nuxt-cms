@@ -29,6 +29,9 @@
     "dev:prepare": "nuxt-module-build build --stub && nuxt-module-build prepare && nuxi prepare playground",
     "release": "npm run lint --fix && npm run test && npm run prepack && changelogen --release && npm publish && git push --follow-tags",
     "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "format": "npm run lint:fix",
+    "setup:hooks": "node -e \"const fs=require('fs');const path='.git/hooks/pre-push';const content=fs.readFileSync('scripts/pre-push-hook.sh','utf8');fs.writeFileSync(path,content);fs.chmodSync(path,0o755);console.log('✅ Pre-push hook installed!');\"",
     "test": "vitest run",
     "test:watch": "vitest watch",
     "test:types": "vue-tsc --noEmit && cd playground && vue-tsc --noEmit"

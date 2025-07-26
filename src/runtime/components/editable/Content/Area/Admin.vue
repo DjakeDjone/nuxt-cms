@@ -56,8 +56,7 @@ watch(content, (newContent) => {
   else {
     saveHandler.removeSaveEvent(props.contentId)
   }
-}, { immediate: true });
-
+}, { immediate: true })
 </script>
 
 <template>

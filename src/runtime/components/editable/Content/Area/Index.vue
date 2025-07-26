@@ -15,13 +15,26 @@ const { data: content, error, status } = useFetch(`/api/editable/content/${props
 </script>
 
 <template>
-  <slot v-if="content" :content="content">
-    <div v-html="content.content" class="prose"></div>
+  <slot
+    v-if="content"
+    :content="content"
+  >
+    <div
+      class="prose"
+      v-html="content.content"
+    />
   </slot>
-  <slot v-else-if="status === 'pending'" name="loading">
+  <slot
+    v-else-if="status === 'pending'"
+    name="loading"
+  >
     Loading content...
   </slot>
-  <slot v-else name="error" :error="error">
+  <slot
+    v-else
+    name="error"
+    :error="error"
+  >
     Error loading content.
   </slot>
 </template>
