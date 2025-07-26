@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useFetch } from '#app'
-import { TiptapStarterKit, useEditor, useSaveHandler } from '#imports'
+import { useSaveHandler } from '#imports'
 import { ref, watch } from 'vue'
 
 defineOptions({
@@ -42,7 +42,7 @@ const content = ref(data.value?.content || '')
 
 watch(() => data.value, (newData) => {
   if (newData) {
-    content.value = newData.content;
+    content.value = newData.content
   }
 }, { immediate: true })
 
@@ -56,7 +56,7 @@ watch(content, (newContent) => {
   else {
     saveHandler.removeSaveEvent(props.contentId)
   }
-}, { immediate: true })
+}, { immediate: true });
 
 </script>
 

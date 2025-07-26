@@ -27,7 +27,7 @@ watch(modelValue, (newValue) => {
     if (editor.value) {
         editor.value.commands.setContent(newValue);
     }
-}, { immediate: true });
+}, { immediate: true })
 
 </script>
 

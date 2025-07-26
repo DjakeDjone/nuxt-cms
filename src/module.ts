@@ -22,9 +22,9 @@ export default defineNuxtModule<ModuleOptions>({
     }
 
     await installModule('nuxt-tiptap-editor', {
-    });
+    })
 
-    addImportsDir(resolver.resolve('runtime/assets'));
+    addImportsDir(resolver.resolve('runtime/assets'))
 
     addComponentsDir({
       path: resolver.resolve('runtime/components'),

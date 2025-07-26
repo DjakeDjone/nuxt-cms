@@ -1,4 +1,4 @@
-import tailwindcss from "@tailwindcss/vite";
+import tailwindcss from '@tailwindcss/vite';
 
 export default defineNuxtConfig({
   modules: [
@@ -8,10 +8,10 @@ export default defineNuxtConfig({
   editableContent: {
     storageKey: 'data',
   },
-    css: ['~/assets/css/main.css'],
+  css: ['~/assets/css/main.css'],
   vite: {
     plugins: [
       tailwindcss(),
-    ]
-  }
+    ],
+  },
 })
