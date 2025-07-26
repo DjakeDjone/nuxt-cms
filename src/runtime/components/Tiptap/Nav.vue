@@ -1,54 +1,73 @@
 <script setup lang="ts">
-import { UiBtn } from '#components';
-import { Editor } from '@tiptap/core'
+import { UiBtn } from '#components'
+import type { Editor } from '@tiptap/core'
 
 const props = defineProps<{
-    editor: Editor | undefined;
+  editor: Editor | undefined
 }>()
 
 const focusedChain = () => {
-    if (!props.editor) return;
-    return props.editor.chain().focus();
+  if (!props.editor) return
+  return props.editor.chain().focus()
 }
-
 </script>
 
 <template>
-    <nav class="actions-bar">
-        <div>
-            <!-- headings (dropdown) -->
-             <UiBtn class="action-button" @click="focusedChain()?.toggleHeading({ level: 1 }).run()"
-                :active="props.editor?.isActive('heading', { level: 1 })">
-                H1
-            </UiBtn>
-            <UiBtn class="action-button" @click="focusedChain()?.toggleHeading({ level: 2 }).run()"
-                :active="props.editor?.isActive('heading', { level: 2 })">
-                H2
-            </UiBtn>
-            <UiBtn class="action-button" @click="focusedChain()?.toggleHeading({ level: 3 }).run()"
-                :active="props.editor?.isActive('heading', { level: 3 })">
-                H3
-            </UiBtn>
+  <nav class="actions-bar">
+    <div>
+      <!-- headings (dropdown) -->
+      <UiBtn
+        class="action-button"
+        :active="props.editor?.isActive('heading', { level: 1 })"
+        @click="focusedChain()?.toggleHeading({ level: 1 }).run()"
+      >
+        H1
+      </UiBtn>
+      <UiBtn
+        class="action-button"
+        :active="props.editor?.isActive('heading', { level: 2 })"
+        @click="focusedChain()?.toggleHeading({ level: 2 }).run()"
+      >
+        H2
+      </UiBtn>
+      <UiBtn
+        class="action-button"
+        :active="props.editor?.isActive('heading', { level: 3 })"
+        @click="focusedChain()?.toggleHeading({ level: 3 }).run()"
+      >
+        H3
+      </UiBtn>
+    </div>
 
-        </div>
-
-        <UiBtn class="action-button" @click="focusedChain()?.toggleBold().run()"
-            :active="props.editor?.isActive('bold')">
-            <b>Bold</b>
-        </UiBtn>
-        <UiBtn class="action-button" @click="focusedChain()?.toggleItalic().run()"
-            :active="props.editor?.isActive('italic')">
-            <i>Italic</i>
-        </UiBtn>
-        <UiBtn class="action-button" @click="focusedChain()?.toggleStrike().run()"
-            :active="props.editor?.isActive('strike')">
-            <s>Strike</s>
-        </UiBtn>
-        <UiBtn class="action-button" @click="focusedChain()?.toggleUnderline().run()"
-            :active="props.editor?.isActive('underline')">
-            <u>Underline</u>
-        </UiBtn>
-    </nav>
+    <UiBtn
+      class="action-button"
+      :active="props.editor?.isActive('bold')"
+      @click="focusedChain()?.toggleBold().run()"
+    >
+      <b>Bold</b>
+    </UiBtn>
+    <UiBtn
+      class="action-button"
+      :active="props.editor?.isActive('italic')"
+      @click="focusedChain()?.toggleItalic().run()"
+    >
+      <i>Italic</i>
+    </UiBtn>
+    <UiBtn
+      class="action-button"
+      :active="props.editor?.isActive('strike')"
+      @click="focusedChain()?.toggleStrike().run()"
+    >
+      <s>Strike</s>
+    </UiBtn>
+    <UiBtn
+      class="action-button"
+      :active="props.editor?.isActive('underline')"
+      @click="focusedChain()?.toggleUnderline().run()"
+    >
+      <u>Underline</u>
+    </UiBtn>
+  </nav>
 </template>
 
 <style scoped>

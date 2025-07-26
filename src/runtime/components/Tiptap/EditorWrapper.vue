@@ -34,9 +34,8 @@ watch(modelValue, (newValue) => {
 }, { immediate: true })
 
 onBeforeUnmount(() => {
-  unref(editor)!.destroy();
-});
-
+  unref(editor)!.destroy()
+})
 </script>
 
 <template>

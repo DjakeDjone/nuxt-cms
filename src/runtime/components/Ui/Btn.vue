@@ -1,15 +1,16 @@
 <script setup lang="ts">
-
 const props = defineProps<{
-    active?: boolean;
+  active?: boolean
 }>()
-
 </script>
 
 <template>
-    <button :class="{ 'is-active': props.active }" @click="$emit('click')">
-        <slot></slot>
-    </button>
+  <button
+    :class="{ 'is-active': props.active }"
+    @click="$emit('click')"
+  >
+    <slot />
+  </button>
 </template>
 
 <style>
@@ -29,5 +30,4 @@ button {
 button:hover {
     background-color: #00000013;
 }
-
 </style>
