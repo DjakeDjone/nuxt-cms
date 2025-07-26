@@ -1,13 +1,21 @@
 <script setup lang="ts">
+defineOptions({
+  name: 'UiBtn',
+})
+
 const props = defineProps<{
   active?: boolean
+}>()
+
+const emit = defineEmits<{
+  click: []
 }>()
 </script>
 
 <template>
   <button
     :class="{ 'is-active': props.active }"
-    @click="$emit('click')"
+    @click="emit('click')"
   >
     <slot />
   </button>

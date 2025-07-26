@@ -2,6 +2,10 @@
 import { UiBtn } from '#components'
 import type { Editor } from '@tiptap/core'
 
+defineOptions({
+  name: 'TiptapNav',
+})
+
 const props = defineProps<{
   editor: Editor | undefined
 }>()
