@@ -67,7 +67,7 @@ input:focus {
 
 ## TODO
 
-- [ ] WYSIWYG editor Component
+- [x] WYSIWYG editor Component
 - [ ] layout component
 - [ ] file upload component
 - [ ] image upload component
