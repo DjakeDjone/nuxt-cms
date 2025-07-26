@@ -1,6 +1,25 @@
 # Changelog
 
 
+## v0.1.1
+
+[compare changes](https://github.com/DjakeDjone/nuxt-cms/compare/v0.0.20...v0.1.1)
+
+### 🚀 Enhancements
+
+- Titpat editor, unstyled without action buttons ([b3d81ad](https://github.com/DjakeDjone/nuxt-cms/commit/b3d81ad))
+- Add TiptapEditorWrapper component ([41f1646](https://github.com/DjakeDjone/nuxt-cms/commit/41f1646))
+- Update version to 0.1.0 and improve release script; refactor various components for consistency ([8f78117](https://github.com/DjakeDjone/nuxt-cms/commit/8f78117))
+- Add pre-push hook for automatic code formatting; update package.json scripts and improve component structure ([229c170](https://github.com/DjakeDjone/nuxt-cms/commit/229c170))
+
+### 💅 Refactors
+
+- Update README for clarity and add TODO section; remove commented-out instructions from storage.ts ([8710331](https://github.com/DjakeDjone/nuxt-cms/commit/8710331))
+
+### ❤️ Contributors
+
+- DjakeDjone <benjamin.friedl@htlstp.at>
+
 ## v0.0.20
 
 [compare changes](https://github.com/DjakeDjone/nuxt-cms/compare/v1.1.0...v0.0.20)
