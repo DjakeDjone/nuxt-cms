@@ -55,7 +55,6 @@ export default defineNuxtModule<ModuleOptions>({
     //   handler: resolver.resolve('./runtime/server/api/editable/files/[name].post'),
     // })
 
-
     addImportsDir(resolver.resolve('runtime/server/util'))
     addImportsDir(resolver.resolve('runtime/composables'))
   },
