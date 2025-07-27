@@ -1,4 +1,4 @@
-import { defineNuxtModule, createResolver, addServerHandler, addImportsDir, addComponentsDir, installModule } from '@nuxt/kit'
+import { defineNuxtModule, createResolver, addServerHandler, addImportsDir, addComponentsDir, installModule, addServerImportsDir } from '@nuxt/kit'
 
 // Define the module options interface
 export interface ModuleOptions {
@@ -37,13 +37,26 @@ export default defineNuxtModule<ModuleOptions>({
       handler: resolver.resolve('./runtime/server/api/editable/content/[id].get'),
     })
 
-    addImportsDir(resolver.resolve('runtime/server/util'))
-    addImportsDir(resolver.resolve('runtime/composables'))
-
     addServerHandler({
       route: '/api/editable/content/:id',
       method: 'post',
       handler: resolver.resolve('./runtime/server/api/editable/content/[id].post'),
     })
+
+    addServerHandler({
+      route: '/api/editable/files/:name',
+      method: 'get',
+      handler: resolver.resolve('./runtime/server/api/editable/files/[name].get'),
+    })
+
+    // addServerHandler({
+    //   route: '/api/editable/files/:name',
+    //   method: 'post',
+    //   handler: resolver.resolve('./runtime/server/api/editable/files/[name].post'),
+    // })
+
+
+    addImportsDir(resolver.resolve('runtime/server/util'))
+    addImportsDir(resolver.resolve('runtime/composables'))
   },
 })

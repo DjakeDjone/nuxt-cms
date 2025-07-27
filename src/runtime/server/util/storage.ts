@@ -4,3 +4,11 @@ export const useDefaultStorage = () => {
   const storageKey = useRuntimeConfig().editableContent?.storageKey
   return useStorage(storageKey)
 }
+
+export const useImageStorage = () => {
+  const storageKey = useRuntimeConfig().editableContent?.storageKey
+  if (!storageKey) {
+    return useDefaultStorage()
+  }
+  return useStorage(`${storageKey}/images`)
+}
