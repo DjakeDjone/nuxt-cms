@@ -1,35 +1,44 @@
 <script setup lang="ts">
 defineOptions({
-    name: 'UiSwitchCrossed',
+  name: 'UiSwitchCrossed',
 })
 
 const props = defineProps<{
-    modelValue?: boolean
-    disabled?: boolean
+  modelValue?: boolean
+  disabled?: boolean
 }>()
 
 const emit = defineEmits<{
-    'update:modelValue': [value: boolean]
-    'change': [value: boolean]
+  'update:modelValue': [value: boolean]
+  'change': [value: boolean]
 }>()
 
 const toggle = () => {
-    if (props.disabled) return
-    const newValue = !props.modelValue
-    emit('update:modelValue', newValue)
-    emit('change', newValue)
+  if (props.disabled) return
+  const newValue = !props.modelValue
+  emit('update:modelValue', newValue)
+  emit('change', newValue)
 }
 </script>
 
 <template>
-    <UiBtn class="ui-switch-crossed" :class="{
-        'is-on': props.modelValue,
-        'is-disabled': props.disabled,
-    }" :disabled="props.disabled" @click="toggle">
-        <span v-if="$slots.default" class="switch-label" :class="{ 'is-crossed': !props.modelValue }">
-            <slot />
-        </span>
-    </UiBtn>
+  <UiBtn
+    class="ui-switch-crossed"
+    :class="{
+      'is-on': props.modelValue,
+      'is-disabled': props.disabled,
+    }"
+    :disabled="props.disabled"
+    @click="toggle"
+  >
+    <span
+      v-if="$slots.default"
+      class="switch-label"
+      :class="{ 'is-crossed': !props.modelValue }"
+    >
+      <slot />
+    </span>
+  </UiBtn>
 </template>
 
 <style>

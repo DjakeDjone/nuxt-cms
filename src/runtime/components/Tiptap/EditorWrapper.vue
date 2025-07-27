@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { onBeforeUnmount, TiptapStarterKit, unref, useEditor, useState, watch } from '#imports'
-import TextAlign from '@tiptap/extension-text-align';
+import TextAlign from '@tiptap/extension-text-align'
 import Underline from '@tiptap/extension-underline'
 
 const props = defineProps<{
@@ -45,9 +45,19 @@ const editorBorder = useState<boolean>('tiptap-editor-border', () => false)
 </script>
 
 <template>
-  <div class="tiptap-editor" :class="{ 'editor-border': editorBorder }">
-    <div class="nav" :class="{ 'nav-open': !navClosed, 'nav-closed': navClosed }">
-      <TiptapNav # v-model:show-editor-border="editorBorder" :editor="editor" />
+  <div
+    class="tiptap-editor"
+    :class="{ 'editor-border': editorBorder }"
+  >
+    <div
+      class="nav"
+      :class="{ 'nav-open': !navClosed, 'nav-closed': navClosed }"
+    >
+      <TiptapNav
+        v-model:show-editor-border="editorBorder"
+        #
+        :editor="editor"
+      />
     </div>
     <TiptapMyMenu :editor="editor" />
     <TiptapEditorContent :editor="editor!" />
