@@ -18,8 +18,8 @@ if [ -n "$(git diff --name-only)" ]; then
     echo "   You may want to review these changes and commit them."
     echo "   The push will continue, but consider committing the formatting changes."
     # create commit message
-    git commit -am "chore: auto-format code before push"
-    git push
+    # git commit -am "chore: auto-format code before push"
+    # git push
 fi
 
 echo "✅ Code formatting complete! Proceeding with push..."

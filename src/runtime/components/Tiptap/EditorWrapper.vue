@@ -42,9 +42,18 @@ const editorBorder = useState<boolean>('tiptap-editor-border', () => false)
 </script>
 
 <template>
-  <div class="tiptap-editor" :class="{ 'editor-border': editorBorder }">
-    <div class="nav" :class="{ 'nav-open': !navClosed, 'nav-closed': navClosed }">
-      <TiptapNav :editor="editor" v-model:show-editor-border="editorBorder" />
+  <div
+    class="tiptap-editor"
+    :class="{ 'editor-border': editorBorder }"
+  >
+    <div
+      class="nav"
+      :class="{ 'nav-open': !navClosed, 'nav-closed': navClosed }"
+    >
+      <TiptapNav
+        v-model:show-editor-border="editorBorder"
+        :editor="editor"
+      />
     </div>
     <TiptapMyMenu :editor="editor" />
     <TiptapEditorContent :editor="editor!" />

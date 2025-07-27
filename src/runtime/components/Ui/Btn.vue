@@ -13,7 +13,11 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <button class="ui-btn" :class="{ 'is-active': props.active }" @click="emit('click')">
+  <button
+    class="ui-btn"
+    :class="{ 'is-active': props.active }"
+    @click="emit('click')"
+  >
     <span class="btn-pre-icon">
       <slot name="pre-icon" />
     </span>

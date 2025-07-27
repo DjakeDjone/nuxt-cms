@@ -10,7 +10,7 @@ const props = defineProps<{
   editor: Editor | undefined
 }>()
 
-const showEditorBorder = defineModel<boolean>("showEditorBorder", {
+const showEditorBorder = defineModel<boolean>('showEditorBorder', {
   default: false,
   type: Boolean,
 })
@@ -30,7 +30,10 @@ const getCurrentHeading = () => {
 <template>
   <nav class="actions-bar">
     <UiTooltip content="Border">
-      <UiSwitch v-model="showEditorBorder" :disabled="!props.editor" />
+      <UiSwitch
+        v-model="showEditorBorder"
+        :disabled="!props.editor"
+      />
     </UiTooltip>
     <UiOptions :nesting-count="2">
       <template #trigger>
@@ -38,16 +41,25 @@ const getCurrentHeading = () => {
       </template>
       <template #options>
         <UiBtnGroup>
-          <UiBtn class="action-button" :active="props.editor?.isActive('heading', { level: 1 })"
-            @click="focusedChain()?.toggleHeading({ level: 1 }).run()">
+          <UiBtn
+            class="action-button"
+            :active="props.editor?.isActive('heading', { level: 1 })"
+            @click="focusedChain()?.toggleHeading({ level: 1 }).run()"
+          >
             H1
           </UiBtn>
-          <UiBtn class="action-button" :active="props.editor?.isActive('heading', { level: 2 })"
-            @click="focusedChain()?.toggleHeading({ level: 2 }).run()">
+          <UiBtn
+            class="action-button"
+            :active="props.editor?.isActive('heading', { level: 2 })"
+            @click="focusedChain()?.toggleHeading({ level: 2 }).run()"
+          >
             H2
           </UiBtn>
-          <UiBtn class="action-button" :active="props.editor?.isActive('heading', { level: 3 })"
-            @click="focusedChain()?.toggleHeading({ level: 3 }).run()">
+          <UiBtn
+            class="action-button"
+            :active="props.editor?.isActive('heading', { level: 3 })"
+            @click="focusedChain()?.toggleHeading({ level: 3 }).run()"
+          >
             H3
           </UiBtn>
         </UiBtnGroup>
@@ -61,13 +73,25 @@ const getCurrentHeading = () => {
       </template>
       <template #options>
         <UiBtnGroup>
-          <UiBtn class="action-button" :active="props.editor?.isActive('bulletList')"
-            @click="focusedChain()?.toggleBulletList().run()">
-            <Icon name="line-md:list-3" size="20" />
+          <UiBtn
+            class="action-button"
+            :active="props.editor?.isActive('bulletList')"
+            @click="focusedChain()?.toggleBulletList().run()"
+          >
+            <Icon
+              name="line-md:list-3"
+              size="20"
+            />
           </UiBtn>
-          <UiBtn class="action-button" :active="props.editor?.isActive('orderedList')"
-            @click="focusedChain()?.toggleOrderedList().run()">
-            <Icon name="bi:list-ol" size="20" />
+          <UiBtn
+            class="action-button"
+            :active="props.editor?.isActive('orderedList')"
+            @click="focusedChain()?.toggleOrderedList().run()"
+          >
+            <Icon
+              name="bi:list-ol"
+              size="20"
+            />
           </UiBtn>
         </UiBtnGroup>
       </template>
@@ -78,12 +102,18 @@ const getCurrentHeading = () => {
       </template>
       <template #options>
         <UiBtnGroup>
-          <UiBtn class="action-button" :active="props.editor?.isActive('blockquote')"
-            @click="focusedChain()?.toggleBlockquote().run()">
+          <UiBtn
+            class="action-button"
+            :active="props.editor?.isActive('blockquote')"
+            @click="focusedChain()?.toggleBlockquote().run()"
+          >
             Blockquote
           </UiBtn>
-          <UiBtn class="action-button" :active="props.editor?.isActive('code')"
-            @click="focusedChain()?.toggleCode().run()">
+          <UiBtn
+            class="action-button"
+            :active="props.editor?.isActive('code')"
+            @click="focusedChain()?.toggleCode().run()"
+          >
             <code>Code</code>
           </UiBtn>
         </UiBtnGroup>

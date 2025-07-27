@@ -1,38 +1,46 @@
 <script setup lang="ts">
 defineOptions({
-    name: 'UiSwitch',
+  name: 'UiSwitch',
 })
 
-const props = defineProps < {
-    modelValue?: boolean
+const props = defineProps <{
+  modelValue?: boolean
   disabled?: boolean
-} > ()
+}> ()
 
-const emit = defineEmits < {
-    'update:modelValue': [value: boolean]
-  change: [value: boolean]
-} > ()
+const emit = defineEmits <{
+  'update:modelValue': [value: boolean]
+  'change': [value: boolean]
+}> ()
 
 const toggle = () => {
-    if (props.disabled) return
-    const newValue = !props.modelValue
-    emit('update:modelValue', newValue)
-    emit('change', newValue)
+  if (props.disabled) return
+  const newValue = !props.modelValue
+  emit('update:modelValue', newValue)
+  emit('change', newValue)
 }
 </script>
 
 <template>
-    <button class="ui-switch" :class="{
-        'is-on': props.modelValue,
-        'is-disabled': props.disabled
-    }" @click="toggle" :disabled="props.disabled">
-        <span class="switch-track">
-            <span class="switch-thumb"></span>
-        </span>
-        <span v-if=$slots.default class="switch-label">
-            <slot />
-        </span>
-    </button>
+  <button
+    class="ui-switch"
+    :class="{
+      'is-on': props.modelValue,
+      'is-disabled': props.disabled,
+    }"
+    :disabled="props.disabled"
+    @click="toggle"
+  >
+    <span class="switch-track">
+      <span class="switch-thumb" />
+    </span>
+    <span
+      v-if="$slots.default"
+      class="switch-label"
+    >
+      <slot />
+    </span>
+  </button>
 </template>
 
 <style>
