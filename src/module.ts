@@ -36,6 +36,11 @@ export default defineNuxtModule<ModuleOptions>({
       route: '/api/editable/content/:id',
       handler: resolver.resolve('./runtime/server/api/editable/content/[id].get'),
     })
+    addServerHandler({
+      route: '/api/auth/login',
+      method: 'post',
+      handler: resolver.resolve('./runtime/server/api/auth/login.post'),
+    })
 
     addImportsDir(resolver.resolve('runtime/server/util'))
     addImportsDir(resolver.resolve('runtime/composables'))
