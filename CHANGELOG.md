@@ -1,6 +1,30 @@
 # Changelog
 
 
+## v0.1.3
+
+[compare changes](https://github.com/DjakeDjone/nuxt-cms/compare/v0.1.2...v0.1.3)
+
+### 🚀 Enhancements
+
+- Enhance Tiptap editor with navigation options and improved button components; add animations and structure for better usability ([5f945d7](https://github.com/DjakeDjone/nuxt-cms/commit/5f945d7))
+- Add @nuxt/icon dependency; implement UiSwitch and UiTooltip components for enhanced UI interactions ([87a6f3e](https://github.com/DjakeDjone/nuxt-cms/commit/87a6f3e))
+- Add text alignment support in Tiptap editor; implement UiSwitchCrossed component for enhanced UI interactions ([5f529e6](https://github.com/DjakeDjone/nuxt-cms/commit/5f529e6))
+
+### 🩹 Fixes
+
+- DefineOptions name of new components ([278c281](https://github.com/DjakeDjone/nuxt-cms/commit/278c281))
+
+### 🏡 Chore
+
+- Auto-format code before push ([b5cf51a](https://github.com/DjakeDjone/nuxt-cms/commit/b5cf51a))
+- Auto-format code before push ([da2e2df](https://github.com/DjakeDjone/nuxt-cms/commit/da2e2df))
+- Auto-format code before push ([2d32e4b](https://github.com/DjakeDjone/nuxt-cms/commit/2d32e4b))
+
+### ❤️ Contributors
+
+- DjakeDjone <benjamin.friedl@htlstp.at>
+
 ## v0.1.2
 
 [compare changes](https://github.com/DjakeDjone/nuxt-cms/compare/v0.1.1...v0.1.2)
