@@ -1,9 +1,10 @@
 <script setup lang="ts">
-import { onBeforeUnmount, TiptapStarterKit, unref, useEditor, watch } from '#imports'
+import { onBeforeUnmount, TiptapStarterKit, unref, useEditor, useState, watch } from '#imports'
 import Underline from '@tiptap/extension-underline'
 
 const props = defineProps<{
-  default?: string
+  default?: string,
+  navClosed?: boolean,
 }>()
 
 const modelValue = defineModel<string>({
@@ -36,11 +37,14 @@ watch(modelValue, (newValue) => {
 onBeforeUnmount(() => {
   unref(editor)!.destroy()
 })
+
 </script>
 
 <template>
-  <div>
-    <TiptapNav :editor="editor" />
+  <div class="tiptap-editor">
+    <div class="nav" :class="{ 'nav-open': !navClosed, 'nav-closed': navClosed }">
+      <TiptapNav :editor="editor" />
+    </div>
     <TiptapMyMenu :editor="editor" />
     <TiptapEditorContent :editor="editor!" />
   </div>
@@ -50,7 +54,22 @@ onBeforeUnmount(() => {
 .ProseMirror {
   padding-top: 1rem;
 }
+
 .ProseMirror:focus {
   outline: none;
+}
+
+.nav {
+  transition: max-height 0.3s ease-in-out;
+  /* overflow: hidden; */
+}
+
+.nav-open {
+  max-height: 3.5rem;
+}
+
+.nav-closed {
+  max-height: 0 !important;
+  overflow: hidden;
 }
 </style>

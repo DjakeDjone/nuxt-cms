@@ -3,81 +3,101 @@ import { UiBtn } from '#components'
 import type { Editor } from '@tiptap/core'
 
 defineOptions({
-  name: 'TiptapNav',
+    name: 'TiptapNav',
 })
 
 const props = defineProps<{
-  editor: Editor | undefined
+    editor: Editor | undefined
 }>()
 
 const focusedChain = () => {
-  if (!props.editor) return
-  return props.editor.chain().focus()
+    if (!props.editor) return
+    return props.editor.chain().focus()
+}
+
+const getCurrentHeading = () => {
+    if (!props.editor) return ''
+    const heading = props.editor.getAttributes('heading')
+    return heading.level ? `H${heading.level}` : 'Paragraph'
 }
 </script>
 
 <template>
-  <nav class="actions-bar">
-    <div>
-      <!-- headings (dropdown) -->
-      <UiBtn
-        class="action-button"
-        :active="props.editor?.isActive('heading', { level: 1 })"
-        @click="focusedChain()?.toggleHeading({ level: 1 }).run()"
-      >
-        H1
-      </UiBtn>
-      <UiBtn
-        class="action-button"
-        :active="props.editor?.isActive('heading', { level: 2 })"
-        @click="focusedChain()?.toggleHeading({ level: 2 }).run()"
-      >
-        H2
-      </UiBtn>
-      <UiBtn
-        class="action-button"
-        :active="props.editor?.isActive('heading', { level: 3 })"
-        @click="focusedChain()?.toggleHeading({ level: 3 }).run()"
-      >
-        H3
-      </UiBtn>
-    </div>
+    <nav class="actions-bar">
+        <UiOptions :nesting-count="2">
+            <template #trigger>
+                {{ getCurrentHeading() }}
+            </template>
+            <template #options>
+                <UiBtnGroup>
+                    <UiBtn class="action-button" :active="props.editor?.isActive('heading', { level: 1 })"
+                        @click="focusedChain()?.toggleHeading({ level: 1 }).run()">
+                        H1
+                    </UiBtn>
+                    <UiBtn class="action-button" :active="props.editor?.isActive('heading', { level: 2 })"
+                        @click="focusedChain()?.toggleHeading({ level: 2 }).run()">
+                        H2
+                    </UiBtn>
+                    <UiBtn class="action-button" :active="props.editor?.isActive('heading', { level: 3 })"
+                        @click="focusedChain()?.toggleHeading({ level: 3 }).run()">
+                        H3
+                    </UiBtn>
+                </UiBtnGroup>
+            </template>
+        </UiOptions>
 
-    <UiBtn
-      class="action-button"
-      :active="props.editor?.isActive('bold')"
-      @click="focusedChain()?.toggleBold().run()"
-    >
-      <b>Bold</b>
-    </UiBtn>
-    <UiBtn
-      class="action-button"
-      :active="props.editor?.isActive('italic')"
-      @click="focusedChain()?.toggleItalic().run()"
-    >
-      <i>Italic</i>
-    </UiBtn>
-    <UiBtn
-      class="action-button"
-      :active="props.editor?.isActive('strike')"
-      @click="focusedChain()?.toggleStrike().run()"
-    >
-      <s>Strike</s>
-    </UiBtn>
-    <UiBtn
-      class="action-button"
-      :active="props.editor?.isActive('underline')"
-      @click="focusedChain()?.toggleUnderline().run()"
-    >
-      <u>Underline</u>
-    </UiBtn>
-  </nav>
+        <!-- <UiBtn class="action-button" :active="props.editor?.isActive('bold')"
+            @click="focusedChain()?.toggleBold().run()">
+            <b>Bold</b>
+        </UiBtn>
+        <UiBtn class="action-button" :active="props.editor?.isActive('italic')"
+            @click="focusedChain()?.toggleItalic().run()">
+            <i>Italic</i>
+        </UiBtn>
+        <UiBtn class="action-button" :active="props.editor?.isActive('strike')"
+            @click="focusedChain()?.toggleStrike().run()">
+            <s>Strike</s>
+        </UiBtn>
+        <UiBtn class="action-button" :active="props.editor?.isActive('underline')"
+            @click="focusedChain()?.toggleUnderline().run()">
+            <u>Underline</u>
+        </UiBtn>
+        <div class="action-group">
+            <UiBtn class="action-button" :active="props.editor?.isActive('bulletList')"
+                @click="focusedChain()?.toggleBulletList().run()">
+                Bullet List
+            </UiBtn>
+            <UiBtn class="action-button" :active="props.editor?.isActive('orderedList')"
+                @click="focusedChain()?.toggleOrderedList().run()">
+                Ordered List
+            </UiBtn>
+        </div> -->
+        <UiOptions :nesting-count="2">
+            <template #trigger>
+                More
+            </template>
+            <template #options>
+                <UiBtnGroup>
+                    <UiBtn class="action-button" :active="props.editor?.isActive('blockquote')"
+                        @click="focusedChain()?.toggleBlockquote().run()">
+                        Blockquote
+                    </UiBtn>
+                    <UiBtn class="action-button" :active="props.editor?.isActive('code')"
+                        @click="focusedChain()?.toggleCode().run()">
+                        <code>Code</code>
+                    </UiBtn>
+                </UiBtnGroup>
+            </template>
+        </UiOptions>
+    </nav>
 </template>
 
-<style scoped>
+<style>
 .actions-bar {
     width: 100%;
     display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
     align-items: center;
     gap: 0.5rem;
     padding: 0.5rem;

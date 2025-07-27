@@ -13,7 +13,7 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <button
+  <button class="ui-btn"
     :class="{ 'is-active': props.active }"
     @click="emit('click')"
   >
@@ -22,7 +22,7 @@ const emit = defineEmits<{
 </template>
 
 <style>
-button {
+.ui-btn {
     padding: 0.2rem .4rem;
     border: none;
     border-radius: 4px;
@@ -31,11 +31,9 @@ button {
 
 .is-active {
     background-color: #00000013;
-    border: 1px solid #00000026;
-    font-weight: bold;
 }
 
-button:hover {
+.ui-btn:hover {
     background-color: #00000013;
 }
 </style>
