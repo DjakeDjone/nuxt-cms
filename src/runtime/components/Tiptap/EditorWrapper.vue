@@ -37,15 +37,14 @@ watch(modelValue, (newValue) => {
 onBeforeUnmount(() => {
   unref(editor)!.destroy()
 })
+
+const editorBorder = useState<boolean>('tiptap-editor-border', () => false)
 </script>
 
 <template>
-  <div class="tiptap-editor">
-    <div
-      class="nav"
-      :class="{ 'nav-open': !navClosed, 'nav-closed': navClosed }"
-    >
-      <TiptapNav :editor="editor" />
+  <div class="tiptap-editor" :class="{ 'editor-border': editorBorder }">
+    <div class="nav" :class="{ 'nav-open': !navClosed, 'nav-closed': navClosed }">
+      <TiptapNav :editor="editor" v-model:show-editor-border="editorBorder" />
     </div>
     <TiptapMyMenu :editor="editor" />
     <TiptapEditorContent :editor="editor!" />
@@ -53,6 +52,10 @@ onBeforeUnmount(() => {
 </template>
 
 <style>
+.editor-border {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
 .ProseMirror {
   padding-top: 1rem;
 }

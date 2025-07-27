@@ -37,6 +37,7 @@
     "test:types": "vue-tsc --noEmit && cd playground && vue-tsc --noEmit"
   },
   "dependencies": {
+    "@nuxt/icon": "^1.15.0",
     "@nuxt/kit": "^4.0.1",
     "@tailwindcss/vite": "^4.1.11",
     "@tiptap/extension-bubble-menu": "^3.0.7",

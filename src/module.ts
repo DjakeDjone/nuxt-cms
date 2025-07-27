@@ -24,6 +24,8 @@ export default defineNuxtModule<ModuleOptions>({
     await installModule('nuxt-tiptap-editor', {
     })
 
+    await installModule('@nuxt/icon')
+
     addImportsDir(resolver.resolve('runtime/assets'))
 
     addComponentsDir({
