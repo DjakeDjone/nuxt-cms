@@ -1,12 +1,12 @@
 import { createError } from '#imports'
 import { useAuthHandler } from '../../util/authHandler'
-import { defineEventHandler, getRouterParam, readBody, setCookie } from 'h3'
+import { defineEventHandler, readBody, setCookie } from 'h3'
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event)
-  const { id, credentials } = body
+  const { credentials } = body
 
-  if (!id || !credentials || !credentials.username || !credentials.password) {
+  if (!credentials || !credentials.username || !credentials.password) {
     throw createError({
       statusCode: 400,
       statusMessage: 'Invalid request data',
@@ -14,7 +14,7 @@ export default defineEventHandler(async (event) => {
   }
 
   const authHandler = useAuthHandler()
-  const { user, token } = await authHandler.createUserSession(id, credentials)
+  const { user, token } = await authHandler.createUserSession<any>(credentials)
 
   if (!user) {
     throw createError({

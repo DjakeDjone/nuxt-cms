@@ -1,8 +1,13 @@
 import { defineNuxtModule, createResolver, addServerHandler, addImportsDir, addComponentsDir, installModule } from '@nuxt/kit'
+import type { BaseAuthUser } from './runtime/server/model/auth'
 
 // Define the module options interface
 export interface ModuleOptions {
-  storageKey?: string
+  storageKey?: string,
+  auth: {
+    protectedRoutes: string[],
+    initUsers: BaseAuthUser[]
+  }
 }
 
 export default defineNuxtModule<ModuleOptions>({
@@ -42,13 +47,15 @@ export default defineNuxtModule<ModuleOptions>({
       handler: resolver.resolve('./runtime/server/api/auth/login.post'),
     })
 
-    addImportsDir(resolver.resolve('runtime/server/util'))
-    addImportsDir(resolver.resolve('runtime/composables'))
-
     addServerHandler({
       route: '/api/editable/content/:id',
       method: 'post',
       handler: resolver.resolve('./runtime/server/api/editable/content/[id].post'),
     })
+
+    addImportsDir(resolver.resolve('runtime/server/util'))
+    addImportsDir(resolver.resolve('runtime/shared'))
+    addImportsDir(resolver.resolve('runtime/composables'))
+
   },
 })
