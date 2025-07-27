@@ -1,4 +1,8 @@
 <script setup lang="ts">
+defineOptions({
+  name: 'UiOptions',
+})
+
 const opened = defineModel<boolean>()
 const props = defineProps<{
   anchor?: 'right' | 'left'

@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { ref, onMounted } from '#imports'
 
+defineOptions({
+  name: 'UiList',
+})
+
 const props = defineProps<{
   orientation?: 'horizontal' | 'vertical'
   nestingCount?: number
