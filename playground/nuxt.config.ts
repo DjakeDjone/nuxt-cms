@@ -13,5 +13,17 @@ export default defineNuxtConfig({
   },
   editableContent: {
     storageKey: 'data',
+    auth: {
+      protectedRoutes: ['/admin', '/dashboard'],
+      initUsers: [
+        {
+          id: '1',
+          username: 'admin',
+          pwd: 'admin123',
+          role: 'admin',
+          tokens: [],
+        },
+      ]
+    }
   },
 })

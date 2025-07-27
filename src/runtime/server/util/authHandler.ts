@@ -1,6 +1,5 @@
 import { useAuthStorage } from './storage'
-import { AuthToken, BaseAuthUser, SanitizedUser, UserCredentials } from '../model/auth'
-
+import type { AuthToken, BaseAuthUser, SanitizedUser, UserCredentials } from '../model/auth'
 
 export const useAuthHandler = () => {
   const storage = useAuthStorage()
@@ -37,7 +36,7 @@ export const useAuthHandler = () => {
     return users || []
   }
 
-  const sanitizeUser = <PublicUserData = undefined, Roles = undefined>(user: BaseAuthUser<PublicUserData, any, Roles>): SanitizedUser<PublicUserData, Roles> => {
+  const sanitizeUser = <PublicUserData = undefined, Roles extends string = string>(user: BaseAuthUser<PublicUserData, any, Roles>): SanitizedUser<PublicUserData, Roles> => {
     const { pwd, tokens, privateUserData, ...sanitized } = user
     return sanitized
   }
@@ -51,7 +50,7 @@ export const useAuthHandler = () => {
     }
   }
 
-  const createUserSession = async <PublicUserData = undefined, Roles = undefined>
+  const createUserSession = async <PublicUserData = undefined, Roles extends string = string>
     (creds: UserCredentials):
     Promise<{ user: SanitizedUser<PublicUserData, Roles>, token: AuthToken }> => {
     const user = await loginUser(creds)

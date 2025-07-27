@@ -3,9 +3,9 @@ import type { BaseAuthUser } from './runtime/server/model/auth'
 
 // Define the module options interface
 export interface ModuleOptions {
-  storageKey?: string,
+  storageKey?: string
   auth: {
-    protectedRoutes: string[],
+    protectedRoutes: string[]
     initUsers: BaseAuthUser[]
   }
 }
@@ -24,7 +24,11 @@ export default defineNuxtModule<ModuleOptions>({
     // Add runtime config for the storage key
     nuxt.options.runtimeConfig.editableContent = {
       storageKey: options.storageKey ?? '',
-    }
+      auth: {
+        protectedRoutes: options.auth.protectedRoutes || [],
+        initUsers: options.auth.initUsers || [],
+      },
+    } as ModuleOptions;
 
     await installModule('nuxt-tiptap-editor', {
     })
@@ -56,6 +60,5 @@ export default defineNuxtModule<ModuleOptions>({
     addImportsDir(resolver.resolve('runtime/server/util'))
     addImportsDir(resolver.resolve('runtime/shared'))
     addImportsDir(resolver.resolve('runtime/composables'))
-
   },
 })

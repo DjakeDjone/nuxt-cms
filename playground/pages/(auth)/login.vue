@@ -1,3 +1,3 @@
 <template>
-    <AuthLogin redirectUrl="/admin" />
+  <AuthLogin redirect-url="/admin" />
 </template>
