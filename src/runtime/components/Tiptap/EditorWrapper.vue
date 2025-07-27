@@ -3,8 +3,8 @@ import { onBeforeUnmount, TiptapStarterKit, unref, useEditor, useState, watch } 
 import Underline from '@tiptap/extension-underline'
 
 const props = defineProps<{
-  default?: string,
-  navClosed?: boolean,
+  default?: string
+  navClosed?: boolean
 }>()
 
 const modelValue = defineModel<string>({
@@ -37,12 +37,14 @@ watch(modelValue, (newValue) => {
 onBeforeUnmount(() => {
   unref(editor)!.destroy()
 })
-
 </script>
 
 <template>
   <div class="tiptap-editor">
-    <div class="nav" :class="{ 'nav-open': !navClosed, 'nav-closed': navClosed }">
+    <div
+      class="nav"
+      :class="{ 'nav-open': !navClosed, 'nav-closed': navClosed }"
+    >
       <TiptapNav :editor="editor" />
     </div>
     <TiptapMyMenu :editor="editor" />

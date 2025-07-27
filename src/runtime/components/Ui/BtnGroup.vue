@@ -1,7 +1,10 @@
 <template>
-    <div class="btn-group" role="group">
-        <slot />
-    </div>
+  <div
+    class="btn-group"
+    role="group"
+  >
+    <slot />
+  </div>
 </template>
 
 <style scoped>
