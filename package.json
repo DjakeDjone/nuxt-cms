@@ -41,6 +41,7 @@
     "@nuxt/kit": "^4.0.1",
     "@tailwindcss/vite": "^4.1.11",
     "@tiptap/extension-bubble-menu": "^3.0.7",
+    "@tiptap/extension-text-align": "^3.0.7",
     "@tiptap/extension-underline": "^3.0.7",
     "menus": "link:@tiptap/vue-3/menus",
     "nuxt-tiptap-editor": "^2.3.1",

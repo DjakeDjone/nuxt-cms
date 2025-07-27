@@ -13,14 +13,7 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <button
-    class="ui-btn"
-    :class="{ 'is-active': props.active }"
-    @click="emit('click')"
-  >
-    <span class="btn-pre-icon">
-      <slot name="pre-icon" />
-    </span>
+  <button class="ui-btn" :class="{ 'is-active': props.active }" @click="emit('click')">
     <slot />
   </button>
 </template>
@@ -29,6 +22,7 @@ const emit = defineEmits<{
 .btn-pre-icon {
   padding: 0 0.2rem;
 }
+
 .ui-btn {
   padding: 0.2rem .4rem;
   border: none;

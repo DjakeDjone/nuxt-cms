@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { onBeforeUnmount, TiptapStarterKit, unref, useEditor, useState, watch } from '#imports'
+import TextAlign from '@tiptap/extension-text-align';
 import Underline from '@tiptap/extension-underline'
 
 const props = defineProps<{
@@ -17,7 +18,9 @@ if (props.default) {
 }
 
 const editor = useEditor({
-  extensions: [TiptapStarterKit, Underline],
+  extensions: [TiptapStarterKit, Underline, TextAlign.configure({
+    types: ['heading', 'paragraph'],
+  })],
   content: modelValue.value,
   onUpdate: ({ editor }) => {
     if (editor.getHTML() !== modelValue.value) {
@@ -42,18 +45,9 @@ const editorBorder = useState<boolean>('tiptap-editor-border', () => false)
 </script>
 
 <template>
-  <div
-    class="tiptap-editor"
-    :class="{ 'editor-border': editorBorder }"
-  >
-    <div
-      class="nav"
-      :class="{ 'nav-open': !navClosed, 'nav-closed': navClosed }"
-    >
-      <TiptapNav
-        v-model:show-editor-border="editorBorder"
-        :editor="editor"
-      />
+  <div class="tiptap-editor" :class="{ 'editor-border': editorBorder }">
+    <div class="nav" :class="{ 'nav-open': !navClosed, 'nav-closed': navClosed }">
+      <TiptapNav # v-model:show-editor-border="editorBorder" :editor="editor" />
     </div>
     <TiptapMyMenu :editor="editor" />
     <TiptapEditorContent :editor="editor!" />
@@ -65,6 +59,7 @@ const editorBorder = useState<boolean>('tiptap-editor-border', () => false)
   border: 1px solid #ccc;
   border-radius: 4px;
 }
+
 .ProseMirror {
   padding-top: 1rem;
 }

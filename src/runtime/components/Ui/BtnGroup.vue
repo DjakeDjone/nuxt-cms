@@ -8,6 +8,10 @@
 </template>
 
 <style scoped>
+.btn-group {
+  border-radius: .4rem;
+  overflow: hidden;
+}
 .btn-group>* {
     border-radius: 0;
 }
