@@ -1,11 +1,16 @@
 import { useAuthStorage } from './storage'
 import type { AuthToken, BaseAuthUser, SanitizedUser, UserCredentials } from '../model/auth'
+import { useRuntimeConfig } from '#imports'
 
 export const useAuthHandler = () => {
   const storage = useAuthStorage()
 
   const loginUser = async (credentials: UserCredentials): Promise<BaseAuthUser | null> => {
-    const allUsers = await getAllUsers()
+    const allUsers = await getAllUsers();
+    if (!allUsers || allUsers.length === 0) {
+      console.warn('No users found after initialization.')
+      return null
+    }
     const user = allUsers.find(u => u.username === credentials.username)
 
     if (!user || user.pwd !== credentials.password) {
@@ -15,7 +20,7 @@ export const useAuthHandler = () => {
   }
 
   const updateUser = async (id: string, user: BaseAuthUser): Promise<void> => {
-    await storage.setItem(`users:${id}`, user)
+    await storage.setItem(`${id}`, user)
   }
 
   const getUser = async (id: string): Promise<BaseAuthUser | null> => {
@@ -33,6 +38,14 @@ export const useAuthHandler = () => {
 
   const getAllUsers = async (): Promise<BaseAuthUser[]> => {
     const users = await storage.getItem<BaseAuthUser[]>(`users`)
+    if (!users || users.length === 0) {
+      const initUsers = useRuntimeConfig().editableContent?.auth?.initUsers || []
+      if (initUsers.length > 0) {
+        await storage.setItem(`users`, initUsers)
+        return initUsers
+      }
+      return []
+    }
     return users || []
   }
 
@@ -57,7 +70,10 @@ export const useAuthHandler = () => {
     if (!user) {
       throw new Error('Invalid credentials')
     }
-    const token = generateAuthToken()
+    const token = generateAuthToken();
+    if (!user.tokens) {
+      user.tokens = []
+    }
     user.tokens.push(token)
     await updateUser(user.id, user)
     return { user: sanitizeUser<PublicUserData, Roles>(user), token: token }

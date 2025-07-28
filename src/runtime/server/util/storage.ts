@@ -10,5 +10,5 @@ export const useAuthStorage = () => {
   if (!storageKey) {
     return useDefaultStorage()
   }
-  return useStorage(`${storageKey}-auth`)
+  return useStorage(`${storageKey}:auth`)
 }

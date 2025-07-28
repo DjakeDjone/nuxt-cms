@@ -69,24 +69,24 @@ export default defineNuxtModule<ModuleOptions>({
     addImportsDir(resolver.resolve('runtime/shared'))
     addImportsDir(resolver.resolve('runtime/composables'))
 
-    nuxt.hook('nitro:init', async (nitro) => {
-      console.log('Initializing editable content module...')
-      if (options.auth?.initUsers?.length) {
-        const users = options.auth.initUsers;
+    // nuxt.hook('nitro:init', async (nitro) => {
+    //   console.log('Initializing editable content module...')
+    //   if (options.auth?.initUsers?.length) {
+    //     const users = options.auth.initUsers;
 
-        const authHandler = useAuthHandler();
-        if ((await authHandler.getAllUsers()).length > 0) {
-          console.warn('Auth users already exist, skipping initialization.');
-          return;
-        }
-        users.forEach(async (user: any) => {
-          try {
-            await authHandler.updateUser(user.id, user);
-          } catch (error) {
-            console.error(`Failed to insert user ${user.username}:`, error);
-          }
-        });
-      }
-    })
+    //     const authHandler = useAuthHandler();
+    //     if ((await authHandler.getAllUsers()).length > 0) {
+    //       console.warn('Auth users already exist, skipping initialization.');
+    //       return;
+    //     }
+    //     users.forEach(async (user: any) => {
+    //       try {
+    //         await authHandler.updateUser(user.id, user);
+    //       } catch (error) {
+    //         console.error(`Failed to insert user ${user.username}:`, error);
+    //       }
+    //     });
+    //   }
+    // })
   },
 })

@@ -32,13 +32,13 @@ const login = async () => {
 <template>
   <div>
     <h1>Login</h1>
-    <form @submit.prevent="login">
+    <form @submit.prevent="login()">
       <div>
-        <label for="email">Username:</label>
+        <label for="username">Username:</label>
         <input
-          id="email"
+          id="username"
           v-model="credentials.username"
-          type="email"
+          type="text"
           required
         >
       </div>
