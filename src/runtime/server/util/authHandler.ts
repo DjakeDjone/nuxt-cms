@@ -1,6 +1,7 @@
 import { useAuthStorage } from './storage'
 import type { AuthToken, BaseAuthUser, SanitizedUser, UserCredentials } from '../model/auth'
 import { getCookie, setCookie, useRuntimeConfig } from '#imports'
+import type { H3Event } from 'h3'
 
 export const useAuthHandler = () => {
   const storage = useAuthStorage()
@@ -60,7 +61,7 @@ export const useAuthHandler = () => {
     return users
   }
 
-  const sanitizeUser = <PublicUserData = undefined, Roles extends string = string>(user: BaseAuthUser<PublicUserData, any, Roles>): SanitizedUser<PublicUserData, Roles> => {
+  const sanitizeUser = <PublicUserData, Roles extends string>(user: BaseAuthUser<PublicUserData, unknown, Roles>): SanitizedUser<PublicUserData, Roles> => {
     const { pwd, tokens, privateUserData, ...sanitized } = user
     return sanitized
   }
@@ -74,7 +75,7 @@ export const useAuthHandler = () => {
     }
   }
 
-  const createUserSession = async <PublicUserData = undefined, Roles extends string = string>
+  const createUserSession = async <PublicUserData, Roles extends string>
   (creds: UserCredentials):
   Promise<{ user: SanitizedUser<PublicUserData, Roles>, token: AuthToken }> => {
     const user = await loginUser(creds)
@@ -88,7 +89,7 @@ export const useAuthHandler = () => {
     return { user: sanitizeUser<PublicUserData, Roles>(mutableUser), token: token }
   }
 
-  const getUserByToken = async <PublicUserData = undefined, Roles extends string = string>(
+  const getUserByToken = async <PublicUserData, Roles extends string>(
     token: string,
   ): Promise<BaseAuthUser<PublicUserData, Roles> | null> => {
     const allUsers = await getAllUsers()
@@ -104,7 +105,7 @@ export const useAuthHandler = () => {
     return user
   }
 
-  const setAuthTokenCookie = (event: any, token: AuthToken) => {
+  const setAuthTokenCookie = (event: H3Event, token: AuthToken) => {
     // set cookie with the token
     setCookie(event, 'auth_token', token.token, {
       httpOnly: true,
@@ -114,7 +115,7 @@ export const useAuthHandler = () => {
     })
   }
 
-  const validateAuthToken = async <PublicUserData = undefined, Roles extends string = string>(event: any): Promise<SanitizedUser<PublicUserData, Roles> | null> => {
+  const validateAuthToken = async <PublicUserData = undefined, Roles extends string = string>(event: H3Event): Promise<SanitizedUser<PublicUserData, Roles> | null> => {
     const token = getCookie(event, 'auth_token')
     console.log('Validating auth token:', token)
     if (!token) {

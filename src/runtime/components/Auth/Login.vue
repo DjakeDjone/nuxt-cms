@@ -1,7 +1,11 @@
 <script setup lang="ts">
 import { ref, useRouter } from '#imports'
 import { useUserHandler } from '../../composables/userHandler'
-import type { UserCredentials } from '../../server/model/auth'
+import type { AuthToken, SanitizedUser, UserCredentials } from '../../server/model/auth'
+
+defineOptions({
+  name: 'AuthLogin',
+})
 
 const props = defineProps<{
   redirectUrl?: string
@@ -15,11 +19,11 @@ const credentials = ref<UserCredentials>({
 const login = async () => {
   try {
     const userHandler = useUserHandler()
-    const response = await $fetch('/api/auth/login', {
+    const response = await $fetch<{ user: SanitizedUser, token: AuthToken }>('/api/auth/login', {
       method: 'POST',
       body: credentials.value,
     })
-    userHandler.loginUser(response.user as any, response.token as any)
+    userHandler.loginUser(response.user, response.token)
     useRouter().push(props.redirectUrl || '/')
   }
   catch (error) {

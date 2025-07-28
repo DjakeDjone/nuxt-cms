@@ -19,7 +19,6 @@ const { data: content, error, status } = useFetch(`/api/editable/content/${props
     v-if="content"
     :content="content"
   >
-    <!-- eslint-disable-next-line vue/no-v-html -->
     <div
       v-html="content.content"
     />

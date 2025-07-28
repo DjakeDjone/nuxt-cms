@@ -18,18 +18,18 @@ export default defineNuxtConfig({
         {
           // allow everything that's not /api
           roles: ['*'],
-          url: new RegExp('^/(?!api).*'),
+          url: /^\/(?!api).*/,
         },
         {
           // allow all get requests
           roles: ['*'],
-          url: new RegExp('^/api/editable/.*'),
+          url: /^\/api\/editable\/.*/,
           method: 'GET',
         },
         {
           // editable route ('/api/editable/*')
           roles: ['admin'],
-          url: new RegExp('^/api/editable/.*'),
+          url: /^\/api\/editable\/.*/,
           method: 'POST',
         },
       ],

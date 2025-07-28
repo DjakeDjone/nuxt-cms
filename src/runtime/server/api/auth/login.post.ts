@@ -1,6 +1,5 @@
-import { createError } from '#imports'
+import { createError, defineEventHandler, readBody } from 'h3'
 import { useAuthHandler } from '../../util/authHandler'
-import { defineEventHandler, readBody, setCookie } from 'h3'
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event)
@@ -14,7 +13,7 @@ export default defineEventHandler(async (event) => {
   }
 
   const authHandler = useAuthHandler()
-  const { user, token } = await authHandler.createUserSession<any>(credentials)
+  const { user, token } = await authHandler.createUserSession(credentials)
 
   if (!user) {
     throw createError({
@@ -27,6 +26,6 @@ export default defineEventHandler(async (event) => {
 
   return {
     user: user,
-    token: token,
+    token,
   }
 })
