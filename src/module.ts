@@ -71,6 +71,5 @@ export default defineNuxtModule<ModuleOptions>({
     addImportsDir(resolver.resolve('runtime/server/util'))
     addImportsDir(resolver.resolve('runtime/shared'))
     addImportsDir(resolver.resolve('runtime/composables'))
-
   },
 })

@@ -2,7 +2,7 @@ import { useRuntimeConfig, useStorage } from '#imports'
 
 export const useDefaultStorage = () => {
   const storageKey = useRuntimeConfig().editableContent?.storageKey
-  return useStorage(`${storageKey}:default`);
+  return useStorage(`${storageKey}:default`)
 }
 
 export const useAuthStorage = () => {

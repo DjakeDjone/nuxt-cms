@@ -29,7 +29,7 @@ export const useAuthHandler = () => {
   }
 
   const getAllUsers = async (): Promise<BaseAuthUser[]> => {
-    const keys = await storage.getKeys();
+    const keys = await storage.getKeys()
     // const users = await storage.getItems<BaseAuthUser[]>()
     // if (!users || users.length === 0) {
     //   const initUsers = useRuntimeConfig().editableContent?.auth?.initUsers || []
@@ -75,21 +75,21 @@ export const useAuthHandler = () => {
   }
 
   const createUserSession = async <PublicUserData = undefined, Roles extends string = string>
-    (creds: UserCredentials):
-    Promise<{ user: SanitizedUser<PublicUserData, Roles>, token: AuthToken }> => {
+  (creds: UserCredentials):
+  Promise<{ user: SanitizedUser<PublicUserData, Roles>, token: AuthToken }> => {
     const user = await loginUser(creds)
     if (!user) {
       throw new Error('Invalid credentials')
     }
     const token = generateAuthToken()
     const mutableUser = { ...user }
-    mutableUser.tokens = [...(mutableUser.tokens || []), token];
+    mutableUser.tokens = [...(mutableUser.tokens || []), token]
     await updateUser(mutableUser.id, mutableUser)
     return { user: sanitizeUser<PublicUserData, Roles>(mutableUser), token: token }
   }
 
   const getUserByToken = async <PublicUserData = undefined, Roles extends string = string>(
-    token: string
+    token: string,
   ): Promise<BaseAuthUser<PublicUserData, Roles> | null> => {
     const allUsers = await getAllUsers()
     if (!allUsers) {
