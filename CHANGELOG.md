@@ -1,6 +1,32 @@
 # Changelog
 
 
+## v0.1.4
+
+[compare changes](https://github.com/DjakeDjone/nuxt-cms/compare/v0.1.3...v0.1.4)
+
+### 🚀 Enhancements
+
+- Implement authentication module with login endpoint and user session management ([95d58fe](https://github.com/DjakeDjone/nuxt-cms/commit/95d58fe))
+- Add login functionality with user authentication and session management ([22eb520](https://github.com/DjakeDjone/nuxt-cms/commit/22eb520))
+- Implement authentication module with user management and protected routes ([c93544b](https://github.com/DjakeDjone/nuxt-cms/commit/c93544b))
+- Add user retrieval endpoint and improve initialization logic for auth users ([c91383e](https://github.com/DjakeDjone/nuxt-cms/commit/c91383e))
+- Login ([1700fc0](https://github.com/DjakeDjone/nuxt-cms/commit/1700fc0))
+- Login user + auth user/validate role on accessing pages ([36889e5](https://github.com/DjakeDjone/nuxt-cms/commit/36889e5))
+- Enhance authentication rules with flexible route handling ([aff7e7f](https://github.com/DjakeDjone/nuxt-cms/commit/aff7e7f))
+
+### 💅 Refactors
+
+- Improve code formatting and consistency in authentication and storage modules ([2b4d583](https://github.com/DjakeDjone/nuxt-cms/commit/2b4d583))
+
+### 📖 Documentation
+
+- Updated todos ([08ac205](https://github.com/DjakeDjone/nuxt-cms/commit/08ac205))
+
+### ❤️ Contributors
+
+- DjakeDjone <benjamin.friedl@htlstp.at>
+
 ## v0.1.3
 
 [compare changes](https://github.com/DjakeDjone/nuxt-cms/compare/v0.1.2...v0.1.3)
