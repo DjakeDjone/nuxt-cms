@@ -1,4 +1,4 @@
-import type { BaseAuthUser } from "./runtime/server/model/auth"
+import type { BaseAuthUser } from './runtime/server/model/auth'
 
 declare module '@nuxt/schema' {
   interface RuntimeConfig {

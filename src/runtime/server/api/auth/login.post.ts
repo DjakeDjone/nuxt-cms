@@ -4,7 +4,7 @@ import { defineEventHandler, readBody, setCookie } from 'h3'
 
 export default defineEventHandler(async (event) => {
   const body = await readBody(event)
-  const credentials = body;
+  const credentials = body
 
   if (!credentials || !credentials.username || !credentials.password) {
     throw createError({

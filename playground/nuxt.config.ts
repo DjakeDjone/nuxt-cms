@@ -23,7 +23,7 @@ export default defineNuxtConfig({
           role: 'admin',
           tokens: [],
         },
-      ]
-    }
+      ],
+    },
   },
 })

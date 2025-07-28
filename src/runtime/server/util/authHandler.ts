@@ -6,7 +6,7 @@ export const useAuthHandler = () => {
   const storage = useAuthStorage()
 
   const loginUser = async (credentials: UserCredentials): Promise<BaseAuthUser | null> => {
-    const allUsers = await getAllUsers();
+    const allUsers = await getAllUsers()
     if (!allUsers || allUsers.length === 0) {
       console.warn('No users found after initialization.')
       return null
@@ -64,13 +64,13 @@ export const useAuthHandler = () => {
   }
 
   const createUserSession = async <PublicUserData = undefined, Roles extends string = string>
-    (creds: UserCredentials):
-    Promise<{ user: SanitizedUser<PublicUserData, Roles>, token: AuthToken }> => {
+  (creds: UserCredentials):
+  Promise<{ user: SanitizedUser<PublicUserData, Roles>, token: AuthToken }> => {
     const user = await loginUser(creds)
     if (!user) {
       throw new Error('Invalid credentials')
     }
-    const token = generateAuthToken();
+    const token = generateAuthToken()
     if (!user.tokens) {
       user.tokens = []
     }

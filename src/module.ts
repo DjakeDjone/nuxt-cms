@@ -28,7 +28,7 @@ export default defineNuxtModule<ModuleOptions>({
         protectedRoutes: options.auth?.protectedRoutes || [],
         initUsers: options.auth?.initUsers || [],
       },
-    } as ModuleOptions;
+    } as ModuleOptions
 
     await installModule('nuxt-tiptap-editor', {
     })
