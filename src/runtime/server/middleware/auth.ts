@@ -1,39 +1,18 @@
-import { createError } from '#imports'
+import { createError, useRuntimeConfig } from '#imports'
 import { defineEventHandler, getRequestURL } from 'h3'
 import { useAuthHandler } from '../util/authHandler'
-
-export type UrlRule = {
-  roles: string[]
-  url: string | RegExp
-  method?: string
-}
-
-export const getRouteRules = () => {
-  return [
-    {
-      // allow everything that's not /api
-      roles: ['*'],
-      url: /^\/(?!api).*/,
-    },
-    {
-      // editable route ('/api/editable/*')
-      roles: ['admin'],
-      url: /^\/api\/editable\/.*/,
-      method: 'POST',
-    },
-  ]
-}
+import type { UrlRule } from '../../../types'
 
 export default defineEventHandler(async (event) => {
   const requestUrl = getRequestURL(event)
   const method = event.method
-  const rules = getRouteRules()
+  const rules: UrlRule[] = useRuntimeConfig(event).editableContent.auth.routeRules
 
   // throw error if no rules match
   const matchedRule = rules.find((rule) => {
     const urlMatch = typeof rule.url === 'string'
       ? requestUrl.pathname.startsWith(rule.url)
-      : rule.url.test(requestUrl.pathname)
+      : new RegExp(rule.url).test(requestUrl.pathname)
     return urlMatch && (!rule.method || rule.method.toUpperCase() === method.toUpperCase())
   })
 

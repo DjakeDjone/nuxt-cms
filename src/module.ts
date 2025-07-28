@@ -1,13 +1,13 @@
-import { defineNuxtModule, createResolver, addServerHandler, addImportsDir, addComponentsDir, installModule, addPlugin } from '@nuxt/kit'
+import { defineNuxtModule, createResolver, addServerHandler, addImportsDir, addComponentsDir, installModule } from '@nuxt/kit'
 import type { BaseAuthUser } from './runtime/server/model/auth'
-import { useAuthHandler } from './runtime/server/util/authHandler'
+import type { UrlRule } from './types'
 
 // Define the module options interface
 export interface ModuleOptions {
   storageKey?: string
   auth: {
-    protectedRoutes: string[]
     initUsers: BaseAuthUser[]
+    routeRules: UrlRule[]
   }
 }
 
@@ -18,6 +18,22 @@ export default defineNuxtModule<ModuleOptions>({
   },
   defaults: {
     storageKey: 'editable-content',
+    auth: {
+      initUsers: [],
+      routeRules: [
+        {
+          // allow everything that's not /api
+          roles: ['*'],
+          url: '^/(?!api).*',
+        },
+        {
+          // editable route ('/api/editable/*')
+          roles: ['admin'],
+          url: '^/api/editable/.*',
+          method: 'POST',
+        },
+      ],
+    },
   },
   async setup(options, nuxt) {
     const resolver = createResolver(import.meta.url)
@@ -25,10 +41,10 @@ export default defineNuxtModule<ModuleOptions>({
     nuxt.options.runtimeConfig.editableContent = {
       storageKey: options.storageKey ?? '',
       auth: {
-        protectedRoutes: options.auth?.protectedRoutes || [],
         initUsers: options.auth?.initUsers || [],
+        routeRules: options.auth?.routeRules || [],
       },
-    } as ModuleOptions
+    }
 
     await installModule('nuxt-tiptap-editor', {
     })

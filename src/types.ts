@@ -1,12 +1,18 @@
 import type { BaseAuthUser } from './runtime/server/model/auth'
 
+export interface UrlRule {
+  roles: string[]
+  url: string | RegExp
+  method?: string
+}
+
 declare module '@nuxt/schema' {
   interface RuntimeConfig {
     editableContent: {
       storageKey?: string
       auth: {
-        protectedRoutes: string[]
         initUsers: BaseAuthUser[]
+        routeRules: UrlRule[]
       }
     }
   }
