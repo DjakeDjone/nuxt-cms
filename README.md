@@ -1,4 +1,4 @@
-# Nuxt data manager ⚙️
+# Nuxt data manager ⚙️ (in development yet)
 
 A nuxt module with easy to use components for creating editable content and storing them in a kv database using nitro.
 
@@ -79,4 +79,3 @@ input:focus {
     - [x] cookie based session management
     - [x] route based auth rules
     - [ ] extendable auth rules and type system
-    
