@@ -67,9 +67,16 @@ input:focus {
 
 ## TODO
 
-- [ ] WYSIWYG editor Component
+- [x] WYSIWYG editor Component
 - [ ] layout component
 - [ ] file upload component
 - [ ] image upload component
 - [ ] List component (cards, grid, etc.)
-- [ ] **auth**
+- [ ] **auth** <in progress 😎>
+- [ ] **auth**: add support for route based auth rules
+    - [x] login
+    - [ ] logout
+    - [x] cookie based session management
+    - [x] route based auth rules
+    - [ ] extendable auth rules and type system
+    
