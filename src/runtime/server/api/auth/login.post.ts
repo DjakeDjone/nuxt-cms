@@ -23,13 +23,7 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  // set cookie with the token
-  setCookie(event, 'auth_token', token.token, {
-    httpOnly: true,
-    secure: process.env.NODE_ENV === 'production',
-    sameSite: 'lax',
-    maxAge: 24 * 60 * 60, // 1 day
-  })
+  authHandler.setAuthTokenCookie(event, token)
 
   return {
     user: user,

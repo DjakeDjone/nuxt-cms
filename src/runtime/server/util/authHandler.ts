@@ -1,6 +1,6 @@
 import { useAuthStorage } from './storage'
 import type { AuthToken, BaseAuthUser, SanitizedUser, UserCredentials } from '../model/auth'
-import { useRuntimeConfig } from '#imports'
+import { getCookie, setCookie, useRuntimeConfig } from '#imports'
 
 export const useAuthHandler = () => {
   const storage = useAuthStorage()
@@ -20,33 +20,44 @@ export const useAuthHandler = () => {
   }
 
   const updateUser = async (id: string, user: BaseAuthUser): Promise<void> => {
+    console.log(`Updating user with ID: ${id}`, user)
     await storage.setItem(`${id}`, user)
   }
 
   const getUser = async (id: string): Promise<BaseAuthUser | null> => {
-    return await storage.getItem<BaseAuthUser>(`users:${id}`)
-  }
-
-  const deleteUser = async (id: string): Promise<void> => {
-    // don't remove if user is the last admin
-    const allUsers = await storage.getItem<BaseAuthUser[]>(`users`)
-    if (allUsers && allUsers.length === 1 && allUsers[0].role === 'admin') {
-      throw new Error('Cannot delete the last admin user.')
-    }
-    await storage.removeItem(`users:${id}`)
+    return await storage.getItem<BaseAuthUser>(`${id}`)
   }
 
   const getAllUsers = async (): Promise<BaseAuthUser[]> => {
-    const users = await storage.getItem<BaseAuthUser[]>(`users`)
-    if (!users || users.length === 0) {
+    const keys = await storage.getKeys();
+    // const users = await storage.getItems<BaseAuthUser[]>()
+    // if (!users || users.length === 0) {
+    //   const initUsers = useRuntimeConfig().editableContent?.auth?.initUsers || []
+    //   if (initUsers.length > 0) {
+    //     await storage.setItem(`users`, initUsers)
+    //     return initUsers
+    //   }
+    //   return []
+    // }
+    // return users || []
+    const users: BaseAuthUser[] = []
+    for (const key of keys) {
+      const user = await storage.getItem<BaseAuthUser>(key)
+      if (user) {
+        users.push(user)
+      }
+    }
+
+    if (users.length === 0) {
       const initUsers = useRuntimeConfig().editableContent?.auth?.initUsers || []
       if (initUsers.length > 0) {
-        await storage.setItem(`users`, initUsers)
-        return initUsers
+        for (const user of initUsers) {
+          await storage.setItem(`${user.id}`, user)
+          users.push(user)
+        }
       }
-      return []
     }
-    return users || []
+    return users
   }
 
   const sanitizeUser = <PublicUserData = undefined, Roles extends string = string>(user: BaseAuthUser<PublicUserData, any, Roles>): SanitizedUser<PublicUserData, Roles> => {
@@ -64,28 +75,76 @@ export const useAuthHandler = () => {
   }
 
   const createUserSession = async <PublicUserData = undefined, Roles extends string = string>
-  (creds: UserCredentials):
-  Promise<{ user: SanitizedUser<PublicUserData, Roles>, token: AuthToken }> => {
+    (creds: UserCredentials):
+    Promise<{ user: SanitizedUser<PublicUserData, Roles>, token: AuthToken }> => {
     const user = await loginUser(creds)
     if (!user) {
       throw new Error('Invalid credentials')
     }
     const token = generateAuthToken()
-    if (!user.tokens) {
-      user.tokens = []
+    const mutableUser = { ...user }
+    mutableUser.tokens = [...(mutableUser.tokens || []), token];
+    await updateUser(mutableUser.id, mutableUser)
+    return { user: sanitizeUser<PublicUserData, Roles>(mutableUser), token: token }
+  }
+
+  const getUserByToken = async <PublicUserData = undefined, Roles extends string = string>(
+    token: string
+  ): Promise<BaseAuthUser<PublicUserData, Roles> | null> => {
+    const allUsers = await getAllUsers()
+    if (!allUsers) {
+      return null
     }
-    user.tokens.push(token)
-    await updateUser(user.id, user)
-    return { user: sanitizeUser<PublicUserData, Roles>(user), token: token }
+
+    const user = allUsers.find(u => u.tokens?.some(t => t.token === token))
+    if (!user) {
+      console.warn('No user found with the provided token')
+      return null
+    }
+    return user
+  }
+
+  const setAuthTokenCookie = (event: any, token: AuthToken) => {
+    // set cookie with the token
+    setCookie(event, 'auth_token', token.token, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === 'production',
+      sameSite: 'lax',
+      maxAge: 24 * 60 * 60, // 1 day
+    })
+  }
+
+  const validateAuthToken = async <PublicUserData = undefined, Roles extends string = string>(event: any): Promise<SanitizedUser<PublicUserData, Roles> | null> => {
+    const token = getCookie(event, 'auth_token')
+    console.log('Validating auth token:', token)
+    if (!token) {
+      console.warn('No auth token found in cookies')
+      return null
+    }
+    const user = await getUserByToken<PublicUserData, Roles>(token)
+    if (!user) {
+      console.warn('No user found for the provided token')
+      return null
+    }
+    // TODO: Check if token is expired
+    // const currentTime = new Date()
+    // const isTokenValid = user.tokens?.some(t => t.token === token && t.expires > currentTime)
+    // if (!isTokenValid) {
+    //   console.warn('Auth token is expired or invalid')
+    //   return null
+    // }
+    return user
   }
 
   return {
     loginUser,
     updateUser,
     getUser,
-    deleteUser,
     getAllUsers,
     sanitizeUser,
     createUserSession,
+    getUserByToken,
+    setAuthTokenCookie,
+    validateAuthToken,
   }
 }

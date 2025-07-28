@@ -12,8 +12,10 @@ export const useUserHandler = <T extends SanitizedUser = SanitizedUser>() => {
   }
 
   return {
-    user: readonly(user),
-    loggedIn: readonly(loggedIn),
+    // user: readonly(user),
+    // loggedIn: readonly(loggedIn),
+    user,
+    loggedIn,
     loginUser,
   }
 }
