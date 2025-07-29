@@ -1,7 +1,7 @@
 <script setup lang="ts">
-defineOptions({ name: 'NotificationItem' })
-const emit = defineEmits(['close'])
 import type { Notification } from '#imports'
+
+defineOptions({ name: 'NotificationItem' })
 
 const props = defineProps<{
   item: Notification

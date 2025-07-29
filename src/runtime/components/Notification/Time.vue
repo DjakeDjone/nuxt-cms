@@ -1,6 +1,7 @@
 <script setup lang="ts">
-defineOptions({ name: 'NotificationTime' })
 import { ref, onMounted, onUnmounted, computed } from 'vue'
+
+defineOptions({ name: 'NotificationTime' })
 
 const props = defineProps<{
   duration: number

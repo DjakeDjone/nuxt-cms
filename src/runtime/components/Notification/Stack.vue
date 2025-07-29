@@ -8,7 +8,6 @@ const props = defineProps<{
 
 const { notifications, removeNotification } = useNotificationHandler()
 defineOptions({ name: 'NotificationStack' })
-const emit = defineEmits(['close'])
 </script>
 
 <template>
