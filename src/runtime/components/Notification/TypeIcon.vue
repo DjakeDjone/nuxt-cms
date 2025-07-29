@@ -9,7 +9,7 @@ const iconClasses = {
   success: 'qlementine-icons:success-12',
   warning: 'codicon:warning',
   error: 'codicon:error',
-};
+}
 </script>
 
 <template>
