@@ -5,6 +5,7 @@
       <NuxtLink to="/admin">Admin</NuxtLink>
       <NuxtLink to="/login">Login</NuxtLink>
     </nav>
+    <NotificationStack />
     <NuxtPage />
   </div>
 </template>

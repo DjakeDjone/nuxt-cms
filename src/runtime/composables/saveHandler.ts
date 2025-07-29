@@ -47,12 +47,11 @@ export const useSaveHandler = () => {
           await saveFunction()
         }
         catch (error) {
-          console.error(`Error saving ${event.title}:`, error)
+          throw new Error(`Failed to save event ${event.id}: ${error}`)
         }
       }
     }
-
-    saveEvents.value.length = 0
+    saveEvents.value = []
     saveFunctions.clear()
   }
 

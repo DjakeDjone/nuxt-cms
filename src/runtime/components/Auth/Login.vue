@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { ref, useRouter } from '#imports'
+import { useNotificationHandler } from '../../composables/notificationHandler'
 import { useUserHandler } from '../../composables/userHandler'
 import type { AuthToken, SanitizedUser, UserCredentials } from '../../server/model/auth'
 
@@ -10,6 +11,8 @@ defineOptions({
 const props = defineProps<{
   redirectUrl?: string
 }>()
+
+const notificationHandler = useNotificationHandler()
 
 const credentials = ref<UserCredentials>({
   username: '',
@@ -24,11 +27,18 @@ const login = async () => {
       body: credentials.value,
     })
     userHandler.loginUser(response.user, response.token)
+    notificationHandler.notify({
+      type: 'success',
+      message: 'Login successful',
+    })
     useRouter().push(props.redirectUrl || '/')
   }
   catch (error) {
     console.error('Login failed:', error)
-    // TODO: Handle error (e.g., show a notification)
+    notificationHandler.notify({
+      type: 'error',
+      message: 'Login failed. Please check your credentials.',
+    })
   }
 }
 </script>
