@@ -60,7 +60,7 @@ defineOptions({ name: 'NotificationStack' })
 /* base style for notifications */
 .notification-stack {
     position: fixed;
-    top: 1rem;
+    bottom: 1rem;
     right: 1rem;
     max-width: 300px;
     z-index: 1000;

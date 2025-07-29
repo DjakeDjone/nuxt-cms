@@ -7,6 +7,10 @@ const notificationHandler = useNotificationHandler()
 const save = async () => {
   try {
     await saveHandler.saveAll()
+    notificationHandler.notify({
+      type: 'success',
+      message: 'Changes saved successfully',
+    })
   }
   catch (error) {
     notificationHandler.handleError(error, 'error')

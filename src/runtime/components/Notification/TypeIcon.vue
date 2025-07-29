@@ -4,17 +4,17 @@ const props = defineProps<{
   size?: string
 }>()
 
-// const iconClasses = {
-//   info: 'icon-info',
-//   success: 'icon-success',
-//   warning: 'icon-warning',
-//   error: 'icon-error',
-// };
+const iconClasses = {
+  info: 'codicon:info',
+  success: 'qlementine-icons:success-12',
+  warning: 'codicon:warning',
+  error: 'codicon:error',
+};
 </script>
 
 <template>
   <Icon
-    :name="`lucide:${props.type}`"
+    :name="iconClasses[props.type]"
     :size="props.size || '30'"
   />
 </template>
