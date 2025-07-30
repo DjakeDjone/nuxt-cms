@@ -24,7 +24,6 @@ type NotificationServiceSettings = {
 }
 
 export const useNotificationHandler = () => {
-
   const notifications = useState<Notification[]>('notifications', () => [])
   const settings = useState<NotificationServiceSettings>('notificationSettings', () => ({
     autoRemove: true,
@@ -32,7 +31,6 @@ export const useNotificationHandler = () => {
   }))
 
   const notify = (notification: Omit<Notification, 'id' | 'timestamp' | 'read'>) => {
-    
     const newNotification: Notification = {
       ...notification,
       id: crypto.randomUUID(),
@@ -40,7 +38,7 @@ export const useNotificationHandler = () => {
       read: false,
       duration: notification.duration ?? notificationDurationMapping[notification.type] ?? 5000,
     }
-    logToConsole(newNotification);
+    logToConsole(newNotification)
     if (settings.value.autoRemove) {
       setTimeout(() => {
         removeNotification(newNotification.id)

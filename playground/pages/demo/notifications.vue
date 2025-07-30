@@ -22,7 +22,10 @@ const addDemoNotification = () => {
 
 <template>
   <div class="flex flex-col items-center justify-center h-[calc(100vh-4rem)]">
-    <UiBtn class="demo-notification-btn" @click="addDemoNotification()">
+    <UiBtn
+      class="demo-notification-btn"
+      @click="addDemoNotification()"
+    >
       Show Notification
     </UiBtn>
   </div>
