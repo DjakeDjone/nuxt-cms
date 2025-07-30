@@ -17,7 +17,6 @@ const remainingTime = computed(() => {
 const remainingPercent = computed(() => {
   return Math.max(0, Math.min(100, (props.remaining / props.duration) * 100))
 })
-
 </script>
 
 <template>

@@ -8,8 +8,7 @@ const props = defineProps<{
   align?: 'left' | 'center'
 }>()
 
-const { notifications, removeNotification } = useNotificationHandler();
-
+const { notifications, removeNotification } = useNotificationHandler()
 </script>
 
 <template>
