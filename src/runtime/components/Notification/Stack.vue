@@ -1,13 +1,15 @@
 <script setup lang="ts">
 import { useNotificationHandler } from '#imports'
 
+defineOptions({ name: 'NotificationStack' })
+
 const props = defineProps<{
   // right is the default alignment
   align?: 'left' | 'center'
 }>()
 
-const { notifications, removeNotification } = useNotificationHandler()
-defineOptions({ name: 'NotificationStack' })
+const { notifications, removeNotification } = useNotificationHandler();
+
 </script>
 
 <template>

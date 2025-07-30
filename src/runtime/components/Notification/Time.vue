@@ -5,46 +5,19 @@ defineOptions({ name: 'NotificationTime' })
 
 const props = defineProps<{
   duration: number
-  timestamp: number
+  remaining: number
   color?: string
 }>()
 
-const remmainingMs = ref(Math.max(0, props.duration + props.timestamp - Date.now())) // Ensure it's not negative
-
 const remainingTime = computed(() => {
-  const seconds = Math.floor(remmainingMs.value / 1000)
-  const minutes = Math.floor(seconds / 60)
-  const hours = Math.floor(minutes / 60)
-  const days = Math.floor(hours / 24)
-
-  if (days > 0) return `${days}d`
-  if (hours > 0) return `${hours}h`
-  if (minutes > 0) return `${minutes}m`
-  return `${seconds}s`
+  const seconds = Math.floor(props.remaining / 1000)
+  return seconds > 0 ? `${seconds}s` : '0s'
 })
 
 const remainingPercent = computed(() => {
-  return Math.max(0, (remmainingMs.value / props.duration) * 100) // Ensure it's not negative
+  return Math.max(0, Math.min(100, (props.remaining / props.duration) * 100))
 })
 
-let animationFrameId: number | null = null
-
-const updateRemainingMs = () => {
-  remmainingMs.value = Math.max(0, props.duration + props.timestamp - Date.now())
-  if (remmainingMs.value > 0) {
-    animationFrameId = requestAnimationFrame(updateRemainingMs)
-  }
-}
-
-onMounted(() => {
-  updateRemainingMs()
-})
-
-onUnmounted(() => {
-  if (animationFrameId !== null) {
-    cancelAnimationFrame(animationFrameId)
-  }
-})
 </script>
 
 <template>

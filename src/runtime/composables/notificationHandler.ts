@@ -18,10 +18,18 @@ const notificationDurationMapping = {
   error: 10000,
 }
 
+type NotificationServiceSettings = {
+  autoRemove?: boolean
+}
+
 export const useNotificationHandler = () => {
   const notifications = useState<Notification[]>('notifications', () => [])
+  const settings = useState<NotificationServiceSettings>('notificationSettings', () => ({
+    autoRemove: true,
+  }))
 
   const notify = (notification: Omit<Notification, 'id' | 'timestamp' | 'read'>) => {
+    console.log('Notification:', notification)
     const newNotification: Notification = {
       ...notification,
       id: crypto.randomUUID(),
@@ -29,10 +37,12 @@ export const useNotificationHandler = () => {
       read: false,
       duration: notification.duration ?? notificationDurationMapping[notification.type] ?? 5000,
     }
+    if (settings.value.autoRemove) {
+      setTimeout(() => {
+        removeNotification(newNotification.id)
+      }, newNotification.duration)
+    }
     notifications.value.push(newNotification)
-    setTimeout(() => {
-      removeNotification(newNotification.id)
-    }, newNotification.duration)
   }
 
   const handleError = (error: unknown, type: 'error' | 'warning' = 'error') => {
@@ -63,6 +73,10 @@ export const useNotificationHandler = () => {
     notifications.value = []
   }
 
+  const setSettings = (newSettings: Partial<NotificationServiceSettings>) => {
+    Object.assign(settings.value, newSettings)
+  }
+
   return {
     notifications: readonly(notifications),
     notify,
@@ -70,5 +84,7 @@ export const useNotificationHandler = () => {
     removeNotification,
     clearNotifications,
     handleError,
+    settings: readonly(settings),
+    setSettings,
   }
 }
