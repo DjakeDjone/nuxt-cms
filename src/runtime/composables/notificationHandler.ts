@@ -20,16 +20,19 @@ const notificationDurationMapping = {
 
 type NotificationServiceSettings = {
   autoRemove?: boolean
+  consoleLog?: boolean
 }
 
 export const useNotificationHandler = () => {
+
   const notifications = useState<Notification[]>('notifications', () => [])
   const settings = useState<NotificationServiceSettings>('notificationSettings', () => ({
     autoRemove: true,
+    consoleLog: false,
   }))
 
   const notify = (notification: Omit<Notification, 'id' | 'timestamp' | 'read'>) => {
-    console.log('Notification:', notification)
+    
     const newNotification: Notification = {
       ...notification,
       id: crypto.randomUUID(),
@@ -37,12 +40,23 @@ export const useNotificationHandler = () => {
       read: false,
       duration: notification.duration ?? notificationDurationMapping[notification.type] ?? 5000,
     }
+    logToConsole(newNotification);
     if (settings.value.autoRemove) {
       setTimeout(() => {
         removeNotification(newNotification.id)
       }, newNotification.duration)
     }
     notifications.value.push(newNotification)
+  }
+
+  const logToConsole = (notification: Notification) => {
+    if (settings.value.consoleLog) {
+      const logMethod = notification.type === 'error' ? console.error : console.log
+      logMethod(`[Notification] ${notification.type.toUpperCase()}: ${notification.message}`, {
+        details: notification.details,
+        timestamp: new Date(notification.timestamp).toISOString(),
+      })
+    }
   }
 
   const handleError = (error: unknown, type: 'error' | 'warning' = 'error') => {
