@@ -14,11 +14,10 @@ const props = defineProps<{
 const paused = ref(false)
 const remainingTime = ref(props.item.duration || 0)
 
-// update remaining time every second if the notification has a duration
 if (props.item.duration) {
   const interval = setInterval(() => {
     if (!paused.value && remainingTime.value > 0) {
-      remainingTime.value -= 100 // decrement by 1 second
+      remainingTime.value -= 100
       if (remainingTime.value <= 0) {
         props.close(props.item.id)
       }
@@ -43,35 +42,17 @@ const typeToBgColor: Record<string, string> = {
 </script>
 
 <template>
-  <div
-    class="notification-item"
-    :style="{ backgroundColor: typeToBgColor[props.item.type] || '#f0f0f0' }"
-    :class="`notification-${props.item.type}`"
-    @mouseover="paused = true"
-    @mouseleave="paused = false"
-  >
+  <div class="notification-item" :style="{ backgroundColor: typeToBgColor[props.item.type] || '#f0f0f0' }"
+    :class="`notification-${props.item.type}`" @mouseover="paused = true" @mouseleave="paused = false">
     <div class="notification-content">
-      <NotificationTypeIcon
-        :type="item.type"
-        class="notification-type-icon"
-      />
+      <NotificationTypeIcon :type="item.type" class="notification-type-icon" />
       <span>{{ item.message }}</span>
     </div>
-    <button
-      class="close-btn"
-      @click="$emit('close', item.id); props.close(item.id)"
-    >
-      <Icon
-        name="lucide:x"
-        size="20"
-      />
+    <button class="close-btn" @click="$emit('close', item.id); props.close(item.id)">
+      <Icon name="lucide:x" size="20" />
     </button>
     <div class="bottom-timeline">
-      <NotificationTime
-        v-if="item.duration"
-        :duration="item.duration"
-        :remaining="remainingTime"
-      />
+      <NotificationTime v-if="item.duration" :duration="item.duration" :remaining="remainingTime" />
     </div>
   </div>
 </template>
@@ -120,4 +101,9 @@ const typeToBgColor: Record<string, string> = {
   cursor: pointer;
   color: #888;
 }
+
+.close-btn:hover {
+  color: #333;
+}
+
 </style>
