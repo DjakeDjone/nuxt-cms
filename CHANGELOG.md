@@ -1,6 +1,38 @@
 # Changelog
 
 
+## v0.1.5
+
+[compare changes](https://github.com/DjakeDjone/nuxt-cms/compare/v0.1.4...v0.1.5)
+
+### 🚀 Enhancements
+
+- Refine authentication handling and improve user session management ([aa4f1c0](https://github.com/DjakeDjone/nuxt-cms/commit/aa4f1c0))
+- Implement notification system with success and error handling ([1779341](https://github.com/DjakeDjone/nuxt-cms/commit/1779341))
+- Update notification positioning and add success message on save ([6c76af9](https://github.com/DjakeDjone/nuxt-cms/commit/6c76af9))
+- Hold time ([fb68c33](https://github.com/DjakeDjone/nuxt-cms/commit/fb68c33))
+- Styled close btn ([6257122](https://github.com/DjakeDjone/nuxt-cms/commit/6257122))
+- Enhance notification component with console logging and improved UI structure ([f055dde](https://github.com/DjakeDjone/nuxt-cms/commit/f055dde))
+
+### 💅 Refactors
+
+- Remove unused emit definition in Notification components ([cd9cbea](https://github.com/DjakeDjone/nuxt-cms/commit/cd9cbea))
+- Clean up unused imports and improve notification component logic ([41ce44b](https://github.com/DjakeDjone/nuxt-cms/commit/41ce44b))
+- Removed unused imports ([bb35ce4](https://github.com/DjakeDjone/nuxt-cms/commit/bb35ce4))
+
+### 📖 Documentation
+
+- Update README to indicate development status of Nuxt data manager ([a40481f](https://github.com/DjakeDjone/nuxt-cms/commit/a40481f))
+- Notification service todo ([9d157aa](https://github.com/DjakeDjone/nuxt-cms/commit/9d157aa))
+
+### 🏡 Chore
+
+- **release:** V0.1.4 ([c07ce42](https://github.com/DjakeDjone/nuxt-cms/commit/c07ce42))
+
+### ❤️ Contributors
+
+- DjakeDjone <benjamin.friedl@htlstp.at>
+
 ## v0.1.4
 
 [compare changes](https://github.com/DjakeDjone/nuxt-cms/compare/v0.1.3...v0.1.4)
