@@ -64,6 +64,7 @@ const login = async () => {
           type="password"
           required
         >
+        <UiInput v-model="credentials.password" />
       </div>
       <button type="submit">
         Login

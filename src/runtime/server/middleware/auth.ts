@@ -32,6 +32,7 @@ export default defineEventHandler(async (event) => {
   const authHandler = useAuthHandler()
   const user = await authHandler.validateAuthToken(event)
   if (!user) {
+    console.warn(`❌ User is not authenticated for ${requestUrl.pathname} with method ${method}`)
     throw createError({
       statusCode: 401,
       statusMessage: 'Unauthorized',
@@ -39,7 +40,8 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  if (!user || !matchedRule.roles.includes(user.role)) {
+  if (!matchedRule.roles.includes(user.role)) {
+    console.warn(`❌ User ${user.username} with role ${user.role} does not have permission to access ${requestUrl.pathname} with method ${method}`)
     throw createError({
       statusCode: 403,
       statusMessage: 'Forbidden',

@@ -7,40 +7,39 @@ export const useAuthHandler = () => {
   const storage = useAuthStorage()
 
   const loginUser = async (credentials: UserCredentials): Promise<BaseAuthUser | null> => {
-    const allUsers = await getAllUsers()
-    if (!allUsers || allUsers.length === 0) {
-      console.warn('No users found after initialization.')
-      return null
-    }
-    const user = allUsers.find(u => u.username === credentials.username)
+    const user = await storage.getItem<BaseAuthUser>(credentials.username)
 
-    if (!user || user.pwd !== credentials.password) {
+    if (!user) {
+      // This part is for the first run to initialize users from config.
+      const allUsers = await getAllUsers()
+      if (!allUsers || allUsers.length === 0) {
+        console.warn('No users found after initialization.')
+        return null
+      }
+      const foundUser = allUsers.find(u => u.username === credentials.username)
+      if (!foundUser || foundUser.pwd !== credentials.password) {
+        return null
+      }
+      return foundUser
+    }
+
+    if (user.pwd !== credentials.password) {
       return null
     }
     return user
   }
 
-  const updateUser = async (id: string, user: BaseAuthUser): Promise<void> => {
-    console.log(`Updating user with ID: ${id}`, user)
-    await storage.setItem(`${id}`, user)
+  const updateUser = async (username: string, user: BaseAuthUser): Promise<void> => {
+    console.log(`Updating user with username: ${username}`, user)
+    await storage.setItem(`${username}`, user)
   }
 
-  const getUser = async (id: string): Promise<BaseAuthUser | null> => {
-    return await storage.getItem<BaseAuthUser>(`${id}`)
+  const getUser = async (username: string): Promise<BaseAuthUser | null> => {
+    return await storage.getItem<BaseAuthUser>(`${username}`)
   }
 
   const getAllUsers = async (): Promise<BaseAuthUser[]> => {
     const keys = await storage.getKeys()
-    // const users = await storage.getItems<BaseAuthUser[]>()
-    // if (!users || users.length === 0) {
-    //   const initUsers = useRuntimeConfig().editableContent?.auth?.initUsers || []
-    //   if (initUsers.length > 0) {
-    //     await storage.setItem(`users`, initUsers)
-    //     return initUsers
-    //   }
-    //   return []
-    // }
-    // return users || []
     const users: BaseAuthUser[] = []
     for (const key of keys) {
       const user = await storage.getItem<BaseAuthUser>(key)
@@ -53,7 +52,7 @@ export const useAuthHandler = () => {
       const initUsers = useRuntimeConfig().editableContent?.auth?.initUsers || []
       if (initUsers.length > 0) {
         for (const user of initUsers) {
-          await storage.setItem(`${user.id}`, user)
+          await storage.setItem(`${user.username}`, user)
           users.push(user)
         }
       }
@@ -85,7 +84,7 @@ export const useAuthHandler = () => {
     const token = generateAuthToken()
     const mutableUser = { ...user }
     mutableUser.tokens = [...(mutableUser.tokens || []), token]
-    await updateUser(mutableUser.id, mutableUser)
+    await updateUser(mutableUser.username, mutableUser)
     return { user: sanitizeUser<PublicUserData, Roles>(mutableUser), token: token }
   }
 
@@ -127,13 +126,16 @@ export const useAuthHandler = () => {
       console.warn('No user found for the provided token')
       return null
     }
-    // TODO: Check if token is expired
-    // const currentTime = new Date()
-    // const isTokenValid = user.tokens?.some(t => t.token === token && t.expires > currentTime)
-    // if (!isTokenValid) {
-    //   console.warn('Auth token is expired or invalid')
-    //   return null
-    // }
+    if (user.tokens && user.tokens.length > 0) {
+      const validToken = user.tokens.find(t => t.token === token && t.expires > new Date())
+      if (!validToken) {
+        console.warn('Token is expired or invalid')
+        return null
+      }
+    } else {
+      console.warn('User has no valid tokens')
+      return null
+    }
     return user
   }
 

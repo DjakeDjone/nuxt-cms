@@ -25,17 +25,11 @@ if (!data) {
 
 const onSave = async () => {
   emit('loading', true)
-  try {
-    await $fetch(`/api/editable/content/${props.contentId}`, {
-      method: 'POST',
-      body: { content: content.value },
-    })
-    emit('save', content.value)
-  }
-  catch (err) {
-    console.error('Error saving content:', err)
-    emit('error', err)
-  }
+  await $fetch(`/api/editable/content/${props.contentId}`, {
+    method: 'POST',
+    body: { content: content.value },
+  })
+  emit('save', content.value)
 }
 
 const content = ref(data.value?.content || '')

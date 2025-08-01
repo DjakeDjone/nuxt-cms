@@ -15,11 +15,11 @@ export default defineNuxtConfig({
     storageKey: 'data',
     auth: {
       routeRules: [
-        {
+        //{
           // allow everything that's not /api
-          roles: ['*'],
-          url: /^\/(?!api).*/,
-        },
+          //roles: ['*'],
+          //url: /^\/(?!api).*/,
+        //},
         {
           // allow all get requests
           roles: ['*'],
