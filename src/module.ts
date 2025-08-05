@@ -5,11 +5,11 @@ import type { UrlRule } from './types'
 // Define the module options interface
 export interface ModuleOptions {
   storageKey?: string
-  styled?: boolean,
+  styled?: boolean
   auth: {
     initUsers: BaseAuthUser[]
     routeRules: UrlRule[]
-  },
+  }
 }
 
 export default defineNuxtModule<ModuleOptions>({
@@ -59,7 +59,6 @@ export default defineNuxtModule<ModuleOptions>({
     if (options.styled) {
       nuxt.options.css.push(resolver.resolve('runtime/assets/css/editable-content.css'))
     }
-
 
     addComponentsDir({
       path: resolver.resolve('runtime/components'),

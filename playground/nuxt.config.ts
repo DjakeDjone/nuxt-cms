@@ -16,11 +16,11 @@ export default defineNuxtConfig({
     styled: true,
     auth: {
       routeRules: [
-        //{
-          // allow everything that's not /api
-          //roles: ['*'],
-          //url: /^\/(?!api).*/,
-        //},
+        // {
+        // allow everything that's not /api
+        // roles: ['*'],
+        // url: /^\/(?!api).*/,
+        // },
         {
           // allow all get requests
           roles: ['*'],

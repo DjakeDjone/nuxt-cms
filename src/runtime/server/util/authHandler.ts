@@ -132,7 +132,8 @@ export const useAuthHandler = () => {
         console.warn('Token is expired or invalid')
         return null
       }
-    } else {
+    }
+    else {
       console.warn('User has no valid tokens')
       return null
     }

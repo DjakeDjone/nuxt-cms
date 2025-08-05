@@ -13,7 +13,7 @@ declare module '@nuxt/schema' {
       auth: {
         initUsers: BaseAuthUser[]
         routeRules: UrlRule[]
-      },
+      }
       styled?: boolean
     }
   }

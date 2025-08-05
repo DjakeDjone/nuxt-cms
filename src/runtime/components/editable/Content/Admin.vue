@@ -54,5 +54,8 @@ watch(content, (newContent) => {
 </script>
 
 <template>
-  <input v-model="content" placeholder="Editable content here...">
+  <input
+    v-model="content"
+    placeholder="Editable content here..."
+  >
 </template>
