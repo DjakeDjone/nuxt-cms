@@ -16,9 +16,9 @@
 /* dark mode */
 [data-theme="dark"] {
     /* colors */
-    --sui-p: #3a31d8;
-    --sui-fg: #ebe9fc;
-    --sui-bg: #010104;
+    --sui-p: #142f4a;
+    --sui-fg: #d1cdc7;
+    --sui-bg: #1b1e1f;
 
     /* vars */
     --sui-box-shadow: rgba(121, 86, 86, 0.5) 0px 3px 8px;
@@ -65,6 +65,19 @@
     min-height: calc(100vh - var(--sui-header-height));
 }
 
+.snabb-ui .page {
+    max-width: 800px;
+    padding: 1rem;
+    margin: 0 auto;
+    min-height: calc(100vh - var(--sui-header-height));
+}
+
+/* mobile */
+@media (max-width: 768px) {
+    .snabb-ui .page {
+        padding: 0.5rem;
+    }
+}
 
 /* components */
 .snabb-ui .form-title {
@@ -136,7 +149,6 @@
     background-color: var(--sui-bg);
     font-size: 0.875rem;
     font-weight: bold;
-    color: var(--sui-p);
 }
 
 

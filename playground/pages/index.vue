@@ -1,5 +1,5 @@
 <template>
-  <main class="prose w-full max-w-full p-4">
+  <main class="page">
     <h1 class="text-2xl font-bold text-center my-4">
       <EditableContent content-id="heading-text" />
     </h1>

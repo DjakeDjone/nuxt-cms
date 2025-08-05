@@ -177,7 +177,6 @@ const getCurrentHeading = () => {
   align-items: center;
   gap: 0.5rem;
   padding: 0.5rem;
-  background-color: #f8f9fa;
   border: 1px solid #dee2e6;
 }
 </style>

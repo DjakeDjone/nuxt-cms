@@ -96,7 +96,7 @@ const props = defineProps<{
   margin-top: .2rem;
   position: absolute;
   z-index: 10000;
-  background-color: white;
+  background-color: var(--sui-bg, #fff);
   border: 1px solid #ccc;
   border-radius: 4px;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
