@@ -1,0 +1,151 @@
+/* styled mode for editable content components */
+
+/* variables */
+:root {
+    /* colors */
+    --sui-p: #007bff;
+    --sui-fg: #212529;
+    --sui-bg: #f8f9fa;
+
+    /* vars */
+    --sui-header-height: 3.5rem;
+    --sui-border-radius: 0.25rem;
+    --sui-box-shadow: rgba(0, 0, 0, 0.1) 0px 3px 8px;
+}
+
+/* dark mode */
+[data-theme="dark"] {
+    /* colors */
+    --sui-p: #3a31d8;
+    --sui-fg: #ebe9fc;
+    --sui-bg: #010104;
+
+    /* vars */
+    --sui-box-shadow: rgba(121, 86, 86, 0.5) 0px 3px 8px;
+}
+
+/* base styles */
+.snabb-ui {
+    font-family: Arial, sans-serif;
+    color: var(--sui-fg);
+    background-color: var(--sui-bg);
+    padding: 1rem;
+}
+
+.snabb-ui * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.snabb-ui h1 {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 1rem;
+}
+
+.snabb-ui p {
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+.snabb-ui a:hover {
+    color: #007bff;
+    text-decoration: none;
+}
+
+
+/* util classes */
+
+.snabb-ui .page-center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: calc(100vh - var(--sui-header-height));
+}
+
+
+/* components */
+.snabb-ui .form-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-top: -2.3rem;
+    padding: 0 0.2rem;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.snabb-ui form {
+    /* border: 1px solid var(--sui-fg); */
+    padding: 1rem;
+    width: fit-content;
+    box-shadow: var(--sui-box-shadow);
+    /* box-shadow: var(--sui-fg) 0px 3px 8px; */
+
+}
+
+.snabb-ui form input[type="text"],
+.snabb-ui form input[type="password"] {
+    width: 100%;
+    padding: 0.5rem;
+    margin-bottom: 1rem;
+    border: 1px solid var(--sui-fg);
+    border-bottom: 2px solid var(--sui-p);
+    border-radius: var(--sui-border-radius);
+}
+
+.snabb-ui form input[type="text"]:focus::before,
+.snabb-ui form input[type="password"]:focus::before {
+    color: var(--sui-p);
+}
+
+.snabb-ui form input[type="text"]:focus,
+.snabb-ui form input[type="password"]:focus {
+    outline: none;
+    border-color: var(--sui-p);
+    box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+}
+
+.snabb-ui form button {
+    width: 100%;
+}
+
+.snabb-ui form button[type="submit"] {
+    margin-top: 1rem;
+    padding: 0.5rem;
+}
+
+.snabb-ui .show-pwd-toggle {
+    display: flex;
+    gap: 0.5rem;
+}
+
+/* form group */
+.snabb-ui .input-group {
+    position: relative;
+    margin-bottom: 1rem;
+    /* Add some space between input groups */
+}
+
+
+.snabb-ui label {
+    top: -0.7rem;
+    left: 0.5rem;
+    background-color: var(--sui-bg);
+    font-size: 0.875rem;
+    font-weight: bold;
+    color: var(--sui-p);
+}
+
+
+/* theme switch */
+.snabb-ui .theme-switch {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}

@@ -13,6 +13,7 @@ export default defineNuxtConfig({
   },
   editableContent: {
     storageKey: 'data',
+    styled: true,
     auth: {
       routeRules: [
         //{

@@ -41,34 +41,28 @@ const login = async () => {
     })
   }
 }
+
+const showPassword = ref(false)
+
 </script>
 
 <template>
-  <div>
-    <h1>Login</h1>
-    <form @submit.prevent="login()">
-      <div>
-        <label for="username">Username:</label>
-        <input
-          id="username"
-          v-model="credentials.username"
-          type="text"
-          required
-        >
-      </div>
-      <div>
-        <label for="password">Password:</label>
-        <input
-          id="password"
-          v-model="credentials.password"
-          type="password"
-          required
-        >
-        <UiInput v-model="credentials.password" />
-      </div>
-      <button type="submit">
-        Login
-      </button>
-    </form>
-  </div>
+  <form @submit.prevent="login()">
+    <h1 class="form-title">Login</h1>
+    <div class="input-group">
+      <label for="username">Username:</label>
+      <input id="username" placeholder="Enter your username" v-model="credentials.username" type="text" required>
+    </div>
+    <div class="input-group">
+      <label for="password">Password:</label>
+      <input id="password" placeholder="Enter your password" v-model="credentials.password" :type="showPassword ? 'text' : 'password'" required>
+    </div>
+    <div class="show-pwd-toggle">
+      <label for="show-password">Show Password</label>
+      <input id="show-password" type="checkbox" v-model="showPassword">
+    </div>
+    <UiBtn type="submit">
+      Login
+    </UiBtn>
+  </form>
 </template>

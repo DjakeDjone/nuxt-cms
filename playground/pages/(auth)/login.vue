@@ -1,3 +1,5 @@
 <template>
-  <AuthLogin redirect-url="/admin" />
+  <div class="page-center">
+    <AuthLogin redirect-url="/admin" />
+  </div>
 </template>

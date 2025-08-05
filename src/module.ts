@@ -5,10 +5,11 @@ import type { UrlRule } from './types'
 // Define the module options interface
 export interface ModuleOptions {
   storageKey?: string
+  styled?: boolean,
   auth: {
     initUsers: BaseAuthUser[]
     routeRules: UrlRule[]
-  }
+  },
 }
 
 export default defineNuxtModule<ModuleOptions>({
@@ -40,6 +41,7 @@ export default defineNuxtModule<ModuleOptions>({
     // Add runtime config for the storage key
     nuxt.options.runtimeConfig.editableContent = {
       storageKey: options.storageKey ?? '',
+      styled: options.styled ?? false,
       auth: {
         initUsers: options.auth?.initUsers || [],
         routeRules: options.auth?.routeRules || [],
@@ -52,6 +54,12 @@ export default defineNuxtModule<ModuleOptions>({
     await installModule('@nuxt/icon')
 
     addImportsDir(resolver.resolve('runtime/assets'))
+
+    // css
+    if (options.styled) {
+      nuxt.options.css.push(resolver.resolve('runtime/assets/css/editable-content.css'))
+    }
+
 
     addComponentsDir({
       path: resolver.resolve('runtime/components'),
