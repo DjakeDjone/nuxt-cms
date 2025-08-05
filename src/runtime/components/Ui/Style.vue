@@ -1,6 +1,10 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 
+defineOptions({
+  name: 'UiStyle',
+})
+
 const theme = ref('light')
 
 onMounted(() => {
