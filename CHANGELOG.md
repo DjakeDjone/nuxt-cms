@@ -1,6 +1,28 @@
 # Changelog
 
 
+## v0.1.6
+
+[compare changes](https://github.com/DjakeDjone/nuxt-cms/compare/v0.1.5...v0.1.6)
+
+### 🚀 Enhancements
+
+- Opt. performance of kv of auth by using usernames as keys ([f290a04](https://github.com/DjakeDjone/nuxt-cms/commit/f290a04))
+- Implement styled mode for editable content with theme toggle functionality ([b9d5fc1](https://github.com/DjakeDjone/nuxt-cms/commit/b9d5fc1))
+
+### 💅 Refactors
+
+- Unify main class styling across admin and index pages style: update dark mode colors and enhance page styling in CSS fix: remove background color from Tiptap Nav component for consistency style: use CSS variable for background color in Ui Options component ([6de2787](https://github.com/DjakeDjone/nuxt-cms/commit/6de2787))
+- Add defineOptions for UiStyle component ([661e4b3](https://github.com/DjakeDjone/nuxt-cms/commit/661e4b3))
+
+### 🏡 Chore
+
+- **release:** V0.1.5 ([4aeea0f](https://github.com/DjakeDjone/nuxt-cms/commit/4aeea0f))
+
+### ❤️ Contributors
+
+- DjakeDjone ([@the-eater](https://github.com/the-eater))
+
 ## v0.1.5
 
 [compare changes](https://github.com/DjakeDjone/nuxt-cms/compare/v0.1.4...v0.1.5)
