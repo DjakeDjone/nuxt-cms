@@ -11,7 +11,7 @@
 </template>
 
 <script setup lang="ts">
-import { useRoute } from '#app'
+import { useRoute } from '#imports';
 import { computed } from 'vue'
 
 const route = useRoute()
