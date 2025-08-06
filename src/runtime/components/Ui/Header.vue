@@ -2,6 +2,8 @@
 import { useState, watch, onMounted } from '#imports'
 import AnimatedMenuIcon from './AnimatedMenuIcon.vue'
 
+defineOptions({ name: 'UiHeader' })
+
 const openedNav = useState<boolean>('openedNav', () => false)
 
 watch(openedNav, (newVal) => {

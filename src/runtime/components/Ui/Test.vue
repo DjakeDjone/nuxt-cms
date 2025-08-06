@@ -1,4 +1,5 @@
 <script setup lang="ts">
+defineOptions({ name: 'UiTest' })
 const opened = defineModel<boolean>({
   default: true,
   type: Boolean,

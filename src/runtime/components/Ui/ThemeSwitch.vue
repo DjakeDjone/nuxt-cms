@@ -5,12 +5,7 @@ defineOptions({
   name: 'ThemeSwitch',
 })
 
-const props = defineProps({
-  size: {
-    type: Number,
-    default: 56,
-  },
-})
+// ...existing code...
 
 const theme = ref('light')
 const checked = ref(false)

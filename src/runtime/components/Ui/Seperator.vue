@@ -1,4 +1,5 @@
 <script setup lang="ts">
+defineOptions({ name: 'UiSeperator' })
 const props = defineProps<{
   mobileHidden?: boolean
 }>()

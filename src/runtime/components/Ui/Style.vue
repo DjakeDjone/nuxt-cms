@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import ThemeSwitch from './ThemeSwitch.vue'
+// ...existing code...
 
 defineOptions({
   name: 'UiStyle',

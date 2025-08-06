@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { onMounted, useNotificationHandler } from '#imports'
 
+defineOptions({ name: 'NotificationTest' })
+
 // create a new notificaiton every 10 seconds
 const notificationHandler = useNotificationHandler()
 
