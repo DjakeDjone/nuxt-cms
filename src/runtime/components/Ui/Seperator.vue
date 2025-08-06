@@ -1,5 +1,6 @@
 <script setup lang="ts">
 defineOptions({ name: "UiSeperator" });
+
 const props = defineProps<{
   mobileHidden?: boolean;
 }>();
@@ -17,6 +18,7 @@ const props = defineProps<{
   background-color: var(--sui-fg);
   margin: 0 0.5rem;
 }
+
 @media (max-width: 600px) {
   .ui-separator.mobile-hidden {
     display: none;

@@ -2,10 +2,8 @@
 import { ref, onMounted, watch } from "vue";
 
 defineOptions({
-  name: "ThemeSwitch",
+  name: "UiThemeSwitch",
 });
-
-// ...existing code...
 
 const theme = ref("light");
 const checked = ref(false);

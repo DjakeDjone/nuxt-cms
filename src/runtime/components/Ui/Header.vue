@@ -25,19 +25,11 @@ onMounted(() => {
 
 <template>
   <header class="ui-header">
-    <AnimatedMenuIcon
-      :opened="openedNav"
-      class="ui-header-btn"
-      @click="openedNav = !openedNav"
-    />
-    <div
-      :class="
-        openedNav
-          ? 'ui-header-content-opened'
-          : 'ui-header-content-closed-mobile'
-      "
-      class="ui-header-content"
-    >
+    <AnimatedMenuIcon :opened="openedNav" class="ui-header-btn" @click="openedNav = !openedNav" />
+    <div :class="openedNav
+      ? 'ui-header-content-opened'
+      : 'ui-header-content-closed-mobile'
+      " class="ui-header-content">
       <div class="ui-header-content-inner centered-flex">
         <NuxtLink to="/" class="ui-header-logo" @click="openedNav = false">
           <slot name="logo"> HOME </slot>
@@ -45,6 +37,9 @@ onMounted(() => {
         <div class="ui-header-links centered-flex" @click="openedNav = false">
           <slot />
         </div>
+        <!-- <div>
+          <slot name="header-actions" />
+        </div> -->
         <UiThemeSwitch class="ui-switch" :size="25" />
       </div>
     </div>

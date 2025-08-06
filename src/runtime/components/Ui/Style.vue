@@ -1,6 +1,4 @@
 <script setup lang="ts">
-// ...existing code...
-
 defineOptions({
   name: "UiStyle",
 });
