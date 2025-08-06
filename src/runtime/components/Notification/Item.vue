@@ -34,43 +34,25 @@ if (props.item.duration) {
 }
 
 const typeToBgColor: Record<string, string> = {
-  info: '#d1ecf1',
-  success: '#d4edda',
-  warning: '#fff3cd',
-  error: '#f8d7da',
+  info: 'var(--sui-info)',
+  success: 'var(--sui-success)',
+  warning: 'var(--sui-warning)',
+  error: 'var(--sui-danger)',
 }
 </script>
 
 <template>
-  <div
-    class="notification-item"
-    :style="{ backgroundColor: typeToBgColor[props.item.type] || '#f0f0f0' }"
-    :class="`notification-${props.item.type}`"
-    @mouseover="paused = true"
-    @mouseleave="paused = false"
-  >
+  <div class="notification-item" :style="{ backgroundColor: typeToBgColor[props.item.type] || '#f0f0f0' }"
+    :class="`notification-${props.item.type}`" @mouseover="paused = true" @mouseleave="paused = false">
     <div class="notification-content">
-      <NotificationTypeIcon
-        :type="item.type"
-        class="notification-type-icon"
-      />
+      <NotificationTypeIcon :type="item.type" class="notification-type-icon" />
       <span>{{ item.message }}</span>
     </div>
-    <button
-      class="close-btn"
-      @click="$emit('close', item.id); props.close(item.id)"
-    >
-      <Icon
-        name="lucide:x"
-        size="20"
-      />
+    <button class="close-btn" @click="$emit('close', item.id); props.close(item.id)">
+      <Icon name="lucide:x" size="20" />
     </button>
     <div class="bottom-timeline">
-      <NotificationTime
-        v-if="item.duration"
-        :duration="item.duration"
-        :remaining="remainingTime"
-      />
+      <NotificationTime v-if="item.duration" :duration="item.duration" :remaining="remainingTime" />
     </div>
   </div>
 </template>
@@ -117,10 +99,10 @@ const typeToBgColor: Record<string, string> = {
   background: none;
   border: none;
   cursor: pointer;
-  color: #888;
+  color: var(--sui-fg);
 }
 
 .close-btn:hover {
-  color: #333;
+  color: var(--sui-hover-bg);
 }
 </style>

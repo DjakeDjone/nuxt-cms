@@ -52,33 +52,18 @@ const showPassword = ref(false)
     </h1>
     <div class="input-group">
       <label for="username">Username:</label>
-      <input
-        id="username"
-        v-model="credentials.username"
-        placeholder="Enter your username"
-        type="text"
-        required
-      >
+      <input id="username" v-model="credentials.username" placeholder="Enter your username" type="text" required>
     </div>
     <div class="input-group">
       <label for="password">Password:</label>
-      <input
-        id="password"
-        v-model="credentials.password"
-        placeholder="Enter your password"
-        :type="showPassword ? 'text' : 'password'"
-        required
-      >
+      <input id="password" v-model="credentials.password" placeholder="Enter your password"
+        :type="showPassword ? 'text' : 'password'" required>
     </div>
     <div class="show-pwd-toggle">
       <label for="show-password">Show Password</label>
-      <input
-        id="show-password"
-        v-model="showPassword"
-        type="checkbox"
-      >
+      <input id="show-password" v-model="showPassword" type="checkbox">
     </div>
-    <UiBtn type="submit">
+    <UiBtn type="submit" :loading="true">
       Login
     </UiBtn>
   </form>

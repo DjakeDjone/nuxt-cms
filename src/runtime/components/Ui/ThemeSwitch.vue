@@ -2,49 +2,60 @@
 import { ref, onMounted, watch } from 'vue'
 
 defineOptions({
-    name: 'ThemeSwitch',
+  name: 'ThemeSwitch',
 })
 
 const props = defineProps({
-    size: {
-        type: Number,
-        default: 56,
-    },
+  size: {
+    type: Number,
+    default: 56,
+  },
 })
 
 const theme = ref('light')
 const checked = ref(false)
 
 onMounted(() => {
-    const storedTheme = localStorage.getItem('theme')
-    if (storedTheme) {
-        theme.value = storedTheme
-        checked.value = storedTheme === 'dark'
-    } else {
-        theme.value = 'light'
-        checked.value = false
-    }
-    document.documentElement.setAttribute('data-theme', theme.value)
+  const storedTheme = localStorage.getItem('theme')
+  if (storedTheme) {
+    theme.value = storedTheme
+    checked.value = storedTheme === 'dark'
+  }
+  else {
+    theme.value = 'light'
+    checked.value = false
+  }
+  document.documentElement.setAttribute('data-theme', theme.value)
 })
 
 watch(checked, (val) => {
-    theme.value = val ? 'dark' : 'light'
-    localStorage.setItem('theme', theme.value)
-    document.documentElement.setAttribute('data-theme', theme.value)
+  theme.value = val ? 'dark' : 'light'
+  localStorage.setItem('theme', theme.value)
+  document.documentElement.setAttribute('data-theme', theme.value)
 })
 </script>
 
 <template>
-    <div class="theme-switch-wrapper">
-        <input type="checkbox" id="toggle_checkbox" v-model="checked">
-        <label for="toggle_checkbox">
-            <div id="star">
-                <div class="star" id="star-1">★</div>
-                <div class="star" id="star-2">★</div>
-            </div>
-            <div id="moon"></div>
-        </label>
-    </div>
+  <div class="theme-switch-wrapper">
+    <input
+      id="toggle_checkbox"
+      v-model="checked"
+      type="checkbox"
+    >
+    <label for="toggle_checkbox">
+      <div id="star">
+        <div
+          id="star-1"
+          class="star"
+        >★</div>
+        <div
+          id="star-2"
+          class="star"
+        >★</div>
+      </div>
+      <div id="moon" />
+    </label>
+  </div>
 </template>
 
 <style scoped>

@@ -78,4 +78,7 @@ const { notifications, removeNotification } = useNotificationHandler()
 .notification-stack-center {
     align-items: center;
 }
+.notification {
+  list-style: none;
+}
 </style>

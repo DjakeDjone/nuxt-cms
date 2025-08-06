@@ -40,7 +40,7 @@ onMounted(() => {
 <style scoped>
 .saveBtn {
   position: fixed;
-  top: 1rem;
+  top: var(--sui-header-height);
   right: 1rem;
   padding: 0.5rem 1rem;
   background-color: #4CAF50;
