@@ -1,5 +1,34 @@
 # Changelog
 
+## v0.1.7
+
+[compare changes](https://github.com/DjakeDjone/nuxt-cms/compare/v0.1.6...v0.1.7)
+
+### 🚀 Enhancements
+
+- Add suiProse option and corresponding styles for enhanced content styling ([a95b397](https://github.com/DjakeDjone/nuxt-cms/commit/a95b397))
+- Implement theme switcher and enhance header navigation ([1dfb127](https://github.com/DjakeDjone/nuxt-cms/commit/1dfb127))
+- Enhance UI components with new styles and functionality ([ef64b1b](https://github.com/DjakeDjone/nuxt-cms/commit/ef64b1b))
+- Improve UI components and styles, enhance notification handling, and optimize input behavior ([a496c14](https://github.com/DjakeDjone/nuxt-cms/commit/a496c14))
+- Enhance header component functionality and improve formatting checks in CI workflow ([7e8fed3](https://github.com/DjakeDjone/nuxt-cms/commit/7e8fed3))
+- Update navigation links and add new admin pages ([bb4a4c0](https://github.com/DjakeDjone/nuxt-cms/commit/bb4a4c0))
+- Implement admin layout and enhance UI components with computed properties ([2a80f91](https://github.com/DjakeDjone/nuxt-cms/commit/2a80f91))
+
+### 🩹 Fixes
+
+- Adjust z-index values for header and save button for better stacking context ([a0c5023](https://github.com/DjakeDjone/nuxt-cms/commit/a0c5023))
+- Lint errors ([9859454](https://github.com/DjakeDjone/nuxt-cms/commit/9859454))
+- Removed fmt ci ([8feff7a](https://github.com/DjakeDjone/nuxt-cms/commit/8feff7a))
+- Update format script and clean up header components ([7f5537d](https://github.com/DjakeDjone/nuxt-cms/commit/7f5537d))
+
+### 📖 Documentation
+
+- Readme ([21d7369](https://github.com/DjakeDjone/nuxt-cms/commit/21d7369))
+
+### ❤️ Contributors
+
+- DjakeDjone <benjamin.friedl@htlstp.at>
+
 ## v0.1.6
 
 [compare changes](https://github.com/DjakeDjone/nuxt-cms/compare/v0.1.5...v0.1.6)
