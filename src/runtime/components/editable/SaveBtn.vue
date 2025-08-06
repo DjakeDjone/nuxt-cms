@@ -1,33 +1,38 @@
 <script setup lang="ts">
-import { onMounted, useSaveHandler } from "#imports";
-import { useNotificationHandler } from "../../composables/notificationHandler";
+import { onMounted, useSaveHandler } from '#imports'
+import { useNotificationHandler } from '../../composables/notificationHandler'
 
-const saveHandler = useSaveHandler();
-const notificationHandler = useNotificationHandler();
+const saveHandler = useSaveHandler()
+const notificationHandler = useNotificationHandler()
 const save = async () => {
   try {
-    await saveHandler.saveAll();
+    await saveHandler.saveAll()
     notificationHandler.notify({
-      type: "success",
-      message: "Changes saved successfully",
-    });
-  } catch (error) {
-    notificationHandler.handleError(error, "error");
+      type: 'success',
+      message: 'Changes saved successfully',
+    })
   }
-};
+  catch (error) {
+    notificationHandler.handleError(error, 'error')
+  }
+}
 
 onMounted(() => {
-  document.addEventListener("keydown", (event) => {
-    if (event.ctrlKey && event.key === "s") {
-      event.preventDefault();
-      save();
+  document.addEventListener('keydown', (event) => {
+    if (event.ctrlKey && event.key === 's') {
+      event.preventDefault()
+      save()
     }
-  });
-});
+  })
+})
 </script>
 
 <template>
-  <button v-if="saveHandler.hasChanges.value" class="saveBtn" @click="save">
+  <button
+    v-if="saveHandler.hasChanges.value"
+    class="saveBtn"
+    @click="save"
+  >
     Save ({{ saveHandler.getSaveEvents().value.length }})
   </button>
 </template>

@@ -1,19 +1,22 @@
 <script setup lang="ts">
-import { TiptapBubbleMenu } from "#components";
-import type { Editor } from "@tiptap/core";
+import { TiptapBubbleMenu } from '#components'
+import type { Editor } from '@tiptap/core'
 
 const props = defineProps<{
-  editor: Editor | undefined;
-}>();
+  editor: Editor | undefined
+}>()
 
 const focusedChain = () => {
-  if (!props.editor) return;
-  return props.editor.chain().focus();
-};
+  if (!props.editor) return
+  return props.editor.chain().focus()
+}
 </script>
 
 <template>
-  <TiptapBubbleMenu v-if="editor" :editor="editor">
+  <TiptapBubbleMenu
+    v-if="editor"
+    :editor="editor"
+  >
     <div class="bubble-menu">
       <UiBtn
         :active="editor.isActive('bold')"

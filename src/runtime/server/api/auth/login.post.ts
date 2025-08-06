@@ -1,31 +1,31 @@
-import { createError, defineEventHandler, readBody } from "h3";
-import { useAuthHandler } from "../../util/authHandler";
+import { createError, defineEventHandler, readBody } from 'h3'
+import { useAuthHandler } from '../../util/authHandler'
 
 export default defineEventHandler(async (event) => {
-  const body = await readBody(event);
-  const credentials = body;
+  const body = await readBody(event)
+  const credentials = body
 
   if (!credentials || !credentials.username || !credentials.password) {
     throw createError({
       statusCode: 400,
-      statusMessage: "Invalid request data",
-    });
+      statusMessage: 'Invalid request data',
+    })
   }
 
-  const authHandler = useAuthHandler();
-  const { user, token } = await authHandler.createUserSession(credentials);
+  const authHandler = useAuthHandler()
+  const { user, token } = await authHandler.createUserSession(credentials)
 
   if (!user) {
     throw createError({
       statusCode: 401,
-      statusMessage: "Invalid credentials",
-    });
+      statusMessage: 'Invalid credentials',
+    })
   }
 
-  authHandler.setAuthTokenCookie(event, token);
+  authHandler.setAuthTokenCookie(event, token)
 
   return {
     user: user,
     token,
-  };
-});
+  }
+})

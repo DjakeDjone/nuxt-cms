@@ -1,28 +1,28 @@
 <script setup lang="ts">
-import { ref } from "#imports";
+import { ref } from '#imports'
 
 defineOptions({
-  name: "UiTooltip",
-});
+  name: 'UiTooltip',
+})
 
 const props = defineProps<{
-  content: string;
-  position?: "top" | "bottom" | "left" | "right";
-  anchor?: "top" | "bottom" | "left" | "right";
-  disabled?: boolean;
-}>();
+  content: string
+  position?: 'top' | 'bottom' | 'left' | 'right'
+  anchor?: 'top' | 'bottom' | 'left' | 'right'
+  disabled?: boolean
+}>()
 
-const isVisible = ref(false);
+const isVisible = ref(false)
 
 const showTooltip = () => {
   if (!props.disabled) {
-    isVisible.value = true;
+    isVisible.value = true
   }
-};
+}
 
 const hideTooltip = () => {
-  isVisible.value = false;
-};
+  isVisible.value = false
+}
 </script>
 
 <template>

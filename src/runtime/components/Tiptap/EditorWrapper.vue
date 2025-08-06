@@ -6,22 +6,22 @@ import {
   useEditor,
   useState,
   watch,
-} from "#imports";
-import TextAlign from "@tiptap/extension-text-align";
-import Underline from "@tiptap/extension-underline";
+} from '#imports'
+import TextAlign from '@tiptap/extension-text-align'
+import Underline from '@tiptap/extension-underline'
 
 const props = defineProps<{
-  default?: string;
-  navClosed?: boolean;
-}>();
+  default?: string
+  navClosed?: boolean
+}>()
 
 const modelValue = defineModel<string>({
-  default: "",
+  default: '',
   type: String,
-});
+})
 
 if (props.default) {
-  modelValue.value = props.default;
+  modelValue.value = props.default
 }
 
 const editor = useEditor({
@@ -29,43 +29,50 @@ const editor = useEditor({
     TiptapStarterKit,
     Underline,
     TextAlign.configure({
-      types: ["heading", "paragraph"],
+      types: ['heading', 'paragraph'],
     }),
   ],
   content: modelValue.value,
   onUpdate: ({ editor }) => {
     if (editor.getHTML() !== modelValue.value) {
-      modelValue.value = editor.getHTML();
+      modelValue.value = editor.getHTML()
     }
   },
-});
+})
 
 watch(
   modelValue,
   (newValue) => {
     if (editor.value) {
       if (editor.value.getHTML() !== newValue) {
-        editor.value.commands.setContent(newValue);
+        editor.value.commands.setContent(newValue)
       }
     }
   },
-  { immediate: true }
-);
+  { immediate: true },
+)
 
 onBeforeUnmount(() => {
-  unref(editor)!.destroy();
-});
+  unref(editor)!.destroy()
+})
 
-const editorBorder = useState<boolean>("tiptap-editor-border", () => false);
+const editorBorder = useState<boolean>('tiptap-editor-border', () => false)
 </script>
 
 <template>
-  <div class="tiptap-editor" :class="{ 'editor-border': editorBorder }">
+  <div
+    class="tiptap-editor"
+    :class="{ 'editor-border': editorBorder }"
+  >
     <div
       class="nav"
       :class="{ 'nav-open': !navClosed, 'nav-closed': navClosed }"
     >
-      <TiptapNav v-model:show-editor-border="editorBorder" # :editor="editor" />
+      <TiptapNav
+        v-model:show-editor-border="editorBorder"
+        #
+        :editor="editor"
+      />
     </div>
     <TiptapMyMenu :editor="editor" />
     <TiptapEditorContent :editor="editor!" />

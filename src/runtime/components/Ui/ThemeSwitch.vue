@@ -1,39 +1,50 @@
 <script setup lang="ts">
-import { ref, onMounted, watch } from "vue";
+import { ref, onMounted, watch } from 'vue'
 
 defineOptions({
-  name: "UiThemeSwitch",
-});
+  name: 'UiThemeSwitch',
+})
 
-const theme = ref("light");
-const checked = ref(false);
+const theme = ref('light')
+const checked = ref(false)
 
 onMounted(() => {
-  const storedTheme = localStorage.getItem("theme");
+  const storedTheme = localStorage.getItem('theme')
   if (storedTheme) {
-    theme.value = storedTheme;
-    checked.value = storedTheme === "dark";
-  } else {
-    theme.value = "light";
-    checked.value = false;
+    theme.value = storedTheme
+    checked.value = storedTheme === 'dark'
   }
-  document.documentElement.setAttribute("data-theme", theme.value);
-});
+  else {
+    theme.value = 'light'
+    checked.value = false
+  }
+  document.documentElement.setAttribute('data-theme', theme.value)
+})
 
 watch(checked, (val) => {
-  theme.value = val ? "dark" : "light";
-  localStorage.setItem("theme", theme.value);
-  document.documentElement.setAttribute("data-theme", theme.value);
-});
+  theme.value = val ? 'dark' : 'light'
+  localStorage.setItem('theme', theme.value)
+  document.documentElement.setAttribute('data-theme', theme.value)
+})
 </script>
 
 <template>
   <div class="theme-switch-wrapper">
-    <input id="toggle_checkbox" v-model="checked" type="checkbox" />
+    <input
+      id="toggle_checkbox"
+      v-model="checked"
+      type="checkbox"
+    >
     <label for="toggle_checkbox">
       <div id="star">
-        <div id="star-1" class="star">★</div>
-        <div id="star-2" class="star">★</div>
+        <div
+          id="star-1"
+          class="star"
+        >★</div>
+        <div
+          id="star-2"
+          class="star"
+        >★</div>
       </div>
       <div id="moon" />
     </label>

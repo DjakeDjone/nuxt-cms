@@ -1,24 +1,24 @@
 <script setup lang="ts">
 defineOptions({
-  name: "UiSwitchCrossed",
-});
+  name: 'UiSwitchCrossed',
+})
 
 const props = defineProps<{
-  modelValue?: boolean;
-  disabled?: boolean;
-}>();
+  modelValue?: boolean
+  disabled?: boolean
+}>()
 
 const emit = defineEmits<{
-  "update:modelValue": [value: boolean];
-  change: [value: boolean];
-}>();
+  'update:modelValue': [value: boolean]
+  'change': [value: boolean]
+}>()
 
 const toggle = () => {
-  if (props.disabled) return;
-  const newValue = !props.modelValue;
-  emit("update:modelValue", newValue);
-  emit("change", newValue);
-};
+  if (props.disabled) return
+  const newValue = !props.modelValue
+  emit('update:modelValue', newValue)
+  emit('change', newValue)
+}
 </script>
 
 <template>

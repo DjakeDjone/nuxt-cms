@@ -1,10 +1,17 @@
 <script setup lang="ts">
-const props = defineProps<{ opened: boolean }>();
+const props = defineProps<{ opened: boolean }>()
 </script>
 
 <template>
-  <button class="menu-icon" aria-label="Toggle menu">
-    <svg width="32" height="32" viewBox="0 0 32 32">
+  <button
+    class="menu-icon"
+    aria-label="Toggle menu"
+  >
+    <svg
+      width="32"
+      height="32"
+      viewBox="0 0 32 32"
+    >
       <rect
         :class="['bar', 'bar1', { opened: props.opened }]"
         x="6"

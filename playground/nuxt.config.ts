@@ -1,14 +1,14 @@
-import tailwindcss from "@tailwindcss/vite";
+import tailwindcss from '@tailwindcss/vite'
 
 export default defineNuxtConfig({
-  modules: ["../src/module"],
+  modules: ['../src/module'],
   devtools: { enabled: true },
-  css: ["~/assets/css/main.css"],
+  css: ['~/assets/css/main.css'],
   vite: {
     plugins: [tailwindcss()],
   },
   editableContent: {
-    storageKey: "data",
+    storageKey: 'data',
     styled: true,
     suiProse: true,
     auth: {
@@ -20,26 +20,26 @@ export default defineNuxtConfig({
         // },
         {
           // allow all get requests
-          roles: ["*"],
+          roles: ['*'],
           url: /^\/api\/editable\/.*/,
-          method: "GET",
+          method: 'GET',
         },
         {
           // editable route ('/api/editable/*')
-          roles: ["admin"],
+          roles: ['admin'],
           url: /^\/api\/editable\/.*/,
-          method: "POST",
+          method: 'POST',
         },
       ],
       initUsers: [
         {
-          id: "1",
-          username: "admin",
-          pwd: "admin123",
-          role: "admin",
+          id: '1',
+          username: 'admin',
+          pwd: 'admin123',
+          role: 'admin',
           tokens: [],
         },
       ],
     },
   },
-});
+})

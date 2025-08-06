@@ -1,13 +1,16 @@
 <script setup lang="ts">
-defineOptions({ name: "UiSeperator" });
+defineOptions({ name: 'UiSeperator' })
 
 const props = defineProps<{
-  mobileHidden?: boolean;
-}>();
+  mobileHidden?: boolean
+}>()
 </script>
 
 <template>
-  <span class="ui-separator" :class="{ 'mobile-hidden': props.mobileHidden }" />
+  <span
+    class="ui-separator"
+    :class="{ 'mobile-hidden': props.mobileHidden }"
+  />
 </template>
 
 <style scoped>

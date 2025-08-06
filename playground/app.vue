@@ -4,7 +4,7 @@
       <NuxtLink to="/calendar">Calendar</NuxtLink>
       <NuxtLink to="/login">Login</NuxtLink>
     </UiHeader> -->
-    <UiSmartHeader adminPrefix="/admin" />
+    <UiSmartHeader admin-prefix="/admin" />
     <NotificationStack />
     <NuxtPage />
   </UiStyle>

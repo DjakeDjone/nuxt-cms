@@ -1,22 +1,22 @@
 <script setup lang="ts">
-import { computed } from "vue";
+import { computed } from 'vue'
 
-defineOptions({ name: "NotificationTime" });
+defineOptions({ name: 'NotificationTime' })
 
 const props = defineProps<{
-  duration: number;
-  remaining: number;
-  color?: string;
-}>();
+  duration: number
+  remaining: number
+  color?: string
+}>()
 
 const remainingTime = computed(() => {
-  const seconds = Math.floor(props.remaining / 1000);
-  return seconds > 0 ? `${seconds}s` : "0s";
-});
+  const seconds = Math.floor(props.remaining / 1000)
+  return seconds > 0 ? `${seconds}s` : '0s'
+})
 
 const remainingPercent = computed(() => {
-  return Math.max(0, Math.min(100, (props.remaining / props.duration) * 100));
-});
+  return Math.max(0, Math.min(100, (props.remaining / props.duration) * 100))
+})
 </script>
 
 <template>

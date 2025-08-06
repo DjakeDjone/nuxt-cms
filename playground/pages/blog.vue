@@ -3,7 +3,10 @@
     <h1 class="text-2xl font-bold text-center my-4">
       <EditableContent content-id="blog-heading" />
     </h1>
-    <EditableContentArea content-id="blog-area" class="w-full" />
+    <EditableContentArea
+      content-id="blog-area"
+      class="w-full"
+    />
     <!-- TODO: blog events etc. -->
   </main>
 </template>
