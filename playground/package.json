@@ -1,13 +1,14 @@
 {
   "private": true,
-  "name": "my-module-playground",
+  "name": "editable-content-sample",
   "type": "module",
   "scripts": {
     "dev": "nuxi dev",
-    "build": "nuxi build",
+    "build": "npx nuxi build",
     "generate": "nuxi generate"
   },
   "dependencies": {
+    "@tailwindcss/vite": "^4.1.11",
     "nuxt": "^4.0.0"
   }
 }
