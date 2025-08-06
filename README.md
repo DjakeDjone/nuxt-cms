@@ -67,6 +67,13 @@ input:focus {
 - [ ] **Notification Service**
 - [ ] layout component
 - [ ] file upload component
+- [ ] styling *in progress*
+  - [x] add basic styles
+  - [x] dark mode
+  - [ ] add support for custom themes
+  - [ ] styling completed
+  - [ ] advanced styling
+
 - [ ] image upload component
 - [ ] List component (cards, grid, etc.)
 - [ ] **auth** <in progress 😎>
