@@ -4,8 +4,8 @@ defineOptions({
 })
 
 const props = defineProps<{
-  active?: boolean,
-  loading?: boolean,
+  active?: boolean
+  loading?: boolean
 }>()
 
 const emit = defineEmits<{
@@ -14,9 +14,16 @@ const emit = defineEmits<{
 </script>
 
 <template>
-  <button class="ui-btn" :class="{ 'is-active': props.active, 'ui-btn-loading': props.loading }" @click="emit('click')">
+  <button
+    class="ui-btn"
+    :class="{ 'is-active': props.active, 'ui-btn-loading': props.loading }"
+    @click="emit('click')"
+  >
     <slot />
-    <span v-if="props.loading" class="btn-pre-icon">
+    <span
+      v-if="props.loading"
+      class="btn-pre-icon"
+    >
       <Icon name="eos-icons:bubble-loading" />
     </span>
   </button>
