@@ -127,9 +127,11 @@ export const useAuthHandler = () => {
       return null
     }
     if (user.tokens && user.tokens.length > 0) {
-      const validToken = user.tokens.find(t => t.token === token && t.expires > new Date())
+      // TODO: Check if the token is still valid
+      const validToken = user.tokens.find(t => t.token === token)
       if (!validToken) {
         console.warn('Token is expired or invalid')
+        // TODO: remove expired token from user
         return null
       }
     }

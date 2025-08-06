@@ -27,7 +27,7 @@ const toggleTheme = () => {
 
 <template>
   <div
-    class="snabb-ui"
+    class="snabb-ui sui-prose"
     :class="theme"
   >
     <UiBtn

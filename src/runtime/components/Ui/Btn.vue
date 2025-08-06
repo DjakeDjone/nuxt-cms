@@ -35,10 +35,10 @@ const emit = defineEmits<{
 }
 
 .is-active {
-  background-color: #00000013;
+  background-color: var(--sui-active-bg);
 }
 
 .ui-btn:hover {
-  background-color: #00000013;
+  background-color: var(--sui-hover-bg);
 }
 </style>

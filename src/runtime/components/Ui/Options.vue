@@ -12,38 +12,13 @@ const props = defineProps<{
 
 <template>
   <div class="ui-options">
-    <UiBtn
-      :active="opened"
-      class="ui-options-trigger-container"
-      @click="opened = !opened"
-    >
-      <div
-        :class="{ 'flipped-icon': !opened }"
-        class="animated-icon"
-      >
+    <UiBtn :active="opened" class="ui-options-trigger-container" @click="opened = !opened">
+      <div :class="{ 'flipped-icon': !opened }" class="animated-icon">
         <slot name="icon">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-          >
-            <path
-              fill="none"
-              stroke="currentColor"
-              stroke-dasharray="12"
-              stroke-dashoffset="12"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-              stroke-width="2"
-              d="M12 8l-7 7M12 8l7 7"
-            >
-              <animate
-                fill="freeze"
-                attributeName="stroke-dashoffset"
-                dur="0.3s"
-                values="12;0"
-              />
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+            <path fill="none" stroke="currentColor" stroke-dasharray="12" stroke-dashoffset="12" stroke-linecap="round"
+              stroke-linejoin="round" stroke-width="2" d="M12 8l-7 7M12 8l7 7">
+              <animate fill="freeze" attributeName="stroke-dashoffset" dur="0.3s" values="12;0" />
             </path>
           </svg>
         </slot>
@@ -52,25 +27,14 @@ const props = defineProps<{
         Options Trigger
       </slot>
     </UiBtn>
-    <div
-      v-if="opened"
-      class="ui-opsions-list"
-      :class="`ui-options-${props.anchor || 'right'}`"
-    >
+    <div v-if="opened" class="ui-opsions-list" :class="`ui-options-${props.anchor || 'right'}`">
       <slot name="ui-list">
-        <UiList
-          v-if="opened"
-          orientation="vertical"
-          :nesting-count="props.nestingCount || 1"
-        >
+        <UiList v-if="opened" orientation="vertical" :nesting-count="props.nestingCount || 1">
           <slot name="options">
-            Options Value
+            Options Valuep
           </slot>
         </UiList>
       </slot>
-      <!-- <slot name="options">
-                Options Value
-            </slot> -->
     </div>
   </div>
 </template>
@@ -97,8 +61,8 @@ const props = defineProps<{
   position: absolute;
   z-index: 10000;
   background-color: var(--sui-bg, #fff);
-  border: 1px solid #ccc;
-  border-radius: 4px;
+  border: 1px solid var(--sui-border, #ccc);
+  border-radius: var(--sui-border-radius);
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
@@ -110,7 +74,6 @@ const props = defineProps<{
   left: 0;
 }
 
-/* any button inside of .ui-options */
 .ui-options button {
   width: 100%;
 }

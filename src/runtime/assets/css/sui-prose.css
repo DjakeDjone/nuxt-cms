@@ -1,0 +1,67 @@
+.sui-prose {
+  line-height: 1.5;
+  color: var(--sui-fg);
+}
+
+.sui-prose h1,
+.sui-prose h2,
+.sui-prose h3 {
+  font-weight: bold;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.sui-prose h1 {
+  font-size: 2rem;
+}
+
+.sui-prose h2 {
+  font-size: 1.5rem;
+}
+
+.sui-prose h3 {
+  font-size: 1.25rem;
+}
+
+.sui-prose p {
+  margin-bottom: 1rem;
+}
+
+.sui-prose a {
+  color: var(--sui-p);
+  text-decoration: underline;
+}
+
+.sui-prose a:hover {
+  color: darken(var(--sui-p), 10%);
+}
+
+.sui-prose ul,
+.sui-prose ol {
+  margin-left: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.sui-prose ul {
+    list-style-type: disc;
+}
+
+.sui-prose ul ul {
+    list-style-type: circle;
+}
+
+.sui-prose ul ul ul {
+    list-style-type: square;
+}
+
+.sui-prose ol {
+    list-style-type: decimal;
+}
+
+.sui-prose ol ol {
+    list-style-type: upper-alpha;
+}
+
+.sui-prose li {
+  margin-bottom: 0.5rem;
+}

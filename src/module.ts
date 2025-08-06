@@ -6,6 +6,7 @@ import type { UrlRule } from './types'
 export interface ModuleOptions {
   storageKey?: string
   styled?: boolean
+  suiProse?: boolean
   auth: {
     initUsers: BaseAuthUser[]
     routeRules: UrlRule[]
@@ -42,6 +43,7 @@ export default defineNuxtModule<ModuleOptions>({
     nuxt.options.runtimeConfig.editableContent = {
       storageKey: options.storageKey ?? '',
       styled: options.styled ?? false,
+      suiProse: options.suiProse ?? options.styled ?? false,
       auth: {
         initUsers: options.auth?.initUsers || [],
         routeRules: options.auth?.routeRules || [],
@@ -58,6 +60,9 @@ export default defineNuxtModule<ModuleOptions>({
     // css
     if (options.styled) {
       nuxt.options.css.push(resolver.resolve('runtime/assets/css/editable-content.css'))
+    }
+    if (options.suiProse) {
+      nuxt.options.css.push(resolver.resolve('runtime/assets/css/sui-prose.css'))
     }
 
     addComponentsDir({

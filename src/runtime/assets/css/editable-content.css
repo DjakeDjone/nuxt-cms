@@ -6,6 +6,8 @@
     --sui-p: #007bff;
     --sui-fg: #212529;
     --sui-bg: #f8f9fa;
+    --sui-active-bg: #e9ecef;
+    --sui-hover-bg: #e2e6ea;
 
     /* vars */
     --sui-header-height: 3.5rem;
@@ -19,6 +21,8 @@
     --sui-p: #142f4a;
     --sui-fg: #d1cdc7;
     --sui-bg: #1b1e1f;
+    --sui-active-bg: #2c2f30;
+    --sui-hover-bg: #3c3f40;
 
     /* vars */
     --sui-box-shadow: rgba(121, 86, 86, 0.5) 0px 3px 8px;
@@ -36,22 +40,6 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-}
-
-.snabb-ui h1 {
-    font-size: 2rem;
-    font-weight: bold;
-    margin-bottom: 1rem;
-}
-
-.snabb-ui p {
-    font-size: 1rem;
-    line-height: 1.5;
-}
-
-.snabb-ui a:hover {
-    color: #007bff;
-    text-decoration: none;
 }
 
 

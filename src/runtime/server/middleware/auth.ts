@@ -8,6 +8,10 @@ export default defineEventHandler(async (event) => {
   const method = event.method
   const rules: UrlRule[] = useRuntimeConfig(event).editableContent.auth.routeRules
 
+  if (requestUrl.pathname.startsWith('/api/auth')) {
+    return
+  }
+
   // throw error if no rules match
   const matchedRule = rules.find((rule) => {
     const urlMatch = typeof rule.url === 'string'

@@ -56,8 +56,10 @@ const focusedChain = () => {
 
 <style scoped>
 .bubble-menu {
-    background: white;
     border: 1px solid #ccc;
+    background-color: var(--snabb-ui-bg);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
     border-radius: 4px;
     display: flex;
     gap: .2rem;
