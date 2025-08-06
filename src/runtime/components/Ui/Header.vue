@@ -75,7 +75,7 @@ onMounted(() => {
 
 .ui-header-content {
     position: fixed;
-    z-index: 1000;
+    z-index: 10;
     top: 0;
     left: 0;
     width: 100%;
@@ -88,6 +88,7 @@ onMounted(() => {
 .ui-header-content-opened {
     opacity: 1;
     height: 100vh;
+    z-index: 100;
 }
 
 .ui-header-content-closed-mobile {
