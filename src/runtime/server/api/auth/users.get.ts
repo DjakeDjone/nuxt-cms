@@ -1,8 +1,8 @@
-import { defineEventHandler } from 'h3'
-import { useAuthHandler } from '../../util/authHandler'
+import { defineEventHandler } from "h3";
+import { useAuthHandler } from "../../util/authHandler";
 
 export default defineEventHandler(async (_event) => {
-  const authHandler = useAuthHandler()
+  const authHandler = useAuthHandler();
 
-  return await authHandler.getAllUsers() // TODO: sanitize users before returning
-})
+  return await authHandler.getAllUsers(); // TODO: sanitize users before returning
+});

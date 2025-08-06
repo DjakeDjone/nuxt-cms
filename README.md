@@ -21,7 +21,6 @@ npx nuxi module add nuxt-data-mngr
 
 That's it! You can now use the nuxt data manager in your Nuxt app ✨
 
-
 ## Usage 💡
 
 ### Components
@@ -33,12 +32,12 @@ That's it! You can now use the nuxt data manager in your Nuxt app ✨
 
 ```vue
 <script setup lang="ts">
-const saveHandler = useSaveHandler()
+const saveHandler = useSaveHandler();
 
 const _save = async () => {
-  console.log('Saving all changes...')
-  await saveHandler.saveAll()
-}
+  console.log("Saving all changes...");
+  await saveHandler.saveAll();
+};
 </script>
 
 <template>
@@ -50,17 +49,14 @@ const _save = async () => {
         class="text-center w-fit"
       />
     </h1>
-    <EditableContentAreaAdmin
-      content-id="area-a"
-      class="text-center w-fit"
-    />
+    <EditableContentAreaAdmin content-id="area-a" class="text-center w-fit" />
   </main>
 </template>
 
 <style scoped>
 textarea:focus,
 input:focus {
-    outline: none;
+  outline: none;
 }
 </style>
 ```
@@ -75,8 +71,8 @@ input:focus {
 - [ ] List component (cards, grid, etc.)
 - [ ] **auth** <in progress 😎>
 - [ ] **auth**: add support for route based auth rules
-    - [x] login
-    - [ ] logout
-    - [x] cookie based session management
-    - [x] route based auth rules
-    - [ ] extendable auth rules and type system
+  - [x] login
+  - [ ] logout
+  - [x] cookie based session management
+  - [x] route based auth rules
+  - [ ] extendable auth rules and type system

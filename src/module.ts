@@ -1,103 +1,117 @@
-import { defineNuxtModule, createResolver, addServerHandler, addImportsDir, addComponentsDir, installModule } from '@nuxt/kit'
-import type { BaseAuthUser } from './runtime/server/model/auth'
-import type { UrlRule } from './types'
+import {
+  defineNuxtModule,
+  createResolver,
+  addServerHandler,
+  addImportsDir,
+  addComponentsDir,
+  installModule,
+} from "@nuxt/kit";
+import type { BaseAuthUser } from "./runtime/server/model/auth";
+import type { UrlRule } from "./types";
 
 // Define the module options interface
 export interface ModuleOptions {
-  storageKey?: string
-  styled?: boolean
-  suiProse?: boolean
+  storageKey?: string;
+  styled?: boolean;
+  suiProse?: boolean;
   auth: {
-    initUsers: BaseAuthUser[]
-    routeRules: UrlRule[]
-  }
+    initUsers: BaseAuthUser[];
+    routeRules: UrlRule[];
+  };
 }
 
 export default defineNuxtModule<ModuleOptions>({
   meta: {
-    name: 'editable-content',
-    configKey: 'editableContent',
+    name: "editable-content",
+    configKey: "editableContent",
   },
   defaults: {
-    storageKey: 'editable-content',
+    storageKey: "editable-content",
     auth: {
       initUsers: [],
       routeRules: [
         {
           // allow everything that's not /api
-          roles: ['*'],
-          url: '^/(?!api).*',
+          roles: ["*"],
+          url: "^/(?!api).*",
         },
         {
           // editable route ('/api/editable/*')
-          roles: ['admin'],
-          url: '^/api/editable/.*',
-          method: 'POST',
+          roles: ["admin"],
+          url: "^/api/editable/.*",
+          method: "POST",
         },
       ],
     },
   },
   async setup(options, nuxt) {
-    const resolver = createResolver(import.meta.url)
+    const resolver = createResolver(import.meta.url);
     // Add runtime config for the storage key
     nuxt.options.runtimeConfig.editableContent = {
-      storageKey: options.storageKey ?? '',
+      storageKey: options.storageKey ?? "",
       styled: options.styled ?? false,
       suiProse: options.suiProse ?? options.styled ?? false,
       auth: {
         initUsers: options.auth?.initUsers || [],
         routeRules: options.auth?.routeRules || [],
       },
-    }
+    };
 
-    await installModule('nuxt-tiptap-editor', {
-    })
+    await installModule("nuxt-tiptap-editor", {});
 
-    await installModule('@nuxt/icon')
+    await installModule("@nuxt/icon");
 
-    addImportsDir(resolver.resolve('runtime/assets'))
+    addImportsDir(resolver.resolve("runtime/assets"));
 
     // css
     if (options.styled) {
-      nuxt.options.css.push(resolver.resolve('runtime/assets/css/editable-content.css'))
+      nuxt.options.css.push(
+        resolver.resolve("runtime/assets/css/editable-content.css")
+      );
     }
     if (options.suiProse) {
-      nuxt.options.css.push(resolver.resolve('runtime/assets/css/sui-prose.css'))
+      nuxt.options.css.push(
+        resolver.resolve("runtime/assets/css/sui-prose.css")
+      );
     }
 
     addComponentsDir({
-      path: resolver.resolve('runtime/components'),
-    })
+      path: resolver.resolve("runtime/components"),
+    });
 
     addServerHandler({
-      route: '/api/editable/content/:id',
-      handler: resolver.resolve('./runtime/server/api/editable/content/[id].get'),
-    })
+      route: "/api/editable/content/:id",
+      handler: resolver.resolve(
+        "./runtime/server/api/editable/content/[id].get"
+      ),
+    });
 
     addServerHandler({
-      route: '/api/editable/content/:id',
-      method: 'post',
-      handler: resolver.resolve('./runtime/server/api/editable/content/[id].post'),
-    })
+      route: "/api/editable/content/:id",
+      method: "post",
+      handler: resolver.resolve(
+        "./runtime/server/api/editable/content/[id].post"
+      ),
+    });
 
     addServerHandler({
-      route: '/api/auth/login',
-      method: 'post',
-      handler: resolver.resolve('./runtime/server/api/auth/login.post'),
-    })
+      route: "/api/auth/login",
+      method: "post",
+      handler: resolver.resolve("./runtime/server/api/auth/login.post"),
+    });
 
     addServerHandler({
-      route: '/api/auth/users',
-      method: 'get',
-      handler: resolver.resolve('./runtime/server/api/auth/users.get'),
-    })
+      route: "/api/auth/users",
+      method: "get",
+      handler: resolver.resolve("./runtime/server/api/auth/users.get"),
+    });
 
     addServerHandler({
-      handler: resolver.resolve('./runtime/server/middleware/auth'),
-    })
+      handler: resolver.resolve("./runtime/server/middleware/auth"),
+    });
 
-    addImportsDir(resolver.resolve('runtime/server/util'))
-    addImportsDir(resolver.resolve('runtime/shared'))
-    addImportsDir(resolver.resolve('runtime/composables'))
+    addImportsDir(resolver.resolve("runtime/server/util"));
+    addImportsDir(resolver.resolve("runtime/shared"));
+    addImportsDir(resolver.resolve("runtime/composables"));
   },
-})
+});

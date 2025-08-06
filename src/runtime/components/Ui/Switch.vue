@@ -1,24 +1,24 @@
 <script setup lang="ts">
 defineOptions({
-  name: 'UiSwitch',
-})
+  name: "UiSwitch",
+});
 
-const props = defineProps <{
-  modelValue?: boolean
-  disabled?: boolean
-}> ()
+const props = defineProps<{
+  modelValue?: boolean;
+  disabled?: boolean;
+}>();
 
-const emit = defineEmits <{
-  'update:modelValue': [value: boolean]
-  'change': [value: boolean]
-}> ()
+const emit = defineEmits<{
+  "update:modelValue": [value: boolean];
+  change: [value: boolean];
+}>();
 
 const toggle = () => {
-  if (props.disabled) return
-  const newValue = !props.modelValue
-  emit('update:modelValue', newValue)
-  emit('change', newValue)
-}
+  if (props.disabled) return;
+  const newValue = !props.modelValue;
+  emit("update:modelValue", newValue);
+  emit("change", newValue);
+};
 </script>
 
 <template>
@@ -34,10 +34,7 @@ const toggle = () => {
     <span class="switch-track">
       <span class="switch-thumb" />
     </span>
-    <span
-      v-if="$slots.default"
-      class="switch-label"
-    >
+    <span v-if="$slots.default" class="switch-label">
       <slot />
     </span>
   </button>
@@ -45,56 +42,56 @@ const toggle = () => {
 
 <style>
 .ui-switch {
-    display: inline-flex;
-    align-items: center;
-    gap: 0.5rem;
-    padding: 0.2rem;
-    border: none;
-    background: transparent;
-    cursor: pointer;
-    border-radius: 4px;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.2rem;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  border-radius: 4px;
 }
 
 .ui-switch:hover:not(.is-disabled) {
-    background-color: #00000013;
+  background-color: #00000013;
 }
 
 .ui-switch.is-disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
+  opacity: 0.6;
+  cursor: not-allowed;
 }
 
 .switch-track {
-    position: relative;
-    width: 2.5rem;
-    height: 1.5rem;
-    background-color: #ccc;
-    border-radius: 0.75rem;
-    transition: background-color 0.2s ease;
+  position: relative;
+  width: 2.5rem;
+  height: 1.5rem;
+  background-color: #ccc;
+  border-radius: 0.75rem;
+  transition: background-color 0.2s ease;
 }
 
 .ui-switch.is-on .switch-track {
-    background-color: #007bff;
+  background-color: #007bff;
 }
 
 .switch-thumb {
-    position: absolute;
-    top: 2px;
-    left: 2px;
-    width: 1.25rem;
-    height: 1.25rem;
-    background-color: white;
-    border-radius: 50%;
-    transition: transform 0.2s ease;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 1.25rem;
+  height: 1.25rem;
+  background-color: white;
+  border-radius: 50%;
+  transition: transform 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
 .ui-switch.is-on .switch-thumb {
-    transform: translateX(1rem);
+  transform: translateX(1rem);
 }
 
 .switch-label {
-    font-size: 0.9rem;
-    user-select: none;
+  font-size: 0.9rem;
+  user-select: none;
 }
 </style>

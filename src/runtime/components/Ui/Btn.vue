@@ -1,16 +1,16 @@
 <script setup lang="ts">
 defineOptions({
-  name: 'UiBtn',
-})
+  name: "UiBtn",
+});
 
 const props = defineProps<{
-  active?: boolean
-  loading?: boolean
-}>()
+  active?: boolean;
+  loading?: boolean;
+}>();
 
 const emit = defineEmits<{
-  click: []
-}>()
+  click: [];
+}>();
 </script>
 
 <template>
@@ -20,10 +20,7 @@ const emit = defineEmits<{
     @click="emit('click')"
   >
     <slot />
-    <span
-      v-if="props.loading"
-      class="btn-pre-icon"
-    >
+    <span v-if="props.loading" class="btn-pre-icon">
       <Icon name="eos-icons:bubble-loading" />
     </span>
   </button>
@@ -35,7 +32,7 @@ const emit = defineEmits<{
 }
 
 .ui-btn {
-  padding: 0.2rem .4rem;
+  padding: 0.2rem 0.4rem;
   border: none;
   border-radius: 4px;
   cursor: pointer;
@@ -52,7 +49,7 @@ const emit = defineEmits<{
 .ui-btn-loading {
   opacity: 0.7;
   pointer-events: none;
-  content: '';
+  content: "";
   position: relative;
 }
 </style>

@@ -1,13 +1,13 @@
 <script setup lang="ts">
 defineOptions({
-  name: 'UiOptions',
-})
+  name: "UiOptions",
+});
 
-const opened = defineModel<boolean>()
+const opened = defineModel<boolean>();
 const props = defineProps<{
-  anchor?: 'right' | 'left'
-  nestingCount?: number
-}>()
+  anchor?: "right" | "left";
+  nestingCount?: number;
+}>();
 </script>
 
 <template>
@@ -17,10 +17,7 @@ const props = defineProps<{
       class="ui-options-trigger-container"
       @click="opened = !opened"
     >
-      <div
-        :class="{ 'flipped-icon': !opened }"
-        class="animated-icon"
-      >
+      <div :class="{ 'flipped-icon': !opened }" class="animated-icon">
         <slot name="icon">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -48,9 +45,7 @@ const props = defineProps<{
           </svg>
         </slot>
       </div>
-      <slot name="trigger">
-        Options Trigger
-      </slot>
+      <slot name="trigger"> Options Trigger </slot>
     </UiBtn>
     <div
       v-if="opened"
@@ -63,9 +58,7 @@ const props = defineProps<{
           orientation="vertical"
           :nesting-count="props.nestingCount || 1"
         >
-          <slot name="options">
-            Options Valuep
-          </slot>
+          <slot name="options"> Options Valuep </slot>
         </UiList>
       </slot>
     </div>
@@ -90,7 +83,7 @@ const props = defineProps<{
 }
 
 .ui-opsions-list {
-  margin-top: .2rem;
+  margin-top: 0.2rem;
   position: absolute;
   z-index: 10000;
   background-color: var(--sui-bg, #fff);

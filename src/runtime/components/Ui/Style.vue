@@ -2,8 +2,8 @@
 // ...existing code...
 
 defineOptions({
-  name: 'UiStyle',
-})
+  name: "UiStyle",
+});
 </script>
 
 <template>

@@ -1,6 +1,5 @@
 # Changelog
 
-
 ## v0.1.6
 
 [compare changes](https://github.com/DjakeDjone/nuxt-cms/compare/v0.1.5...v0.1.6)
@@ -180,7 +179,6 @@
 
 ## v0.1.19
 
-
 ### 🚀 Enhancements
 
 - Init ([d6d6f50](https://github.com/your-org/my-module/commit/d6d6f50))
@@ -194,4 +192,3 @@
 ### ❤️ Contributors
 
 - DjakeDjone <benjamin.friedl@htlstp.at>
-

@@ -1,23 +1,23 @@
-import type { BaseAuthUser } from './runtime/server/model/auth'
+import type { BaseAuthUser } from "./runtime/server/model/auth";
 
 export interface UrlRule {
-  roles: string[]
-  url: string | RegExp
-  method?: string
+  roles: string[];
+  url: string | RegExp;
+  method?: string;
 }
 
-declare module '@nuxt/schema' {
+declare module "@nuxt/schema" {
   interface RuntimeConfig {
     editableContent: {
-      storageKey?: string
-      styled?: boolean
-      suiProse?: boolean
+      storageKey?: string;
+      styled?: boolean;
+      suiProse?: boolean;
       auth: {
-        initUsers: BaseAuthUser[]
-        routeRules: UrlRule[]
-      }
-    }
+        initUsers: BaseAuthUser[];
+        routeRules: UrlRule[];
+      };
+    };
   }
 }
 
-export { }
+export {};

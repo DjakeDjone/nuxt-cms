@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { useNotificationHandler } from '#imports'
+import { useNotificationHandler } from "#imports";
 
-defineOptions({ name: 'NotificationStack' })
+defineOptions({ name: "NotificationStack" });
 
 const props = defineProps<{
   // right is the default alignment
-  align?: 'left' | 'center'
-}>()
+  align?: "left" | "center";
+}>();
 
-const { notifications, removeNotification } = useNotificationHandler()
+const { notifications, removeNotification } = useNotificationHandler();
 </script>
 
 <template>
@@ -21,16 +21,8 @@ const { notifications, removeNotification } = useNotificationHandler()
       'notification-stack-center': props.align === 'center',
     }"
   >
-    <li
-      v-for="item in notifications"
-      :key="item.id"
-      class="notification"
-    >
-      <slot
-        name="notification"
-        :item="item"
-        :close-fn="removeNotification"
-      >
+    <li v-for="item in notifications" :key="item.id" class="notification">
+      <slot name="notification" :item="item" :close-fn="removeNotification">
         <NotificationItem
           :item="item"
           :close="removeNotification"

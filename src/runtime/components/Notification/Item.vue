@@ -1,44 +1,50 @@
 <script setup lang="ts">
-import { onUnmounted, ref, useNotificationHandler, watchEffect, type Notification } from '#imports'
+import {
+  onUnmounted,
+  ref,
+  useNotificationHandler,
+  watchEffect,
+  type Notification,
+} from "#imports";
 
-defineOptions({ name: 'NotificationItem' })
+defineOptions({ name: "NotificationItem" });
 
-const { setSettings } = useNotificationHandler()
-setSettings({ autoRemove: false }) // for manual control of notification removal
+const { setSettings } = useNotificationHandler();
+setSettings({ autoRemove: false }); // for manual control of notification removal
 
 const props = defineProps<{
-  item: Notification
-  close: (id: string) => void
-}>()
+  item: Notification;
+  close: (id: string) => void;
+}>();
 
-const paused = ref(false)
-const remainingTime = ref(props.item.duration || 0)
+const paused = ref(false);
+const remainingTime = ref(props.item.duration || 0);
 
 if (props.item.duration) {
   const interval = setInterval(() => {
     if (!paused.value && remainingTime.value > 0) {
-      remainingTime.value -= 100
+      remainingTime.value -= 100;
       if (remainingTime.value <= 0) {
-        props.close(props.item.id)
+        props.close(props.item.id);
       }
     }
-  }, 100)
+  }, 100);
   watchEffect(() => {
     if (props.item.duration) {
-      remainingTime.value = props.item.duration
+      remainingTime.value = props.item.duration;
     }
-  })
+  });
   onUnmounted(() => {
-    clearInterval(interval)
-  })
+    clearInterval(interval);
+  });
 }
 
 const typeToBgColor: Record<string, string> = {
-  info: 'var(--sui-info)',
-  success: 'var(--sui-success)',
-  warning: 'var(--sui-warning)',
-  error: 'var(--sui-danger)',
-}
+  info: "var(--sui-info)",
+  success: "var(--sui-success)",
+  warning: "var(--sui-warning)",
+  error: "var(--sui-danger)",
+};
 </script>
 
 <template>
@@ -50,20 +56,17 @@ const typeToBgColor: Record<string, string> = {
     @mouseleave="paused = false"
   >
     <div class="notification-content">
-      <NotificationTypeIcon
-        :type="item.type"
-        class="notification-type-icon"
-      />
+      <NotificationTypeIcon :type="item.type" class="notification-type-icon" />
       <span>{{ item.message }}</span>
     </div>
     <button
       class="close-btn"
-      @click="$emit('close', item.id); props.close(item.id)"
+      @click="
+        $emit('close', item.id);
+        props.close(item.id);
+      "
     >
-      <Icon
-        name="lucide:x"
-        size="20"
-      />
+      <Icon name="lucide:x" size="20" />
     </button>
     <div class="bottom-timeline">
       <NotificationTime
@@ -113,7 +116,7 @@ const typeToBgColor: Record<string, string> = {
   position: absolute;
   top: 0.5rem;
   right: 0.5rem;
-  margin-left: .5rem;
+  margin-left: 0.5rem;
   background: none;
   border: none;
   cursor: pointer;

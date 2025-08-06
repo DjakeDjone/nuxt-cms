@@ -1,25 +1,18 @@
 <script setup lang="ts">
-defineOptions({ name: 'UiTest' })
+defineOptions({ name: "UiTest" });
 const opened = defineModel<boolean>({
   default: true,
   type: Boolean,
-})
+});
 </script>
 
 <template>
   <div>
     <div class="test-wrapper">
       <div @click="opened = !opened">
-        <span>
-          test
-        </span>
+        <span> test </span>
       </div>
-      <div
-        v-if="opened"
-        class="test"
-      >
-        1
-      </div>
+      <div v-if="opened" class="test">1</div>
     </div>
   </div>
 </template>

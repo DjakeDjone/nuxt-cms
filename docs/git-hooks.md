@@ -5,6 +5,7 @@ This project includes a Git pre-push hook that automatically runs code formattin
 ## What it does
 
 The pre-push hook:
+
 1. 🎨 Automatically runs `npm run format` to fix formatting issues
 2. 📝 Shows which files were changed by the formatting
 3. ✅ Allows the push to continue (non-blocking)
@@ -17,7 +18,8 @@ The hook is located at: `.git/hooks/pre-push`
 ## Current Behavior (Non-blocking)
 
 The current hook configuration is **non-blocking**, meaning:
-- It will always format your code before pushing 
+
+- It will always format your code before pushing
 - It will inform you if changes were made
 - It will **NOT** prevent the push from happening
 - You should commit the formatting changes in your next commit
@@ -47,6 +49,7 @@ fi
 ## Disabling the Hook
 
 To temporarily disable the hook:
+
 ```bash
 # Rename it to disable
 mv .git/hooks/pre-push .git/hooks/pre-push.disabled

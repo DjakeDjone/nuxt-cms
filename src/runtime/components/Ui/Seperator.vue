@@ -1,28 +1,25 @@
 <script setup lang="ts">
-defineOptions({ name: 'UiSeperator' })
+defineOptions({ name: "UiSeperator" });
 const props = defineProps<{
-  mobileHidden?: boolean
-}>()
+  mobileHidden?: boolean;
+}>();
 </script>
 
 <template>
-  <span
-    class="ui-separator"
-    :class="{ 'mobile-hidden': props.mobileHidden }"
-  />
+  <span class="ui-separator" :class="{ 'mobile-hidden': props.mobileHidden }" />
 </template>
 
 <style scoped>
 .ui-separator {
-    display: inline-block;
-    width: 1px;
-    height: 1rem;
-    background-color: var(--sui-fg);
-    margin: 0 0.5rem;
+  display: inline-block;
+  width: 1px;
+  height: 1rem;
+  background-color: var(--sui-fg);
+  margin: 0 0.5rem;
 }
 @media (max-width: 600px) {
-    .ui-separator.mobile-hidden {
-        display: none;
-    }
+  .ui-separator.mobile-hidden {
+    display: none;
+  }
 }
 </style>

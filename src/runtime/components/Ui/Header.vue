@@ -1,38 +1,46 @@
 <script setup lang="ts">
-import { useState, watch, onMounted } from '#imports'
-import AnimatedMenuIcon from './AnimatedMenuIcon.vue'
+import { useState, watch, onMounted } from "#imports";
+import AnimatedMenuIcon from "./AnimatedMenuIcon.vue";
 
-defineOptions({ name: 'UiHeader' })
+defineOptions({ name: "UiHeader" });
 
-const openedNav = useState<boolean>('openedNav', () => false)
+const openedNav = useState<boolean>("openedNav", () => false);
 
 watch(openedNav, (newVal) => {
   if (import.meta.client) {
     if (newVal) {
-      document.body.classList.add('no-scroll')
-    }
-    else {
-      document.body.classList.remove('no-scroll')
+      document.body.classList.add("no-scroll");
+    } else {
+      document.body.classList.remove("no-scroll");
     }
   }
-})
+});
 
 onMounted(() => {
   if (import.meta.client && openedNav.value) {
-    document.body.classList.add('no-scroll')
+    document.body.classList.add("no-scroll");
   }
-})
+});
 </script>
 
 <template>
   <header class="ui-header">
-    <AnimatedMenuIcon :opened="openedNav" class="ui-header-btn" @click="openedNav = !openedNav" />
-    <div :class="openedNav ? 'ui-header-content-opened' : 'ui-header-content-closed-mobile'" class="ui-header-content">
+    <AnimatedMenuIcon
+      :opened="openedNav"
+      class="ui-header-btn"
+      @click="openedNav = !openedNav"
+    />
+    <div
+      :class="
+        openedNav
+          ? 'ui-header-content-opened'
+          : 'ui-header-content-closed-mobile'
+      "
+      class="ui-header-content"
+    >
       <div class="ui-header-content-inner centered-flex">
         <NuxtLink to="/" class="ui-header-logo" @click="openedNav = false">
-          <slot name="logo">
-            HOME
-          </slot>
+          <slot name="logo"> HOME </slot>
         </NuxtLink>
         <div class="ui-header-links centered-flex" @click="openedNav = false">
           <slot />
@@ -90,8 +98,8 @@ onMounted(() => {
 
 .ui-switch {
   position: fixed;
-  right: .5rem;
-  top: .5rem;
+  right: 0.5rem;
+  top: 0.5rem;
 }
 
 @media (min-width: 600px) {
@@ -106,7 +114,7 @@ onMounted(() => {
   .centered-flex {
     flex-direction: row;
     justify-content: space-between;
-    gap: .5rem;
+    gap: 0.5rem;
   }
 
   .ui-switch {
@@ -119,7 +127,6 @@ onMounted(() => {
     height: auto;
     overflow: visible;
     opacity: 1;
-
   }
 
   .ui-header-content-inner {
