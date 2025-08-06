@@ -1,4 +1,7 @@
 <script setup lang="ts">
+defineOptions({
+  name: "UiSmartHeader",
+});
 import { useRouter } from "#imports";
 
 const props = defineProps<{

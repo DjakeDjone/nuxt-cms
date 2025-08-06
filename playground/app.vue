@@ -1,10 +1,10 @@
 <template>
   <UiStyle>
-    <UiHeader>
+    <!-- <UiHeader>
       <NuxtLink to="/calendar">Calendar</NuxtLink>
       <NuxtLink to="/login">Login</NuxtLink>
-    </UiHeader>
-    <!-- <UiSmartHeader adminPrefix="/admin" /> -->
+    </UiHeader> -->
+    <UiSmartHeader adminPrefix="/admin" />
     <NotificationStack />
     <NuxtPage />
   </UiStyle>
