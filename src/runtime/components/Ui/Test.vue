@@ -3,7 +3,6 @@ const opened = defineModel<boolean>({
   default: true,
   type: Boolean,
 })
-
 </script>
 
 <template>
@@ -14,7 +13,10 @@ const opened = defineModel<boolean>({
           test
         </span>
       </div>
-      <div class="test" v-if="opened">
+      <div
+        v-if="opened"
+        class="test"
+      >
         1
       </div>
     </div>
