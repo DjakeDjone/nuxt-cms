@@ -5,17 +5,16 @@ defineOptions({
   name: 'UiTooltip',
 })
 
-const props = defineProps<{
+const { content, position, disabled } = defineProps<{
   content: string
   position?: 'top' | 'bottom' | 'left' | 'right'
-  anchor?: 'top' | 'bottom' | 'left' | 'right'
   disabled?: boolean
 }>()
 
 const isVisible = ref(false)
 
 const showTooltip = () => {
-  if (!props.disabled) {
+  if (!disabled) {
     isVisible.value = true
   }
 }
@@ -36,12 +35,6 @@ const hideTooltip = () => {
       v-if="isVisible && content"
       class="ui-tooltip"
       :class="`tooltip-${position || 'bottom'}`"
-      :style="{
-        top: anchor === 'top' ? '0' : '',
-        bottom: anchor === 'bottom' ? '0' : '',
-        left: anchor === 'left' ? '0' : '',
-        right: anchor === 'right' ? '0' : '',
-      }"
     >
       {{ content }}
     </div>

@@ -26,45 +26,49 @@ onMounted(() => {
 
 <template>
   <header class="ui-header">
-    <AnimatedMenuIcon
-      :opened="openedNav"
-      class="ui-header-btn"
-      @click="openedNav = !openedNav"
-    />
-    <div
-      :class="openedNav
-        ? 'ui-header-content-opened'
-        : 'ui-header-content-closed-mobile'
-      "
-      class="ui-header-content"
-    >
+    <AnimatedMenuIcon :opened="openedNav" class="ui-header-btn" @click="openedNav = !openedNav" />
+    <div :class="openedNav
+      ? 'ui-header-content-opened'
+      : 'ui-header-content-closed-mobile'
+      " class="ui-header-content">
       <div class="ui-header-content-inner centered-flex">
-        <NuxtLink
-          to="/"
-          class="ui-header-logo"
-          @click="openedNav = false"
-        >
-          <slot name="logo"> HOME </slot>
-        </NuxtLink>
-        <div
-          class="ui-header-links centered-flex"
-          @click="openedNav = false"
-        >
+        <div class="logo-container">
+          <NuxtLink to="/" class="ui-header-logo" @click="openedNav = false">
+            <slot name="logo">
+              <h2>
+                HOME
+              </h2>
+            </slot>
+          </NuxtLink>
+          <span class="ui-header-actions">
+            <slot name="header-actions"></slot>
+          </span>
+        </div>
+        <div class="ui-header-links centered-flex" @click="openedNav = false">
           <slot />
         </div>
-        <!-- <div>
-          <slot name="header-actions" />
-        </div> -->
-        <UiThemeSwitch
-          class="ui-switch"
-          :size="25"
-        />
+        <UiThemeSwitch class="ui-switch" :size="25" />
       </div>
     </div>
   </header>
 </template>
 
 <style scoped>
+.logo-container {
+  position: relative
+}
+.ui-header-actions {
+  position: absolute;
+  right: -2rem;
+  top: 1.2rem;
+}
+.logo-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
 .centered-flex {
   display: flex;
   justify-content: center;

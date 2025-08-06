@@ -1,4 +1,5 @@
 import { useState } from '#app'
+import { readonly } from 'vue'
 import type { AuthToken, SanitizedUser } from '../server/model/auth'
 
 export const useUserHandler = <T extends SanitizedUser = SanitizedUser>() => {
@@ -12,7 +13,7 @@ export const useUserHandler = <T extends SanitizedUser = SanitizedUser>() => {
 
   return {
     user,
-    loggedIn,
+    loggedIn: readonly(loggedIn),
     loginUser,
   }
 }

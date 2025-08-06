@@ -87,7 +87,7 @@ const showPassword = ref(false)
     </div>
     <UiBtn
       type="submit"
-      :loading="true"
+      :loading="false"
     >
       Login
     </UiBtn>

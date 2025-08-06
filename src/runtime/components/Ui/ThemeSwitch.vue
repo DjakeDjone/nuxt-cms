@@ -5,6 +5,10 @@ defineOptions({
   name: 'UiThemeSwitch',
 })
 
+const props = defineProps<{
+  size?: number
+}>()
+
 const theme = ref('light')
 const checked = ref(false)
 
