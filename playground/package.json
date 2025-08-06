@@ -3,12 +3,20 @@
   "name": "editable-content-sample",
   "type": "module",
   "scripts": {
-    "dev": "nuxi dev",
+    "dev": "npx nuxi dev",
     "build": "npx nuxi build",
-    "generate": "nuxi generate"
+    "generate": "npx nuxi generate"
   },
   "dependencies": {
     "@tailwindcss/vite": "^4.1.11",
-    "nuxt": "^4.0.0"
+    "nuxt": "^4.0.0",
+    "@nuxt/icon": "^1.15.0",
+    "@nuxt/kit": "^4.0.1",
+    "@tiptap/extension-bubble-menu": "^3.0.7",
+    "@tiptap/extension-text-align": "^3.0.7",
+    "@tiptap/extension-underline": "^3.0.7",
+    "menus": "link:@tiptap/vue-3/menus",
+    "nuxt-tiptap-editor": "^2.3.1",
+    "tailwindcss": "^4.1.11"
   }
 }
