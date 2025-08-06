@@ -21,6 +21,23 @@ npx nuxi module add nuxt-data-mngr
 
 That's it! You can now use the nuxt data manager in your Nuxt app ✨
 
+## Styled / Unstyled
+
+You can use this module with or without styles.
+
+Just configure the module in your `nuxt.config.ts` file:
+
+```ts
+export default defineNuxtConfig({
+  modules: [
+    'nuxt-data-mngr',
+  ],
+  dataManager: {
+    styled: true, // set to false to use unstyled components
+  },
+});
+```
+
 ## Usage 💡
 
 ### Components
