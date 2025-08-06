@@ -1,6 +1,6 @@
 <template>
-    <main>
-        <EditableSaveBtn />
-        <NuxtPage />
-    </main>
+  <main>
+    <EditableSaveBtn />
+    <NuxtPage />
+  </main>
 </template>

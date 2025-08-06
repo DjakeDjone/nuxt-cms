@@ -29,7 +29,8 @@ const getRouteName = (routeName: string) => {
   name = name.trim()
   if (name.length > 0) {
     name = name.charAt(0).toUpperCase() + name.slice(1)
-  } else {
+  }
+  else {
     name = 'Home'
   }
   return name
@@ -38,7 +39,7 @@ const getRouteName = (routeName: string) => {
 // else routes without the prefix
 const routes = computed(() => {
   return pages
-    .filter(route => {
+    .filter((route) => {
       if (props.adminPrefix) {
         return adminMode.value ? route.path.startsWith(props.adminPrefix) : !route.path.startsWith(props.adminPrefix)
       }
@@ -49,22 +50,33 @@ const routes = computed(() => {
       name: getRouteName(String(route.name) || route.path),
       path: route.path,
     }))
-
 })
-
 </script>
 
 <template>
   <UiHeader>
     <template #default>
-      <NuxtLink v-for="route in routes" :to="route.path" class="text-lg font-semibold">
+      <NuxtLink
+        v-for="route in routes"
+        :to="route.path"
+        class="text-lg font-semibold"
+      >
         {{ route.name || route.path }}
       </NuxtLink>
     </template>
-    <template #header-actions v-if="loggedIn">
-      <UiTooltip content="Toggle Admin Mode" anchor="bottom">
-        <UiSwitch v-model="adminMode" class="ui-switch" :size="15">
-        </UiSwitch>
+    <template
+      v-if="loggedIn"
+      #header-actions
+    >
+      <UiTooltip
+        content="Toggle Admin Mode"
+        anchor="bottom"
+      >
+        <UiSwitch
+          v-model="adminMode"
+          class="ui-switch"
+          :size="15"
+        />
       </UiTooltip>
     </template>
   </UiHeader>

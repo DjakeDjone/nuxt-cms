@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { computed } from 'vue'
+
 defineOptions({
   name: 'UiSwitch',
 })
@@ -20,7 +22,6 @@ const toggle = () => {
   emit('update:modelValue', newValue)
   emit('change', newValue)
 }
-import { computed } from 'vue'
 
 const trackHeight = computed(() => props.size ? `${props.size}px` : '')
 const trackWidth = computed(() => props.size ? `${(props.size * (2.5 / 1.5)).toFixed(2)}px` : '')
@@ -29,15 +30,28 @@ const moveDistance = computed(() => props.size ? `${(props.size * ((2.5 / 1.5) -
 </script>
 
 <template>
-  <button class="ui-switch" :class="{
-    'is-on': props.modelValue,
-    'is-disabled': props.disabled,
-  }" :disabled="props.disabled" @click="toggle">
-    <span class="switch-track" :style="{ width: trackWidth, height: trackHeight }">
-      <span class="switch-thumb"
-        :style="{ width: thumbSize, height: thumbSize, transform: props.modelValue ? `translateX(${moveDistance})` : '' }" />
+  <button
+    class="ui-switch"
+    :class="{
+      'is-on': props.modelValue,
+      'is-disabled': props.disabled,
+    }"
+    :disabled="props.disabled"
+    @click="toggle"
+  >
+    <span
+      class="switch-track"
+      :style="{ width: trackWidth, height: trackHeight }"
+    >
+      <span
+        class="switch-thumb"
+        :style="{ width: thumbSize, height: thumbSize, transform: props.modelValue ? `translateX(${moveDistance})` : '' }"
+      />
     </span>
-    <span v-if="$slots.default" class="switch-label">
+    <span
+      v-if="$slots.default"
+      class="switch-label"
+    >
       <slot />
     </span>
   </button>
