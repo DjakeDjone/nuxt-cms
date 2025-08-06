@@ -5,7 +5,7 @@ defineOptions({
   name: 'UiThemeSwitch',
 })
 
-const props = defineProps<{
+defineProps<{
   size?: number
 }>()
 

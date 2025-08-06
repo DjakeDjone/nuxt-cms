@@ -58,6 +58,7 @@ const routes = computed(() => {
     <template #default>
       <NuxtLink
         v-for="route in routes"
+        :key="route.path"
         :to="route.path"
         class="text-lg font-semibold"
       >
