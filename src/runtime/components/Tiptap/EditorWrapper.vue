@@ -45,19 +45,9 @@ const editorBorder = useState<boolean>('tiptap-editor-border', () => false)
 </script>
 
 <template>
-  <div
-    class="tiptap-editor"
-    :class="{ 'editor-border': editorBorder }"
-  >
-    <div
-      class="nav"
-      :class="{ 'nav-open': !navClosed, 'nav-closed': navClosed }"
-    >
-      <TiptapNav
-        v-model:show-editor-border="editorBorder"
-        #
-        :editor="editor"
-      />
+  <div class="tiptap-editor" :class="{ 'editor-border': editorBorder }">
+    <div class="nav" :class="{ 'nav-open': !navClosed, 'nav-closed': navClosed }">
+      <TiptapNav v-model:show-editor-border="editorBorder" # :editor="editor" />
     </div>
     <TiptapMyMenu :editor="editor" />
     <TiptapEditorContent :editor="editor!" />
@@ -80,7 +70,6 @@ const editorBorder = useState<boolean>('tiptap-editor-border', () => false)
 
 .nav {
   transition: max-height 0.3s ease-in-out;
-  /* overflow: hidden; */
 }
 
 .nav-open {
@@ -90,5 +79,13 @@ const editorBorder = useState<boolean>('tiptap-editor-border', () => false)
 .nav-closed {
   max-height: 0 !important;
   overflow: hidden;
+}
+
+@media (max-width: 768px) {
+  .nav-open {
+    /* max-height: 7rem; */
+    max-height: 0 !important;
+    overflow: hidden;
+  }
 }
 </style>

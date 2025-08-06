@@ -13,7 +13,7 @@ const _save = async () => {
     <h1 class="text-2xl font-bold text-center my-4">
       <EditableContentAdmin
         content-id="heading-text"
-        class="text-center w-fit"
+        class="text-center"
       />
     </h1>
     <EditableContentAreaAdmin
@@ -22,10 +22,3 @@ const _save = async () => {
     />
   </main>
 </template>
-
-<style scoped>
-textarea:focus,
-input:focus {
-    outline: none;
-}
-</style>

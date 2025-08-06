@@ -114,6 +114,19 @@
     color: var(--sui-p);
 }
 
+input {
+    /* wrap */
+    word-break: break-word;
+    /* prevent overflow */
+    overflow-wrap: break-word;
+    max-width: 100%;
+}
+
+textarea:focus,
+input:focus {
+    outline: none;
+}
+
 .snabb-ui form input[type="text"]:focus,
 .snabb-ui form input[type="password"]:focus {
     outline: none;

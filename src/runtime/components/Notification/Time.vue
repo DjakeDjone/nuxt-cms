@@ -21,37 +21,34 @@ const remainingPercent = computed(() => {
 
 <template>
   <div class="timeline">
-    <div
-      class="timeline-bar"
-      :style="{ width: `${remainingPercent}%`, backgroundColor: props.color || '#007bff' }"
-    />
+    <div class="timeline-bar" :style="{ width: `${remainingPercent}%`, backgroundColor: props.color || '#007bff' }" />
     <span class="remaining-time-count">{{ remainingTime }}</span>
   </div>
 </template>
 
 <style scoped>
 .timeline {
-    width: 100%;
-    height: .5rem;
-    position: relative;
-    margin-top: 0.5rem;
+  width: 100%;
+  height: .5rem;
+  position: relative;
+  margin-top: 0.5rem;
 }
 
 .timeline-bar {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 0;
-    transition: width 0.1s linear;
-    border-radius: 0.25rem;
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0;
+  transition: width 0.1s linear;
+  border-radius: 0.25rem;
 }
 
 .remaining-time-count {
-    position: absolute;
-    top: 15px;
-    left: 0;
-    font-size: 0.8em;
-    color: #555;
+  position: absolute;
+  top: 15px;
+  left: 0;
+  font-size: 0.8em;
+  color: #555;
 }
 </style>
