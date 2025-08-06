@@ -22,22 +22,14 @@ const toggle = () => {
 </script>
 
 <template>
-  <button
-    class="ui-switch"
-    :class="{
-      'is-on': props.modelValue,
-      'is-disabled': props.disabled,
-    }"
-    :disabled="props.disabled"
-    @click="toggle"
-  >
+  <button class="ui-switch" :class="{
+    'is-on': props.modelValue,
+    'is-disabled': props.disabled,
+  }" :disabled="props.disabled" @click="toggle">
     <span class="switch-track">
       <span class="switch-thumb" />
     </span>
-    <span
-      v-if="$slots.default"
-      class="switch-label"
-    >
+    <span v-if="$slots.default" class="switch-label">
       <slot />
     </span>
   </button>
