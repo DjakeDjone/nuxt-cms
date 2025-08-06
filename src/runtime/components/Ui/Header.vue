@@ -5,41 +5,57 @@ import AnimatedMenuIcon from './AnimatedMenuIcon.vue'
 const openedNav = useState<boolean>('openedNav', () => false)
 
 watch(openedNav, (newVal) => {
-    if (import.meta.client) {
-        if (newVal) {
-            document.body.classList.add('no-scroll')
-        }
-        else {
-            document.body.classList.remove('no-scroll')
-        }
+  if (import.meta.client) {
+    if (newVal) {
+      document.body.classList.add('no-scroll')
     }
+    else {
+      document.body.classList.remove('no-scroll')
+    }
+  }
 })
 
 onMounted(() => {
-    if (import.meta.client && openedNav.value) {
-        document.body.classList.add('no-scroll')
-    }
+  if (import.meta.client && openedNav.value) {
+    document.body.classList.add('no-scroll')
+  }
 })
 </script>
 
 <template>
-    <header class="ui-header">
-        <AnimatedMenuIcon :opened="openedNav" class="ui-header-btn" @click="openedNav = !openedNav" />
-        <div :class="openedNav ? 'ui-header-content-opened' : 'ui-header-content-closed-mobile'"
-            class="ui-header-content">
-            <div class="ui-header-content-inner centered-flex">
-                <NuxtLink to="/" class="ui-header-logo" @click="openedNav = false">
-                    <slot name="logo">
-                        HOME
-                    </slot>
-                </NuxtLink>
-                <div class="ui-header-links centered-flex" @click="openedNav = false">
-                    <slot />
-                </div>
-                <UiThemeSwitch class="ui-switch" :size="25" />
-            </div>
+  <header class="ui-header">
+    <AnimatedMenuIcon
+      :opened="openedNav"
+      class="ui-header-btn"
+      @click="openedNav = !openedNav"
+    />
+    <div
+      :class="openedNav ? 'ui-header-content-opened' : 'ui-header-content-closed-mobile'"
+      class="ui-header-content"
+    >
+      <div class="ui-header-content-inner centered-flex">
+        <NuxtLink
+          to="/"
+          class="ui-header-logo"
+          @click="openedNav = false"
+        >
+          <slot name="logo">
+            HOME
+          </slot>
+        </NuxtLink>
+        <div
+          class="ui-header-links centered-flex"
+          @click="openedNav = false"
+        >
+          <slot />
         </div>
-    </header>
+        <UiThemeSwitch
+          class="ui-switch"
+          :size="25"
+        />
+      </div>
+    </div>
+  </header>
 </template>
 
 <style scoped>

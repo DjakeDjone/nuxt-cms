@@ -21,7 +21,10 @@ const remainingPercent = computed(() => {
 
 <template>
   <div class="timeline">
-    <div class="timeline-bar" :style="{ width: `${remainingPercent}%`, backgroundColor: props.color || '#007bff' }" />
+    <div
+      class="timeline-bar"
+      :style="{ width: `${remainingPercent}%`, backgroundColor: props.color || '#007bff' }"
+    />
     <span class="remaining-time-count">{{ remainingTime }}</span>
   </div>
 </template>

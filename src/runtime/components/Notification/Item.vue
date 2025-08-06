@@ -42,17 +42,35 @@ const typeToBgColor: Record<string, string> = {
 </script>
 
 <template>
-  <div class="notification-item" :style="{ backgroundColor: typeToBgColor[props.item.type] || '#f0f0f0' }"
-    :class="`notification-${props.item.type}`" @mouseover="paused = true" @mouseleave="paused = false">
+  <div
+    class="notification-item"
+    :style="{ backgroundColor: typeToBgColor[props.item.type] || '#f0f0f0' }"
+    :class="`notification-${props.item.type}`"
+    @mouseover="paused = true"
+    @mouseleave="paused = false"
+  >
     <div class="notification-content">
-      <NotificationTypeIcon :type="item.type" class="notification-type-icon" />
+      <NotificationTypeIcon
+        :type="item.type"
+        class="notification-type-icon"
+      />
       <span>{{ item.message }}</span>
     </div>
-    <button class="close-btn" @click="$emit('close', item.id); props.close(item.id)">
-      <Icon name="lucide:x" size="20" />
+    <button
+      class="close-btn"
+      @click="$emit('close', item.id); props.close(item.id)"
+    >
+      <Icon
+        name="lucide:x"
+        size="20"
+      />
     </button>
     <div class="bottom-timeline">
-      <NotificationTime v-if="item.duration" :duration="item.duration" :remaining="remainingTime" />
+      <NotificationTime
+        v-if="item.duration"
+        :duration="item.duration"
+        :remaining="remainingTime"
+      />
     </div>
   </div>
 </template>

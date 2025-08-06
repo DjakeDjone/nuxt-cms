@@ -12,13 +12,30 @@ const { notifications, removeNotification } = useNotificationHandler()
 </script>
 
 <template>
-  <TransitionGroup name="list" tag="ul" class="notification-stack" :class="{
-    'notification-stack-left': props.align === 'left',
-    'notification-stack-center': props.align === 'center',
-  }">
-    <li v-for="item in notifications" :key="item.id" class="notification">
-      <slot name="notification" :item="item" :close-fn="removeNotification">
-        <NotificationItem :item="item" :close="removeNotification" @close="$emit('close', item.id)" />
+  <TransitionGroup
+    name="list"
+    tag="ul"
+    class="notification-stack"
+    :class="{
+      'notification-stack-left': props.align === 'left',
+      'notification-stack-center': props.align === 'center',
+    }"
+  >
+    <li
+      v-for="item in notifications"
+      :key="item.id"
+      class="notification"
+    >
+      <slot
+        name="notification"
+        :item="item"
+        :close-fn="removeNotification"
+      >
+        <NotificationItem
+          :item="item"
+          :close="removeNotification"
+          @close="$emit('close', item.id)"
+        />
       </slot>
     </li>
   </TransitionGroup>
