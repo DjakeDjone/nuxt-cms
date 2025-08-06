@@ -37,9 +37,11 @@ onMounted(() => {
   items.value.forEach((item, index) => {
     item.style.opacity = "0";
     item.style.transform = `translateY(${props.animationSizeRem || 0.5}rem)`;
-    item.style.transition = `opacity ${props.animationDurationMs || 300
-      }ms cubic-bezier(0.25, 0.46, 0.45, 0.94), transform ${props.animationDurationMs || 300
-      }ms cubic-bezier(0.25, 0.46, 0.45, 0.94)`;
+    item.style.transition = `opacity ${
+      props.animationDurationMs || 300
+    }ms cubic-bezier(0.25, 0.46, 0.45, 0.94), transform ${
+      props.animationDurationMs || 300
+    }ms cubic-bezier(0.25, 0.46, 0.45, 0.94)`;
 
     setTimeout(() => {
       item.style.opacity = "1";
@@ -50,7 +52,11 @@ onMounted(() => {
 </script>
 
 <template>
-  <div ref="list" class="list" :class="`list-${props.orientation || 'vertical'}`">
+  <div
+    ref="list"
+    class="list"
+    :class="`list-${props.orientation || 'vertical'}`"
+  >
     <slot />
   </div>
 </template>

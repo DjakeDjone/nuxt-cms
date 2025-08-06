@@ -10,16 +10,16 @@
   overflow: hidden;
 }
 
-.btn-group>* {
+.btn-group > * {
   border-radius: 0;
 }
 
-.btn-group>*:first-child {
+.btn-group > *:first-child {
   border-top-left-radius: var(--btn-border-radius);
   border-bottom-left-radius: var(--btn-border-radius);
 }
 
-.btn-group>*:last-child {
+.btn-group > *:last-child {
   border-top-right-radius: var(--btn-border-radius);
   border-bottom-right-radius: var(--btn-border-radius);
 }

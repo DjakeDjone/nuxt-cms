@@ -25,11 +25,19 @@ onMounted(() => {
 
 <template>
   <header class="ui-header">
-    <AnimatedMenuIcon :opened="openedNav" class="ui-header-btn" @click="openedNav = !openedNav" />
-    <div :class="openedNav
-      ? 'ui-header-content-opened'
-      : 'ui-header-content-closed-mobile'
-      " class="ui-header-content">
+    <AnimatedMenuIcon
+      :opened="openedNav"
+      class="ui-header-btn"
+      @click="openedNav = !openedNav"
+    />
+    <div
+      :class="
+        openedNav
+          ? 'ui-header-content-opened'
+          : 'ui-header-content-closed-mobile'
+      "
+      class="ui-header-content"
+    >
       <div class="ui-header-content-inner centered-flex">
         <NuxtLink to="/" class="ui-header-logo" @click="openedNav = false">
           <slot name="logo"> HOME </slot>
