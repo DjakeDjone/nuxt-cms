@@ -1,5 +1,29 @@
 # Changelog
 
+## v0.1.8
+
+[compare changes](https://github.com/DjakeDjone/nuxt-cms/compare/v0.1.7...v0.1.8)
+
+### 🩹 Fixes
+
+- Update package.json scripts to use npx for commands ([4455fef](https://github.com/DjakeDjone/nuxt-cms/commit/4455fef))
+- Import ([f819e17](https://github.com/DjakeDjone/nuxt-cms/commit/f819e17))
+- Removed tailwindcss typography ([aeb8b50](https://github.com/DjakeDjone/nuxt-cms/commit/aeb8b50))
+- Add body styles for consistent layout ([9b81cb0](https://github.com/DjakeDjone/nuxt-cms/commit/9b81cb0))
+
+### 📖 Documentation
+
+- Add section on styled/unstyled module configuration ([46c2bff](https://github.com/DjakeDjone/nuxt-cms/commit/46c2bff))
+- Updated readme with all components ([6230aba](https://github.com/DjakeDjone/nuxt-cms/commit/6230aba))
+
+### 🏡 Chore
+
+- **release:** V0.1.7 ([c5883c6](https://github.com/DjakeDjone/nuxt-cms/commit/c5883c6))
+
+### ❤️ Contributors
+
+- DjakeDjone <benjamin.friedl@htlstp.at>
+
 ## v0.1.7
 
 [compare changes](https://github.com/DjakeDjone/nuxt-cms/compare/v0.1.6...v0.1.7)
