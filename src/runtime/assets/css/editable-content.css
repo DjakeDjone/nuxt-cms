@@ -48,6 +48,13 @@
   padding: 1rem;
 }
 
+body {
+  font-family: Arial, sans-serif;
+  color: var(--sui-fg);
+  background-color: var(--sui-bg);
+  min-height: 100vh;
+}
+
 .snabb-ui * {
   box-sizing: border-box;
   margin: 0;
