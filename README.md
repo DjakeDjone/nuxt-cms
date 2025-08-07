@@ -25,25 +25,92 @@ That's it! You can now use the nuxt data manager in your Nuxt app ✨
 
 You can use this module with or without styles.
 
+If you want to also have styled html tags (e.g. `<h1>`, `<p>`, etc.) you can enable the `suiProse` option and add the class `sui-prose` to a parent element.
+This will add styles to the html tags used in the editable content.
+
 Just configure the module in your `nuxt.config.ts` file:
 
 ```ts
-export default defineNuxtConfig({
-  modules: [
-    'nuxt-data-mngr',
-  ],
-  dataManager: {
-    styled: true, // set to false to use unstyled components
+  editableContent: {
+    storageKey: 'data',
+    styled: true,
+    suiProse: true,
+    auth: {
+      routeRules: [
+        {
+          // allow all get requests
+          roles: ['*'],
+          url: /^\/api\/editable\/.*/,
+          method: 'GET',
+        },
+        {
+          // editable route ('/api/editable/*')
+          roles: ['admin'],
+          url: /^\/api\/editable\/.*/,
+          method: 'POST',
+        },
+      ],
+      initUsers: [
+        {
+          id: '1',
+          username: 'admin',
+          pwd: 'admin123',
+          role: 'admin',
+          tokens: [],
+        },
+      ],
+    },
   },
-});
 ```
 
 ## Usage 💡
 
+
 ### Components
 
-- `<EditableContent>`: A component for editing simple text content.
+> Most components have an admin version that is used for editing content. The admin versions ends with `Admin`, e.g. `<EditableContentAdmin>`.
+
+**Editable**
+- `<EditableContentIndex>`
+- `<EditableContentAdmin>`
+- `<EditableContentAreaIndex>`
+- `<EditableContentAreaAdmin>`
+- `<EditableSaveBtn>`
+
+**Notification**
+- `<NotificationTime>`
+- `<NotificationTest>`
+- `<NotificationTypeIcon>`
+- `<NotificationItem>`
+- `<NotificationStack>`
+
+**Tiptap**
+- `<TiptapMyMenu>`
+- `<TiptapNav>`
+- `<TiptapEditorWrapper>`
+
+**Ui**
+- `<UiAnimatedMenuIcon>`
+- `<UiList>`
+- `<UiBtnGroup>`
+- `<UiStyle>`
+- `<UiBtn>`
+- `<UiSmartHeader>`
+- `<UiHeader>`
+- `<UiThemeSwitch>`
+- `<UiSwitch>`
+- `<UiSwitchCrossed>`
+- `<UiTooltip>`
+- `<UiSeperator>`
+- `<UiTest>`
+- `<UiOptions>`
+
+**Auth**
+- `<AuthLogin>`
+
+**Composables**
 - `useSaveHandler`: A composable for handling save operations.
+
 
 ### Example
 
