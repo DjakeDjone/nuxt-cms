@@ -125,6 +125,8 @@ input {
   /* prevent overflow */
   overflow-wrap: break-word;
   max-width: 100%;
+  border: none;
+  background-color: transparent;
 }
 
 textarea:focus,

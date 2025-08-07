@@ -158,6 +158,7 @@ input:focus {
   - [ ] styling completed
   - [ ] advanced styling
 
+- [ ] Layout component/solution
 - [ ] image upload component
 - [ ] List component (cards, grid, etc.)
 - [ ] **auth** <in progress 😎>

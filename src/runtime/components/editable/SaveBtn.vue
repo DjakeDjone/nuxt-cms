@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { onMounted, useSaveHandler } from '#imports'
+import { onMounted, onUnmounted, useSaveHandler } from '#imports'
 import { useNotificationHandler } from '../../composables/notificationHandler'
 
 const saveHandler = useSaveHandler()
@@ -17,13 +17,19 @@ const save = async () => {
   }
 }
 
+const handleKeyDown = (event: KeyboardEvent) => {
+  if (event.ctrlKey && event.key === 's') {
+    event.preventDefault()
+    save()
+  }
+}
+
 onMounted(() => {
-  document.addEventListener('keydown', (event) => {
-    if (event.ctrlKey && event.key === 's') {
-      event.preventDefault()
-      save()
-    }
-  })
+  document.addEventListener('keydown', handleKeyDown)
+})
+
+onUnmounted(() => {
+  document.removeEventListener('keydown', handleKeyDown)
 })
 </script>
 
