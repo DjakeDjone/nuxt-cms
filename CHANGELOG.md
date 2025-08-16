@@ -1,5 +1,18 @@
 # Changelog
 
+## v0.1.12
+
+[compare changes](https://github.com/DjakeDjone/nuxt-cms/compare/v0.1.10...v0.1.12)
+
+### 🏡 Chore
+
+- **release:** V0.1.10 ([dbff1a2](https://github.com/DjakeDjone/nuxt-cms/commit/dbff1a2))
+- **release:** V0.1.11 ([7b0a5c6](https://github.com/DjakeDjone/nuxt-cms/commit/7b0a5c6))
+
+### ❤️ Contributors
+
+- DjakeDjone <benjamin.friedl@htlstp.at>
+
 ## v0.1.11
 
 [compare changes](https://github.com/DjakeDjone/nuxt-cms/compare/v0.1.10...v0.1.11)
