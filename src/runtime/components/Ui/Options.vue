@@ -48,9 +48,11 @@ const props = defineProps<{
           </svg>
         </slot>
       </div>
-      <slot name="trigger">
-        Options Trigger
-      </slot>
+      <div class="ui-options-trigger">
+        <slot name="trigger">
+          Options Trigger
+        </slot>
+      </div>
     </UiBtn>
     <div
       v-if="opened"
@@ -73,6 +75,12 @@ const props = defineProps<{
 </template>
 
 <style>
+.ui-options-trigger {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 .flipped-icon {
   transform: scaleY(-1);
 }

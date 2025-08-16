@@ -26,25 +26,15 @@ onMounted(() => {
 
 <template>
   <header class="ui-header">
-    <AnimatedMenuIcon
-      :opened="openedNav"
-      class="ui-header-btn"
-      @click="openedNav = !openedNav"
-    />
-    <div
-      :class="openedNav
-        ? 'ui-header-content-opened'
-        : 'ui-header-content-closed-mobile'
-      "
-      class="ui-header-content"
-    >
+    <AnimatedMenuIcon style="display: none;" :opened="openedNav" class="ui-header-btn"
+      @click="openedNav = !openedNav" />
+    <div :class="openedNav
+      ? 'ui-header-content-opened'
+      : 'ui-header-content-closed-mobile'
+      " class="ui-header-content">
       <div class="ui-header-content-inner centered-flex">
         <div class="logo-container">
-          <NuxtLink
-            to="/"
-            class="ui-header-logo"
-            @click="openedNav = false"
-          >
+          <NuxtLink to="/" class="ui-header-logo" @click="openedNav = false">
             <slot name="logo">
               <h2>
                 HOME
@@ -55,16 +45,10 @@ onMounted(() => {
             <slot name="header-actions" />
           </span>
         </div>
-        <div
-          class="ui-header-links centered-flex"
-          @click="openedNav = false"
-        >
+        <div class="ui-header-links centered-flex" @click="openedNav = false">
           <slot />
         </div>
-        <UiThemeSwitch
-          class="ui-switch"
-          :size="25"
-        />
+        <UiThemeSwitch class="ui-switch" :size="25" />
       </div>
     </div>
   </header>
@@ -142,13 +126,19 @@ onMounted(() => {
   top: 0.5rem;
 }
 
+.ui-header-btn {
+  display: none;
+}
+
+@media (max-width: 600px) {
+  .ui-header-btn {
+    display: block !important;
+  }
+}
+
 @media (min-width: 600px) {
   .ui-header {
     padding-bottom: 3rem;
-  }
-
-  .ui-header-btn {
-    display: none;
   }
 
   .centered-flex {

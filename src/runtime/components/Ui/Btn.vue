@@ -39,6 +39,7 @@ const emit = defineEmits<{
   border: none;
   border-radius: 4px;
   cursor: pointer;
+  background-color: var(--sui-bg);
 }
 
 .is-active {
