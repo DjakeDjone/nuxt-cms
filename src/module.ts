@@ -117,11 +117,11 @@ export default defineNuxtModule<ModuleOptions>({
     addImportsDir(resolver.resolve('runtime/composables'))
 
     // plugins
-    addPlugin({
-      src: resolver.resolve('runtime/plugins/editable.ts'),
-    })
-    addPlugin({
-      src: resolver.resolve('runtime/plugins/managed.ts'),
-    })
+    // addPlugin({
+    //   src: resolver.resolve('runtime/plugins/editable.ts'),
+    // })
+    // addPlugin({
+    //   src: resolver.resolve('runtime/plugins/managed.ts'),
+    // })
   },
 })
