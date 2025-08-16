@@ -9,6 +9,10 @@ import {
 
 defineOptions({ name: 'NotificationItem' })
 
+defineEmits<{
+  close: [string]
+}>()
+
 const { setSettings } = useNotificationHandler()
 setSettings({ autoRemove: false }) // for manual control of notification removal
 

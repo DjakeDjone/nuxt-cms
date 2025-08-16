@@ -8,6 +8,10 @@ const props = defineProps<{
   align?: 'left' | 'center'
 }>()
 
+defineEmits<{
+  close: [string]
+}>()
+
 const { notifications, removeNotification } = useNotificationHandler()
 </script>
 

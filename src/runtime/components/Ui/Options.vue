@@ -20,9 +20,9 @@ onMounted(() => {
       opened.value = false
     }
   }
-  
+
   document.addEventListener('click', handleClickOutside)
-  
+
   onUnmounted(() => {
     document.removeEventListener('click', handleClickOutside)
   })
@@ -30,7 +30,10 @@ onMounted(() => {
 </script>
 
 <template>
-  <div ref="optionsRef" class="ui-options">
+  <div
+    ref="optionsRef"
+    class="ui-options"
+  >
     <UiBtn
       :active="opened"
       class="ui-options-trigger-container"
