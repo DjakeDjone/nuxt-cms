@@ -9,7 +9,6 @@ const _save = async () => {
 
 <template>
   <main class="page">
-    <EditableSaveBtn />
     <h1 class="text-2xl font-bold text-center my-4">
       <EditableContentAdmin
         content-id="heading-text"
