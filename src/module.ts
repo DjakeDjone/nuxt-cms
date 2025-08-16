@@ -5,7 +5,6 @@ import {
   addImportsDir,
   addComponentsDir,
   installModule,
-  addPlugin,
 } from '@nuxt/kit'
 import type { BaseAuthUser } from './runtime/server/model/auth'
 import type { UrlRule } from './types'
@@ -115,13 +114,5 @@ export default defineNuxtModule<ModuleOptions>({
     addImportsDir(resolver.resolve('runtime/util'))
     addImportsDir(resolver.resolve('runtime/shared'))
     addImportsDir(resolver.resolve('runtime/composables'))
-
-    // plugins
-    // addPlugin({
-    //   src: resolver.resolve('runtime/plugins/editable.ts'),
-    // })
-    // addPlugin({
-    //   src: resolver.resolve('runtime/plugins/managed.ts'),
-    // })
   },
 })
