@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import { ref, onMounted, onUnmounted } from 'vue'
+
 defineOptions({
   name: 'UiOptions',
 })
@@ -8,10 +10,27 @@ const props = defineProps<{
   anchor?: 'right' | 'left'
   nestingCount?: number
 }>()
+
+const optionsRef = ref<HTMLElement>()
+
+// Close dropdown when clicking outside
+onMounted(() => {
+  const handleClickOutside = (event: MouseEvent) => {
+    if (opened.value && optionsRef.value && !optionsRef.value.contains(event.target as Node)) {
+      opened.value = false
+    }
+  }
+  
+  document.addEventListener('click', handleClickOutside)
+  
+  onUnmounted(() => {
+    document.removeEventListener('click', handleClickOutside)
+  })
+})
 </script>
 
 <template>
-  <div class="ui-options">
+  <div ref="optionsRef" class="ui-options">
     <UiBtn
       :active="opened"
       class="ui-options-trigger-container"
