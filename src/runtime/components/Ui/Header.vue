@@ -26,25 +26,14 @@ onMounted(() => {
 
 <template>
   <header class="ui-header">
-    <AnimatedMenuIcon
-      :opened="openedNav"
-      class="ui-header-btn"
-      @click="openedNav = !openedNav"
-    />
-    <div
-      :class="openedNav
-        ? 'ui-header-content-opened'
-        : 'ui-header-content-closed-mobile'
-      "
-      class="ui-header-content"
-    >
+    <AnimatedMenuIcon :opened="openedNav" class="ui-header-btn" @click="openedNav = !openedNav" />
+    <div :class="openedNav
+      ? 'ui-header-content-opened'
+      : 'ui-header-content-closed-mobile'
+      " class="ui-header-content">
       <div class="ui-header-content-inner centered-flex">
         <div class="logo-container">
-          <NuxtLink
-            to="/"
-            class="ui-header-logo"
-            @click="openedNav = false"
-          >
+          <NuxtLink to="/" class="ui-header-logo" @click="openedNav = false">
             <slot name="logo">
               <h2>
                 HOME
@@ -55,16 +44,10 @@ onMounted(() => {
             <slot name="header-actions" />
           </span>
         </div>
-        <div
-          class="ui-header-links centered-flex"
-          @click="openedNav = false"
-        >
+        <div class="ui-header-links centered-flex" @click="openedNav = false">
           <slot />
         </div>
-        <UiThemeSwitch
-          class="ui-switch"
-          :size="25"
-        />
+        <UiThemeSwitch class="ui-switch" :size="25" />
       </div>
     </div>
   </header>
@@ -74,11 +57,17 @@ onMounted(() => {
 .logo-container {
   position: relative
 }
+
+.ui-header-logo h2 {
+  margin: 0;
+}
+
 .ui-header-actions {
   position: absolute;
   right: -2rem;
-  top: 1.2rem;
+  top: -.2rem;
 }
+
 .logo-container {
   display: flex;
   align-items: center;

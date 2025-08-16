@@ -56,28 +56,13 @@ const routes = computed(() => {
 <template>
   <UiHeader>
     <template #default>
-      <NuxtLink
-        v-for="route in routes"
-        :key="route.path"
-        :to="route.path"
-        class="text-lg font-semibold"
-      >
+      <NuxtLink v-for="route in routes" :key="route.path" :to="route.path" class="text-lg font-semibold">
         {{ route.name || route.path }}
       </NuxtLink>
     </template>
-    <template
-      v-if="loggedIn"
-      #header-actions
-    >
-      <UiTooltip
-        content="Toggle Admin Mode"
-        anchor="bottom"
-      >
-        <UiSwitch
-          v-model="adminMode"
-          class="ui-switch"
-          :size="15"
-        />
+    <template #header-actions>
+      <UiTooltip v-if="loggedIn.value" content="Toggle Admin Mode" anchor="bottom">
+        <UiSwitch v-model="adminMode" class="ui-switch" :size="15" />
       </UiTooltip>
     </template>
   </UiHeader>
