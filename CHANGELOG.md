@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.1.10
+
+[compare changes](https://github.com/DjakeDjone/nuxt-cms/compare/v0.1.9...v0.1.10)
+
+### 🩹 Fixes
+
+- No plugins (ssr issues) ([da69297](https://github.com/DjakeDjone/nuxt-cms/commit/da69297))
+
+### ❤️ Contributors
+
+- DjakeDjone <benjamin.friedl@htlstp.at>
+
 ## v0.1.9
 
 [compare changes](https://github.com/DjakeDjone/nuxt-cms/compare/v0.1.8...v0.1.9)
