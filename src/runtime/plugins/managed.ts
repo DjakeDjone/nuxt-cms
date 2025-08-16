@@ -2,6 +2,10 @@
 import { defineNuxtPlugin } from '#imports'
 import { $fetch } from 'ofetch'
 
+interface EditableContent {
+  content?: string
+}
+
 export default defineNuxtPlugin((nuxtApp) => {
   nuxtApp.vueApp.directive('managed', {
     // SSR: must be synchronous; avoid async fetch to prevent type errors and hydration issues
@@ -9,7 +13,7 @@ export default defineNuxtPlugin((nuxtApp) => {
       return {
         'data-managed-ssr': '1',
         'data-managed-id': String(binding.value ?? ''),
-      } as any
+      }
     },
 
     // Client: do not clobber SSR HTML; update once data arrives
@@ -19,7 +23,7 @@ export default defineNuxtPlugin((nuxtApp) => {
       const fetchAndRender = async (id: string) => {
         if (!id) return
         try {
-          const data: any = await $fetch(`/api/editable/content/${id}`)
+          const data = await $fetch<EditableContent>(`/api/editable/content/${id}`)
           const next = data?.content || ''
           if (el.innerHTML !== next) {
             el.innerHTML = next
@@ -44,12 +48,12 @@ export default defineNuxtPlugin((nuxtApp) => {
       if (binding.value !== binding.oldValue) {
         const id = String(binding.value ?? el.getAttribute('data-managed-id') ?? '')
         if (!id) return
-        $fetch(`/api/editable/content/${id}`)
-          .then((data: any) => {
+        $fetch<EditableContent>(`/api/editable/content/${id}`)
+          .then((data) => {
             const next = data?.content || ''
             if (el.innerHTML !== next) el.innerHTML = next
           })
-          .catch((e: any) => {
+          .catch((e) => {
             console.error('Error fetching content:', e)
           })
       }

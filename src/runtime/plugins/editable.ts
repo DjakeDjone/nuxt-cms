@@ -33,7 +33,7 @@ export default defineNuxtPlugin((nuxtApp) => {
       }
       el.addEventListener('input', () => {
         // const newContent = el.innerHTML;
-        content.value!.content = el.innerText
+        content.value!.content = el.textContent || ''
         saveHandler.addSaveEventWrapper(binding.value, () => onSave())
       })
     },
