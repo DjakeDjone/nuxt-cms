@@ -7,7 +7,7 @@ export default defineNuxtConfig({
   vite: {
     // plugins: [tailwindcss()],
   },
-  
+
   editableContent: {
     storageKey: 'data',
     styled: true,

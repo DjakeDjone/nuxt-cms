@@ -66,7 +66,7 @@ const routes = computed(() => {
       </NuxtLink>
     </template>
     <template
-      v-if="loggedIn"
+      v-if="loggedIn.value"
       #header-actions
     >
       <UiTooltip
