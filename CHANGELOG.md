@@ -1,5 +1,23 @@
 # Changelog
 
+## v0.1.9
+
+[compare changes](https://github.com/DjakeDjone/nuxt-cms/compare/v0.1.8...v0.1.9)
+
+### 🚀 Enhancements
+
+- Enhance editable components and improve save functionality ([3fdbca8](https://github.com/DjakeDjone/nuxt-cms/commit/3fdbca8))
+- Implement editable and managed directives for dynamic content handling ([48a6432](https://github.com/DjakeDjone/nuxt-cms/commit/48a6432))
+- Enhance editable and managed directives, add cookie handling functionality ([f6c3b30](https://github.com/DjakeDjone/nuxt-cms/commit/f6c3b30))
+
+### 🏡 Chore
+
+- **release:** V0.1.8 ([8f0bc51](https://github.com/DjakeDjone/nuxt-cms/commit/8f0bc51))
+
+### ❤️ Contributors
+
+- DjakeDjone <benjamin.friedl@htlstp.at>
+
 ## v0.1.8
 
 [compare changes](https://github.com/DjakeDjone/nuxt-cms/compare/v0.1.7...v0.1.8)
