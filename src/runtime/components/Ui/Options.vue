@@ -30,9 +30,19 @@ onMounted(() => {
 </script>
 
 <template>
-  <div ref="optionsRef" class="ui-options">
-    <UiBtn :active="opened" class="ui-options-trigger-container" @click="opened = !opened">
-      <div :class="{ 'flipped-icon': !opened }" class="animated-icon">
+  <div
+    ref="optionsRef"
+    class="ui-options"
+  >
+    <UiBtn
+      :active="opened"
+      class="ui-options-trigger-container"
+      @click="opened = !opened"
+    >
+      <div
+        :class="{ 'flipped-icon': !opened }"
+        class="animated-icon"
+      >
         <slot name="icon">
           <Icon name="mdi:chevron-down" />
         </slot>
@@ -43,9 +53,17 @@ onMounted(() => {
         </slot>
       </div>
     </UiBtn>
-    <div v-if="opened" class="ui-opsions-list" :class="`ui-options-${props.anchor || 'right'}`">
+    <div
+      v-if="opened"
+      class="ui-opsions-list"
+      :class="`ui-options-${props.anchor || 'right'}`"
+    >
       <slot name="ui-list">
-        <UiList v-if="opened" orientation="vertical" :nesting-count="props.nestingCount || 1">
+        <UiList
+          v-if="opened"
+          orientation="vertical"
+          :nesting-count="props.nestingCount || 1"
+        >
           <slot name="options">
             Options Valuep
           </slot>

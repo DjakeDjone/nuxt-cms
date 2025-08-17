@@ -4,22 +4,22 @@ import type { CalendarDay, CalendarEvent } from '../../../types/calendar'
 import { formatTime } from '#imports'
 
 defineOptions({
-    name: 'UiCalendar',
+  name: 'UiCalendar',
 })
 
 interface Props {
-    events?: CalendarEvent[]
-    selectedDate?: Date
+  events?: CalendarEvent[]
+  selectedDate?: Date
 }
 
 const props = withDefaults(defineProps<Props>(), {
-    events: () => [],
-    selectedDate: () => new Date(),
+  events: () => [],
+  selectedDate: () => new Date(),
 })
 
 const emit = defineEmits<{
-    'date-select': [date: Date]
-    'event-click': [event: CalendarEvent]
+  'date-select': [date: Date]
+  'event-click': [event: CalendarEvent]
 }>()
 
 const currentDate = ref(new Date(props.selectedDate))
@@ -30,173 +30,213 @@ const currentMonth = computed(() => currentDate.value.getMonth())
 const currentYear = computed(() => currentDate.value.getFullYear())
 
 const monthNames = Array.from({ length: 12 }, (_, i) => {
-    return new Date(2000, i, 1).toLocaleString('default', { month: 'long' })
+  return new Date(2000, i, 1).toLocaleString('default', { month: 'long' })
 })
 
 const daysOfWeek = Array.from({ length: 7 }, (_, i) => {
-    return new Date(2000, 0, i + 2).toLocaleString('default', { weekday: 'short' })
+  return new Date(2000, 0, i + 2).toLocaleString('default', { weekday: 'short' })
 })
 
 const calendarDays = computed(() => {
-    const firstDay = new Date(currentYear.value, currentMonth.value, 1)
-    const startDate = new Date(firstDay)
-    startDate.setDate(startDate.getDate() - firstDay.getDay())
+  const firstDay = new Date(currentYear.value, currentMonth.value, 1)
+  const startDate = new Date(firstDay)
+  startDate.setDate(startDate.getDate() - firstDay.getDay())
 
-    const days = []
-    const current = new Date(startDate)
+  const days = []
+  const current = new Date(startDate)
 
-    // Generate 42 days (6 weeks)
-    for (let i = 0; i < 42; i++) {
-        const dayEvents = props.events.filter(event =>
-            event.date.toDateString() === current.toDateString(),
-        )
+  // Generate 42 days (6 weeks)
+  for (let i = 0; i < 42; i++) {
+    const dayEvents = props.events.filter(event =>
+      event.date.toDateString() === current.toDateString(),
+    )
 
-        days.push({
-            date: new Date(current),
-            isCurrentMonth: current.getMonth() === currentMonth.value,
-            isToday: current.toDateString() === new Date().toDateString(),
-            isSelected: current.toDateString() === selectedDate.value.toDateString(),
-            events: dayEvents,
-        })
+    days.push({
+      date: new Date(current),
+      isCurrentMonth: current.getMonth() === currentMonth.value,
+      isToday: current.toDateString() === new Date().toDateString(),
+      isSelected: current.toDateString() === selectedDate.value.toDateString(),
+      events: dayEvents,
+    })
 
-        current.setDate(current.getDate() + 1)
-    }
+    current.setDate(current.getDate() + 1)
+  }
 
-    return days
+  return days
 })
 
 // Methods
 const navigateMonth = (direction: 'prev' | 'next') => {
-    const newDate = new Date(currentDate.value)
-    if (direction === 'prev') {
-        newDate.setMonth(newDate.getMonth() - 1)
-    }
-    else {
-        newDate.setMonth(newDate.getMonth() + 1)
-    }
-    currentDate.value = newDate
+  const newDate = new Date(currentDate.value)
+  if (direction === 'prev') {
+    newDate.setMonth(newDate.getMonth() - 1)
+  }
+  else {
+    newDate.setMonth(newDate.getMonth() + 1)
+  }
+  currentDate.value = newDate
 }
 
 const selectDate = (date: Date) => {
-    selectedDate.value = new Date(date)
-    selectedEventIdx.value = 0
-    emit('date-select', new Date(date))
+  selectedDate.value = new Date(date)
+  selectedEventIdx.value = 0
+  emit('date-select', new Date(date))
 }
 
 const goToToday = () => {
-    const today = new Date()
-    currentDate.value = new Date(today)
-    selectDate(today)
-    emit('date-select', new Date(today))
+  const today = new Date()
+  currentDate.value = new Date(today)
+  selectDate(today)
+  emit('date-select', new Date(today))
 }
 
 const onEventClick = (event: CalendarEvent) => {
-    selectedEventIdx.value = props.events.indexOf(event)
-    // emit('event-click', event)
+  selectedEventIdx.value = props.events.indexOf(event)
+  // emit('event-click', event)
 }
 
 const getPrevEventIdx = (day: CalendarDay) => {
-    if (day.isSelected) {
-        return selectedEventIdx.value
-    }
-    return 0
+  if (day.isSelected) {
+    return selectedEventIdx.value
+  }
+  return 0
 }
 
 const setCurrentYear = (year: number) => {
-    currentDate.value = new Date(currentDate.value.setFullYear(year))
-    console.log('Current year set to:', year)
+  currentDate.value = new Date(currentDate.value.setFullYear(year))
+  console.log('Current year set to:', year)
 }
 
 const isToday = computed(() => {
-    return selectedDate.value.toDateString() === new Date().toDateString()
+  return selectedDate.value.toDateString() === new Date().toDateString()
 })
-
 </script>
 
 <template>
-    <div class="ui-calendar">
-        <!-- Calendar Header -->
-        <div class="calendar-header">
-            <div class="calendar-nav">
-                <div class="calendar-controls">
-                    <div class="calendar-controls-month">
-                        <UiBtn @click="navigateMonth('prev')">
-                            &#8249;
-                        </UiBtn>
-                        <UiOptions anchor="left" :nesting-count="2">
-                            <template #trigger>
-                                {{ monthNames[currentMonth] }}
-                            </template>
-                            <template #options>
-                                <UiBtnGroup>
-                                    <UiBtn v-for="(month, index) in monthNames" :key="index"
-                                        @click="currentMonth = index">
-                                        {{ month }}
-                                    </UiBtn>
-                                </UiBtnGroup>
-                            </template>
-                        </UiOptions>
-                        <UiBtn @click="navigateMonth('next')">
-                            &#8250;
-                        </UiBtn>
-                    </div>
-                    <UiNumberInput :model-value="currentYear" @update:model-value="setCurrentYear($event)" />
-                </div>
-            </div>
-            <UiBtn @click="goToToday" :active="isToday"> Today {{ isToday ? '✓' : '' }}
+  <div class="ui-calendar">
+    <!-- Calendar Header -->
+    <div class="calendar-header">
+      <div class="calendar-nav">
+        <div class="calendar-controls">
+          <div class="calendar-controls-month">
+            <UiBtn @click="navigateMonth('prev')">
+              &#8249;
             </UiBtn>
+            <UiOptions
+              anchor="left"
+              :nesting-count="2"
+            >
+              <template #trigger>
+                {{ monthNames[currentMonth] }}
+              </template>
+              <template #options>
+                <UiBtnGroup>
+                  <UiBtn
+                    v-for="(month, index) in monthNames"
+                    :key="index"
+                    @click="currentMonth = index"
+                  >
+                    {{ month }}
+                  </UiBtn>
+                </UiBtnGroup>
+              </template>
+            </UiOptions>
+            <UiBtn @click="navigateMonth('next')">
+              &#8250;
+            </UiBtn>
+          </div>
+          <UiNumberInput
+            :model-value="currentYear"
+            @update:model-value="setCurrentYear($event)"
+          />
         </div>
-
-        <!-- Days of Week Header -->
-        <div class="calendar-weekdays">
-            <div v-for="day in daysOfWeek" :key="day" class="weekday-header">
-                {{ day }}
-            </div>
-        </div>
-
-        <!-- Calendar Grid -->
-        <div class="calendar-grid">
-            <div v-for="day in calendarDays" :key="day.date.getTime()" class="calendar-day" :class="{
-                'is-other-month': !day.isCurrentMonth,
-                'is-today': day.isToday,
-                'is-selected': day.isSelected,
-                'has-events': day.events.length > 0,
-            }" @click="selectDate(day.date)">
-                <span class="day-number">
-                    {{ day.date.getDate() }}
-                </span>
-
-                <!-- show 1 event in preview -->
-                <div v-if="day.events[getPrevEventIdx(day)]"
-                    :style="{ borderLeftColor: day.events[getPrevEventIdx(day)]!.color || 'var(--sui-p)' }"
-                    class="event-preview">
-                    <div class="event-line"
-                        :style="{ backgroundColor: day.events[getPrevEventIdx(day)]!.color || 'var(--sui-p)' }"
-                        :title="day.events[getPrevEventIdx(day)]!.title"
-                        @click.stop="onEventClick(day.events[getPrevEventIdx(day)]!)" />
-                    <div class="event-details">
-                        <h2 class="event-title">
-                            <UiStrippedTxt :txt="day.events[getPrevEventIdx(day)]!.title" :max-length="30" />
-                        </h2>
-                        <p class="event-time">
-                            {{ formatTime(day.events[getPrevEventIdx(day)]!.date) }}
-                        </p>
-                    </div>
-                </div>
-
-                <!-- Events -->
-                <div v-if="day.events.length > 0" class="day-events">
-                    <div v-for="event in day.events.slice(0, 7)" :key="event.id" class="event-dot"
-                        :style="{ backgroundColor: event.color || 'var(--sui-p)' }" :title="event.title"
-                        @click.stop="onEventClick(event)" />
-                    <span v-if="day.events.length > 7" class="more-events"
-                        :title="`${day.events.length - 7} more events`">
-                        +{{ day.events.length - 7 }}
-                    </span>
-                </div>
-            </div>
-        </div>
+      </div>
+      <UiBtn
+        :active="isToday"
+        @click="goToToday"
+      >
+        Today {{ isToday ? '✓' : '' }}
+      </UiBtn>
     </div>
+
+    <!-- Days of Week Header -->
+    <div class="calendar-weekdays">
+      <div
+        v-for="day in daysOfWeek"
+        :key="day"
+        class="weekday-header"
+      >
+        {{ day }}
+      </div>
+    </div>
+
+    <!-- Calendar Grid -->
+    <div class="calendar-grid">
+      <div
+        v-for="day in calendarDays"
+        :key="day.date.getTime()"
+        class="calendar-day"
+        :class="{
+          'is-other-month': !day.isCurrentMonth,
+          'is-today': day.isToday,
+          'is-selected': day.isSelected,
+          'has-events': day.events.length > 0,
+        }"
+        @click="selectDate(day.date)"
+      >
+        <span class="day-number">
+          {{ day.date.getDate() }}
+        </span>
+
+        <!-- show 1 event in preview -->
+        <div
+          v-if="day.events[getPrevEventIdx(day)]"
+          :style="{ borderLeftColor: day.events[getPrevEventIdx(day)]!.color || 'var(--sui-p)' }"
+          class="event-preview"
+        >
+          <div
+            class="event-line"
+            :style="{ backgroundColor: day.events[getPrevEventIdx(day)]!.color || 'var(--sui-p)' }"
+            :title="day.events[getPrevEventIdx(day)]!.title"
+            @click.stop="onEventClick(day.events[getPrevEventIdx(day)]!)"
+          />
+          <div class="event-details">
+            <h2 class="event-title">
+              <UiStrippedTxt
+                :txt="day.events[getPrevEventIdx(day)]!.title"
+                :max-length="30"
+              />
+            </h2>
+            <p class="event-time">
+              {{ formatTime(day.events[getPrevEventIdx(day)]!.date) }}
+            </p>
+          </div>
+        </div>
+
+        <!-- Events -->
+        <div
+          v-if="day.events.length > 0"
+          class="day-events"
+        >
+          <div
+            v-for="event in day.events.slice(0, 7)"
+            :key="event.id"
+            class="event-dot"
+            :style="{ backgroundColor: event.color || 'var(--sui-p)' }"
+            :title="event.title"
+            @click.stop="onEventClick(event)"
+          />
+          <span
+            v-if="day.events.length > 7"
+            class="more-events"
+            :title="`${day.events.length - 7} more events`"
+          >
+            +{{ day.events.length - 7 }}
+          </span>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <style scoped>
