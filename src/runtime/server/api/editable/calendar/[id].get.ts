@@ -6,8 +6,8 @@ import type { CalendarEvent } from '~/src/runtime/model/calendar'
 
 export default defineEventHandler(async (event) => {
   const id = getRouterParam(event, 'id') ?? 'calendar'
-  
-  const query = getQuery(event);
+
+  const query = getQuery(event)
   const fromDate = query.from ?? new Date(new Date().setDate(new Date().getDate() - new Date().getDate() + 1))
   const toDate = query.to ?? new Date(new Date().setMonth(new Date().getMonth() + 1, 0))
 
@@ -21,7 +21,7 @@ export default defineEventHandler(async (event) => {
     })
   }
 
-  const filteredEvents = entry; // TODO: filter correctly
+  const filteredEvents = entry // TODO: filter correctly
 
   return {
     id: id,

@@ -1,6 +1,5 @@
 import { useRuntimeConfig, useStorage } from '#imports'
-import type { Storage, StorageValue } from "unstorage";
-
+import type { Storage, StorageValue } from 'unstorage'
 
 export const useDefaultStorage = (): Storage<StorageValue> => {
   const storageKey = useRuntimeConfig().editableContent?.storageKey

@@ -1,4 +1,3 @@
-
 export const formatTime = (date: Date) => {
   return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })
 }
@@ -7,7 +6,7 @@ export const formatDate = (date: Date) => {
   return date.toLocaleDateString([], { year: 'numeric', month: 'long', day: 'numeric' })
 }
 
-export const tryConvertToDate = (value: String): Date | null => {
+export const tryConvertToDate = (value: string): Date | null => {
   const date = new Date(value.toString())
   return isNaN(date.getTime()) ? null : date
 }
@@ -24,9 +23,11 @@ export const fixDates = <T> (obj: any): T => {
     if (typeof obj[key] === 'string') {
       const date = tryConvertToDate(obj[key])
       newObj[key] = date ?? obj[key]
-    } else if (typeof obj[key] === 'object' && obj[key] !== null) {
+    }
+    else if (typeof obj[key] === 'object' && obj[key] !== null) {
       newObj[key] = fixDates(obj[key])
-    } else {
+    }
+    else {
       newObj[key] = obj[key]
     }
   }

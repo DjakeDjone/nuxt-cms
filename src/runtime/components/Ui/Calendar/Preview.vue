@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import type { CalendarEvent } from '~/src/runtime/model/calendar';
-import { formatDate } from '#imports';
+import type { CalendarEvent } from '~/src/runtime/model/calendar'
+import { formatDate } from '#imports'
 
 defineOptions({
     name: 'UiCalendarPreview',
@@ -9,12 +9,17 @@ defineOptions({
 const props = defineProps<{
     events: CalendarEvent[]
 }>()
+
+const editEvent = (event: CalendarEvent) => {
+    
+}
+
 </script>
 
 <template>
     <div class="calendar-preview">
-        <h2>Calendar Preview</h2>
-        <UiList animate-on-change v-if="props.events.length">
+        <h2 class="no-margin">Calendar Preview</h2>
+        <UiList v-if="props.events && props.events.length" animate-on-change>
             <li v-for="event in props.events" :key="event.id">
                 <div class="event-header">
                     <h3>
@@ -22,16 +27,26 @@ const props = defineProps<{
                     </h3>
                     <div>
                         <slot name="event-actions" :event="event">
-                            <UiBtn @click="$emit('edit-event', event)">Edit</UiBtn>
-                            <UiBtn @click="$emit('delete-event', event)">Delete</UiBtn>
+                            <UiBtnGroup>
+                                <UiBtn @click="$emit('edit-event', event)">
+                                    <Icon name="mdi:pencil" />
+                                </UiBtn>
+                                <UiBtn @click="$emit('delete-event', event)">
+                                    <Icon name="mdi:delete" />
+                                </UiBtn>
+                            </UiBtnGroup>
                         </slot>
                     </div>
                 </div>
                 <i class="event-time">
                     {{ formatDate(event.from) }} - {{ formatDate(event.to) }}
                 </i>
-                <p v-if="event.details">{{ event.details }}</p>
-                <p v-else>No details provided.</p>
+                <p v-if="event.details">
+                    {{ event.details }}
+                </p>
+                <p v-else>
+                    No details provided.
+                </p>
             </li>
         </UiList>
     </div>

@@ -61,7 +61,7 @@ watch(
     if (props.animateOnChange) {
       animateItems()
     }
-  }
+  },
 )
 </script>
 
