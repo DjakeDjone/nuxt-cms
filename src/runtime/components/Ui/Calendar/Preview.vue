@@ -3,53 +3,63 @@ import type { CalendarEvent } from '~/src/runtime/model/calendar'
 import { formatDate } from '#imports'
 
 defineOptions({
-    name: 'UiCalendarPreview',
+  name: 'UiCalendarPreview',
 })
 
 const props = defineProps<{
-    events: CalendarEvent[]
+  events: CalendarEvent[]
 }>()
 
 const editEvent = (event: CalendarEvent) => {
-    
-}
 
+}
 </script>
 
 <template>
-    <div class="calendar-preview">
-        <h2 class="no-margin">Calendar Preview</h2>
-        <UiList v-if="props.events && props.events.length" animate-on-change>
-            <li v-for="event in props.events" :key="event.id">
-                <div class="event-header">
-                    <h3>
-                        {{ event.title }}
-                    </h3>
-                    <div>
-                        <slot name="event-actions" :event="event">
-                            <UiBtnGroup>
-                                <UiBtn @click="$emit('edit-event', event)">
-                                    <Icon name="mdi:pencil" />
-                                </UiBtn>
-                                <UiBtn @click="$emit('delete-event', event)">
-                                    <Icon name="mdi:delete" />
-                                </UiBtn>
-                            </UiBtnGroup>
-                        </slot>
-                    </div>
-                </div>
-                <i class="event-time">
-                    {{ formatDate(event.from) }} - {{ formatDate(event.to) }}
-                </i>
-                <p v-if="event.details">
-                    {{ event.details }}
-                </p>
-                <p v-else>
-                    No details provided.
-                </p>
-            </li>
-        </UiList>
-    </div>
+  <div class="calendar-preview">
+    <h2 class="no-margin">
+      Calendar Preview
+    </h2>
+    <UiList
+      v-if="props.events && props.events.length"
+      animate-on-change
+    >
+      <li
+        v-for="event in props.events"
+        :key="event.id"
+      >
+        <div class="event-header">
+          <h3>
+            {{ event.title }}
+          </h3>
+          <div>
+            <slot
+              name="event-actions"
+              :event="event"
+            >
+              <UiBtnGroup>
+                <UiBtn @click="$emit('edit-event', event)">
+                  <Icon name="mdi:pencil" />
+                </UiBtn>
+                <UiBtn @click="$emit('delete-event', event)">
+                  <Icon name="mdi:delete" />
+                </UiBtn>
+              </UiBtnGroup>
+            </slot>
+          </div>
+        </div>
+        <i class="event-time">
+          {{ formatDate(event.from) }} - {{ formatDate(event.to) }}
+        </i>
+        <p v-if="event.details">
+          {{ event.details }}
+        </p>
+        <p v-else>
+          No details provided.
+        </p>
+      </li>
+    </UiList>
+  </div>
 </template>
 
 <style scoped>

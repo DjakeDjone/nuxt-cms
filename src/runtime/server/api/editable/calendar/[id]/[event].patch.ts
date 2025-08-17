@@ -12,7 +12,7 @@ export default defineEventHandler(async (event) => {
 
   const storage = useCalendarStorage()
   const calendarEntry = await storage.getItem<CalendarEvent[]>(id) ?? []
-  calendarEntry.push({...body.event, id: eventId})
+  calendarEntry.push({ ...body.event, id: eventId })
 
   // const updatedCalendar = calendarEntry.sort((a, b) => a.from.getTime() - b.from.getTime());
   const updatedCalendar = calendarEntry
