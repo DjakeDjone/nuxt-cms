@@ -21,7 +21,7 @@ const events = ref<CalendarEvent[]>([
     date: new Date(2025, 7, 20), // August 20, 2025
     color: '#007bff',
   },
-    {
+  {
     id: '1',
     title: 'Team Meeting',
     date: new Date(2025, 7, 20), // August 20, 2025
@@ -67,8 +67,12 @@ const onEventClick = (event: CalendarEvent) => {
     </h1>
 
     <div class="calendar-container">
-      <UiCalendar :events="events" :selected-date="selectedDate" @date-select="onDateSelect"
-        @event-click="onEventClick" />
+      <UiCalendar
+        :events="events"
+        :selected-date="selectedDate"
+        @date-select="onDateSelect"
+        @event-click="onEventClick"
+      />
 
       <div class="calendar-info">
         <h3 class="selected-date-title">
@@ -84,11 +88,16 @@ const onEventClick = (event: CalendarEvent) => {
         <ul class="events-list">
           <li
             v-for="event in events.filter((e: CalendarEvent) => e.date.toDateString() === selectedDate.toDateString())"
-            :key="event.id" class="event-item" :style="{ borderLeftColor: event.color }">
+            :key="event.id"
+            class="event-item"
+            :style="{ borderLeftColor: event.color }"
+          >
             {{ event.title }}
           </li>
-          <li v-if="!events.some((e: CalendarEvent) => e.date.toDateString() === selectedDate.toDateString())"
-            class="no-events">
+          <li
+            v-if="!events.some((e: CalendarEvent) => e.date.toDateString() === selectedDate.toDateString())"
+            class="no-events"
+          >
             No events for this date
           </li>
         </ul>

@@ -97,15 +97,19 @@ const onEventClick = (event: CalendarEvent) => {
 
 const getPrevEventIdx = (day: CalendarDay) => {
     if (day.isSelected) {
-        return selectedEventIdx.value;
+        return selectedEventIdx.value
     }
     return 0
 }
 
 const setCurrentYear = (year: number) => {
-    currentDate.value = new Date(currentDate.value.setFullYear(year));
-    console.log('Current year set to:', year);
+    currentDate.value = new Date(currentDate.value.setFullYear(year))
+    console.log('Current year set to:', year)
 }
+
+const isToday = computed(() => {
+    return selectedDate.value.toDateString() === new Date().toDateString()
+})
 
 </script>
 
@@ -114,19 +118,32 @@ const setCurrentYear = (year: number) => {
         <!-- Calendar Header -->
         <div class="calendar-header">
             <div class="calendar-nav">
-                <UiBtn @click="navigateMonth('prev')">
-                    &#8249;
-                </UiBtn>
-                <h2 class="calendar-title">
-                    {{ monthNames[currentMonth] }}
+                <div class="calendar-controls">
+                    <div class="calendar-controls-month">
+                        <UiBtn @click="navigateMonth('prev')">
+                            &#8249;
+                        </UiBtn>
+                        <UiOptions anchor="left" :nesting-count="2">
+                            <template #trigger>
+                                {{ monthNames[currentMonth] }}
+                            </template>
+                            <template #options>
+                                <UiBtnGroup>
+                                    <UiBtn v-for="(month, index) in monthNames" :key="index"
+                                        @click="currentMonth = index">
+                                        {{ month }}
+                                    </UiBtn>
+                                </UiBtnGroup>
+                            </template>
+                        </UiOptions>
+                        <UiBtn @click="navigateMonth('next')">
+                            &#8250;
+                        </UiBtn>
+                    </div>
                     <UiNumberInput :model-value="currentYear" @update:model-value="setCurrentYear($event)" />
-                </h2>
-                <UiBtn @click="navigateMonth('next')">
-                    &#8250;
-                </UiBtn>
+                </div>
             </div>
-            <UiBtn @click="goToToday">
-                Today
+            <UiBtn @click="goToToday" :active="isToday"> Today {{ isToday ? '✓' : '' }}
             </UiBtn>
         </div>
 
@@ -231,12 +248,18 @@ const setCurrentYear = (year: number) => {
     gap: 1rem;
 }
 
-.calendar-title {
+.calendar-controls {
+    display: flex;
+    gap: 1rem;
     font-size: 1.25rem;
     font-weight: bold;
     margin: 0;
     min-width: 200px;
-    text-align: center;
+}
+
+.calendar-controls-month {
+    display: flex;
+    align-items: center;
 }
 
 .calendar-weekdays {

@@ -1,32 +1,38 @@
 <script setup lang="ts">
-
 defineOptions({
-    name: 'UiNumberInput',
+  name: 'UiNumberInput',
 })
 
 const number = defineModel<number>({
-    default: 0
-});
+  default: 0,
+})
 
 const addNumber = (value: number) => {
-    number.value += value;
+  number.value += value
 }
 
 const props = defineProps({
-    steps: {
-        type: Number,
-        default: 1,
-    },
+  steps: {
+    type: Number,
+    default: 1,
+  },
 })
-
 </script>
 
 <template>
-    <div>
-        <UiBtn @click="addNumber(-props.steps)">-</UiBtn>
-        <input class="sui-number-input" type="number" v-model="number" />
-        <UiBtn @click="addNumber(props.steps)">+</UiBtn>
-    </div>
+  <div>
+    <UiBtn @click="addNumber(-props.steps)">
+      -
+    </UiBtn>
+    <input
+      v-model="number"
+      class="sui-number-input"
+      type="number"
+    >
+    <UiBtn @click="addNumber(props.steps)">
+      +
+    </UiBtn>
+  </div>
 </template>
 
 <style scoped>
@@ -45,10 +51,9 @@ const props = defineProps({
     margin: 0;
 }
 
-input[type=number] { 
+input[type=number] {
     -moz-appearance: textfield;
     appearance: textfield;
-    margin: 0; 
+    margin: 0;
 }
-
 </style>
