@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import { ref, onMounted } from '#imports'
+import { ref, onMounted, watch } from '#imports'
 
 defineOptions({
   name: 'UiList',
 })
 
 const props = defineProps<{
+  animateOnChange?: boolean
   orientation?: 'horizontal' | 'vertical'
   nestingCount?: number
   animationDurationMs?: number
@@ -29,7 +30,7 @@ const getNthNestedChildren = (
   }, [])
 }
 
-onMounted(() => {
+const animateItems = () => {
   if (!list.value) return
 
   items.value = getNthNestedChildren(list.value, props.nestingCount || 1)
@@ -48,7 +49,20 @@ onMounted(() => {
       item.style.transform = 'translateY(0)'
     }, index * (props.staggerDelayMs || 100))
   })
+}
+
+onMounted(() => {
+  animateItems()
 })
+
+watch(
+  () => list.value?.children.length,
+  () => {
+    if (props.animateOnChange) {
+      animateItems()
+    }
+  }
+)
 </script>
 
 <template>

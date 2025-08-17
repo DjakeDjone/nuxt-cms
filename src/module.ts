@@ -93,6 +93,20 @@ export default defineNuxtModule<ModuleOptions>({
         './runtime/server/api/editable/content/[id].post',
       ),
     })
+    addServerHandler({
+      route: '/api/editable/calendar/:id',
+      handler: resolver.resolve(
+        './runtime/server/api/editable/calendar/[id].get',
+      ),
+    })
+
+    addServerHandler({
+      route: '/api/editable/calendar/:id',
+      method: 'post',
+      handler: resolver.resolve(
+        './runtime/server/api/editable/calendar/[id].post',
+      ),
+    })
 
     addServerHandler({
       route: '/api/auth/login',

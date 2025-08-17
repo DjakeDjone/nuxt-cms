@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, computed, onMounted, onUnmounted } from 'vue'
-import type { CalendarDay, CalendarEvent } from '../../../types/calendar'
+import type { CalendarDay, CalendarEvent } from '../../../model/calendar'
 import { formatTime } from '#imports'
 
 defineOptions({
@@ -9,12 +9,14 @@ defineOptions({
 
 interface Props {
   events?: CalendarEvent[]
-  selectedDate?: Date
 }
+
+const selectedDate = defineModel<Date>({
+  default: () => new Date(),
+})
 
 const props = withDefaults(defineProps<Props>(), {
   events: () => [],
-  selectedDate: () => new Date(),
 })
 
 const emit = defineEmits<{
@@ -22,8 +24,7 @@ const emit = defineEmits<{
   'event-click': [event: CalendarEvent]
 }>()
 
-const currentDate = ref(new Date(props.selectedDate))
-const selectedDate = ref(new Date(props.selectedDate))
+const currentDate = ref(new Date(selectedDate.value))
 const selectedEventIdx = ref<number>(0)
 const calendarRef = ref<HTMLElement>()
 
@@ -48,9 +49,15 @@ const calendarDays = computed(() => {
 
   // Generate 42 days (6 weeks)
   for (let i = 0; i < 42; i++) {
-    const dayEvents = props.events.filter(event =>
-      event.date.toDateString() === current.toDateString(),
-    )
+    const dayEvents = props.events.filter(event => {
+      const currentDateString = current.toDateString()
+      const eventFromString = event.from.toDateString()
+      const eventToString = event.to.toDateString()
+      
+      // Check if the current day is within the event's date range
+      return current >= new Date(event.from.toDateString()) && 
+             current <= new Date(event.to.toDateString())
+    })
 
     days.push({
       date: new Date(current),
@@ -380,7 +387,7 @@ onMounted(() => {
             class="event-line"
             :style="{ backgroundColor: day.events[getPrevEventIdx(day)]!.color || 'var(--sui-p)' }"
             :title="day.events[getPrevEventIdx(day)]!.title"
-            :aria-label="`Event: ${day.events[getPrevEventIdx(day)]!.title} at ${formatTime(day.events[getPrevEventIdx(day)]!.date)}`"
+            :aria-label="`Event: ${day.events[getPrevEventIdx(day)]!.title} from ${formatTime(day.events[getPrevEventIdx(day)]!.from)} to ${formatTime(day.events[getPrevEventIdx(day)]!.to)}`"
             role="button"
             tabindex="-1"
             @click.stop="onEventClick(day.events[getPrevEventIdx(day)]!)"
@@ -395,7 +402,7 @@ onMounted(() => {
               />
             </h2>
             <p class="event-time">
-              {{ formatTime(day.events[getPrevEventIdx(day)]!.date) }}
+              {{ formatTime(day.events[getPrevEventIdx(day)]!.from) }} - {{ formatTime(day.events[getPrevEventIdx(day)]!.to) }}
             </p>
           </div>
         </div>
@@ -516,7 +523,7 @@ onMounted(() => {
 
 .calendar-weekdays {
     display: grid;
-    grid-template-columns: repeat(7, 1fr);
+    grid-template-columns: repeat(7, calc(100% / 7 - 1px));
     gap: 1px;
     margin-bottom: 1px;
 }
@@ -531,7 +538,7 @@ onMounted(() => {
 
 .calendar-grid {
     display: grid;
-    grid-template-columns: repeat(7, calc(100% / 7));
+    grid-template-columns: repeat(7, calc(100% / 7 - 1px));
     gap: 1px;
     background-color: var(--sui-active-bg);
 }
@@ -557,12 +564,7 @@ onMounted(() => {
 }
 
 .calendar-day.is-today {
-    background-color: var(--sui-p);
-}
-
-.calendar-day.is-today:hover {
-    background-color: var(--sui-p);
-    opacity: 0.9;
+    background-color: var(--sui-hover-bg);
 }
 
 .calendar-day.is-selected {
@@ -603,7 +605,6 @@ onMounted(() => {
 
 .event-preview.is-selected-event {
     background-color: var(--sui-hover-bg);
-    border-radius: var(--sui-border-radius);
 }
 
 .calendar-day:focus {

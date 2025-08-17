@@ -1,12 +1,8 @@
 <template>
-  <main class="page">
-    <h1 class="text-2xl font-bold text-center my-4">
-      <EditableContentAdmin content-id="calendar-heading" />
+  <div>
+    <h1>
+      <EditableContentAdmin content-id="content-1" />
     </h1>
-    <EditableContentAreaAdmin
-      content-id="calendar-area"
-      class="w-full"
-    />
-    <!-- TODO: calendar events etc. -->
-  </main>
+    <EditableCalendarAdmin calendar-id="calendar-1" />
+  </div>
 </template>
