@@ -193,16 +193,11 @@ const onEventClick = (event: CalendarEvent) => {
   // emit('event-click', event)
 }
 
-const getPrevEventIdx = (day: CalendarDay) => {
-  if (day.isSelected) {
-    return selectedEventIdx.value
-  }
-  return 0
-}
-
 const setCurrentYear = (year: number) => {
-  currentDate.value = new Date(currentDate.value.setFullYear(year))
-  ('Current year set to:', year)
+  const newDate = new Date(currentDate.value)
+  newDate.setFullYear(year)
+  currentDate.value = newDate
+  console.log('Current year set to:', year)
 }
 
 const isToday = computed(() => {
@@ -462,13 +457,11 @@ onMounted(() => {
       <template #title>
         Keyboard shortcuts:
       </template>
-      <template>
-        Arrow keys to navigate • Click to select ({{ selectionMode === 'single' ? 'single date' : 'click twice for range' }}) • Enter/Space
-        to
-        select event • T for today
-        • Page Up/Down for months • Home/End for month boundaries • Tab/Shift+Tab to cycle events • Escape to clear
-        selection
-      </template>
+      Arrow keys to navigate • Click to select ({{ selectionMode === 'single' ? 'single date' : 'click twice for range' }}) • Enter/Space
+      to
+      select event • T for today
+      • Page Up/Down for months • Home/End for month boundaries • Tab/Shift+Tab to cycle events • Escape to clear
+      selection
     </UiKeyboardHelp>
 
     <!-- Days of Week Header -->
@@ -515,32 +508,32 @@ onMounted(() => {
 
         <!-- show 1 event in preview -->
         <div
-          v-if="day.events[getPrevEventIdx(day)]"
-          :style="{ borderLeftColor: day.events[getPrevEventIdx(day)]!.color || 'var(--sui-p)' }"
+          v-if="day.events.length > 0 && day.events[0]"
+          :style="{ borderLeftColor: day.events[0].color || 'var(--sui-p)' }"
           class="event-preview"
-          :class="{ 'is-selected-event': day.isSelected && selectedEventIdx === getPrevEventIdx(day) }"
+          :class="{ 'is-selected-event': day.isSelected && selectedEventIdx === 0 }"
         >
           <div
             class="event-line"
-            :style="{ backgroundColor: day.events[getPrevEventIdx(day)]!.color || 'var(--sui-p)' }"
-            :title="day.events[getPrevEventIdx(day)]!.title"
-            :aria-label="`Event: ${day.events[getPrevEventIdx(day)]!.title} from ${formatTime(day.events[getPrevEventIdx(day)]!.from)} to ${formatTime(day.events[getPrevEventIdx(day)]!.to)}`"
+            :style="{ backgroundColor: day.events[0].color || 'var(--sui-p)' }"
+            :title="day.events[0].title"
+            :aria-label="`Event: ${day.events[0].title} from ${formatTime(day.events[0].from)} to ${formatTime(day.events[0].to)}`"
             role="button"
             tabindex="-1"
-            @click.stop="onEventClick(day.events[getPrevEventIdx(day)]!)"
-            @keydown.enter.stop.prevent="onEventClick(day.events[getPrevEventIdx(day)]!)"
-            @keydown.space.stop.prevent="onEventClick(day.events[getPrevEventIdx(day)]!)"
+            @click.stop="onEventClick(day.events[0])"
+            @keydown.enter.stop.prevent="onEventClick(day.events[0])"
+            @keydown.space.stop.prevent="onEventClick(day.events[0])"
           />
           <div class="event-details">
             <h2 class="event-title">
               <UiStrippedTxt
-                :txt="day.events[getPrevEventIdx(day)]!.title"
+                :txt="day.events[0].title"
                 :max-length="30"
               />
             </h2>
             <p class="event-time">
-              {{ formatTime(day.events[getPrevEventIdx(day)]!.from) }} - {{
-                formatTime(day.events[getPrevEventIdx(day)]!.to)
+              {{ formatTime(day.events[0].from) }} - {{
+                formatTime(day.events[0].to)
               }}
             </p>
           </div>
