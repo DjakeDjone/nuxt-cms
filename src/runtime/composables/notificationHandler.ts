@@ -58,16 +58,17 @@ export const useNotificationHandler = () => {
   const logToConsole = (notification: Notification) => {
     if (settings.value.consoleLog) {
       const logMethod
-        = notification.type === 'error' ? console.error : 
-      logMethod(
-        `[Notification] ${notification.type.toUpperCase()}: ${
-          notification.message
-        }`,
-        {
-          details: notification.details,
-          timestamp: new Date(notification.timestamp).toISOString(),
-        },
-      )
+        = notification.type === 'error'
+          ? console.error
+          : logMethod(
+              `[Notification] ${notification.type.toUpperCase()}: ${
+                notification.message
+              }`,
+              {
+                details: notification.details,
+                timestamp: new Date(notification.timestamp).toISOString(),
+              },
+            )
     }
   }
 
