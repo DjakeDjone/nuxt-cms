@@ -7,6 +7,7 @@ defineOptions({
 
 const props = defineProps<{
   contentId: string
+  class?: string
 }>()
 
 const {
@@ -23,19 +24,19 @@ const {
     v-if="content"
     :content="content"
   >
-    {{ content.content }}
+    <span :class="props.class">{{ content.content }}</span>
   </slot>
   <slot
     v-else-if="status === 'pending'"
     name="loading"
   >
-    Loading content...
+    <span :class="props.class">Loading content...</span>
   </slot>
   <slot
     v-else
     name="error"
     :error="error"
   >
-    Error loading content.
+    <span :class="props.class">Error loading content.</span>
   </slot>
 </template>
