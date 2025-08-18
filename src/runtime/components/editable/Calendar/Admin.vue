@@ -95,7 +95,6 @@ const selectedEvents = computed(() => {
 
 <template>
   <div class="editable-calendar-admin">
-    {{ events?.content.length }}
     <UiCalendar
       v-model:selected-date-from="selectedDateFrom"
       v-model:selected-date-to="selectedDateTo"

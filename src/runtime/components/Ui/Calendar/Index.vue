@@ -325,83 +325,48 @@ onMounted(() => {
 </script>
 
 <template>
-  <div
-    ref="calendarRef"
-    class="ui-calendar"
-    tabindex="0"
-    role="application"
+  <div ref="calendarRef" class="ui-calendar" tabindex="0" role="application"
     aria-label="Calendar navigation. Use arrow keys to navigate dates, click to select date range, Enter to select events, T for today, Escape to clear selection, Page Up/Down for months"
-    @keydown="handleKeyDown"
-    @focus="() => { }"
-  >
+    @keydown="handleKeyDown" @focus="() => { }">
     <!-- Calendar Header -->
     <div class="calendar-header">
       <div class="calendar-nav">
         <div class="calendar-controls">
           <div class="calendar-controls-month">
-            <UiBtn
-              aria-label="Previous month (Page Up)"
-              title="Previous month (Page Up)"
-              @click="navigateMonth('prev')"
-            >
+            <UiBtn aria-label="Previous month (Page Up)" title="Previous month (Page Up)"
+              @click="navigateMonth('prev')">
               &#8249;
             </UiBtn>
-            <UiOptions
-              anchor="left"
-              :nesting-count="2"
-            >
+            <UiOptions anchor="left" :nesting-count="2">
               <template #trigger>
                 {{ monthNames[currentMonth] }}
               </template>
               <template #options>
                 <UiBtnGroup>
-                  <UiBtn
-                    v-for="(month, index) in monthNames"
-                    :key="index"
-                    @click="currentMonth = index"
-                  >
+                  <UiBtn v-for="(month, index) in monthNames" :key="index" @click="currentMonth = index">
                     {{ month }}
                   </UiBtn>
                 </UiBtnGroup>
               </template>
             </UiOptions>
-            <UiBtn
-              aria-label="Next month (Page Down)"
-              title="Next month (Page Down)"
-              @click="navigateMonth('next')"
-            >
+            <UiBtn aria-label="Next month (Page Down)" title="Next month (Page Down)" @click="navigateMonth('next')">
               &#8250;
             </UiBtn>
           </div>
-          <UiNumberInput
-            :model-value="currentYear"
-            @update:model-value="setCurrentYear($event)"
-          />
+          <UiNumberInput :model-value="currentYear" @update:model-value="setCurrentYear($event)" />
         </div>
       </div>
-      <UiBtn
-        :active="isToday"
-        title="Go to today (T)"
-        aria-label="Go to today (T)"
-        @click="goToToday"
-      >
+      <UiBtn :active="isToday" title="Go to today (T)" aria-label="Go to today (T)" @click="goToToday">
         Today {{ isToday ? '✓' : '' }}
       </UiBtn>
-      <UiBtn
-        v-if="isSelectingRange"
-        title="Clear selection (Escape)"
-        aria-label="Clear selection (Escape)"
-        @click="clearSelection"
-      >
+      <UiBtn v-if="isSelectingRange" title="Clear selection (Escape)" aria-label="Clear selection (Escape)"
+        @click="clearSelection">
         Clear Selection
       </UiBtn>
     </div>
 
     <!-- Range Selection Status -->
-    <div
-      v-if="selectedDateFrom.toDateString() !== selectedDateTo.toDateString()"
-      class="range-status"
-    >
+    <div v-if="selectedDateFrom.toDateString() !== selectedDateTo.toDateString()" class="range-status">
       <small>
         <strong>Selected Range:</strong>
         {{ selectedDateFrom.toLocaleDateString() }} - {{ selectedDateTo.toLocaleDateString() }}
@@ -410,114 +375,73 @@ onMounted(() => {
     </div>
 
     <!-- Keyboard shortcuts help -->
-    <div
-      class="keyboard-help"
-      title="Keyboard shortcuts"
-    >
-      <small>
-        <strong>Keyboard shortcuts:</strong> Arrow keys to navigate • Click twice to select date range • Enter/Space to select event • T for today
-        • Page Up/Down for months • Home/End for month boundaries • Tab/Shift+Tab to cycle events • Escape to clear selection
-      </small>
-    </div>
+    <UiKeyboardHelp>
+      <template #title>Keyboard shortcuts:</template>
+      <template>
+        Arrow keys to navigate • Click twice to select date range • Enter/Space
+        to
+        select event • T for today
+        • Page Up/Down for months • Home/End for month boundaries • Tab/Shift+Tab to cycle events • Escape to clear
+        selection
+      </template>
+    </UiKeyboardHelp>
 
     <!-- Days of Week Header -->
     <div class="calendar-weekdays">
-      <div
-        v-for="day in daysOfWeek"
-        :key="day"
-        class="weekday-header"
-      >
+      <div v-for="day in daysOfWeek" :key="day" class="weekday-header">
         {{ day }}
       </div>
     </div>
 
     <!-- Calendar Grid -->
-    <div
-      class="calendar-grid"
-      role="grid"
-      aria-label="Calendar grid"
-    >
-      <div
-        v-for="day in calendarDays"
-        :key="day.date.getTime()"
-        class="calendar-day"
-        :class="{
-          'is-other-month': !day.isCurrentMonth,
-          'is-today': day.isToday,
-          'is-selected': day.isSelected,
-          'is-selected-from': day.isSelectedFrom,
-          'is-selected-to': day.isSelectedTo,
-          'is-in-range': day.isInSelectedRange && !day.isSelected,
-          'has-events': day.events.length > 0,
-        }"
-        role="gridcell"
-        :aria-label="`${day.date.toLocaleDateString()}, ${day.events.length} events`"
-        :aria-selected="day.isSelected"
-        tabindex="-1"
-        @click="selectDate(day.date)"
-        @keydown.enter.prevent="selectDate(day.date)"
-        @keydown.space.prevent="selectDate(day.date)"
-      >
+    <div class="calendar-grid" role="grid" aria-label="Calendar grid">
+      <div v-for="day in calendarDays" :key="day.date.getTime()" class="calendar-day" :class="{
+        'is-other-month': !day.isCurrentMonth,
+        'is-today': day.isToday,
+        'is-selected': day.isSelected,
+        'is-selected-from': day.isSelectedFrom,
+        'is-selected-to': day.isSelectedTo,
+        'is-in-range': day.isInSelectedRange && !day.isSelected,
+        'has-events': day.events.length > 0,
+      }" role="gridcell" :aria-label="`${day.date.toLocaleDateString()}, ${day.events.length} events`"
+        :aria-selected="day.isSelected" tabindex="-1" @click="selectDate(day.date)"
+        @keydown.enter.prevent="selectDate(day.date)" @keydown.space.prevent="selectDate(day.date)">
         <span class="day-number">
           {{ day.date.getDate() }}
         </span>
 
         <!-- show 1 event in preview -->
-        <div
-          v-if="day.events[getPrevEventIdx(day)]"
-          :style="{ borderLeftColor: day.events[getPrevEventIdx(day)]!.color || 'var(--sui-p)' }"
-          class="event-preview"
-          :class="{ 'is-selected-event': day.isSelected && selectedEventIdx === getPrevEventIdx(day) }"
-        >
-          <div
-            class="event-line"
+        <div v-if="day.events[getPrevEventIdx(day)]"
+          :style="{ borderLeftColor: day.events[getPrevEventIdx(day)]!.color || 'var(--sui-p)' }" class="event-preview"
+          :class="{ 'is-selected-event': day.isSelected && selectedEventIdx === getPrevEventIdx(day) }">
+          <div class="event-line"
             :style="{ backgroundColor: day.events[getPrevEventIdx(day)]!.color || 'var(--sui-p)' }"
             :title="day.events[getPrevEventIdx(day)]!.title"
             :aria-label="`Event: ${day.events[getPrevEventIdx(day)]!.title} from ${formatTime(day.events[getPrevEventIdx(day)]!.from)} to ${formatTime(day.events[getPrevEventIdx(day)]!.to)}`"
-            role="button"
-            tabindex="-1"
-            @click.stop="onEventClick(day.events[getPrevEventIdx(day)]!)"
+            role="button" tabindex="-1" @click.stop="onEventClick(day.events[getPrevEventIdx(day)]!)"
             @keydown.enter.stop.prevent="onEventClick(day.events[getPrevEventIdx(day)]!)"
-            @keydown.space.stop.prevent="onEventClick(day.events[getPrevEventIdx(day)]!)"
-          />
+            @keydown.space.stop.prevent="onEventClick(day.events[getPrevEventIdx(day)]!)" />
           <div class="event-details">
             <h2 class="event-title">
-              <UiStrippedTxt
-                :txt="day.events[getPrevEventIdx(day)]!.title"
-                :max-length="30"
-              />
+              <UiStrippedTxt :txt="day.events[getPrevEventIdx(day)]!.title" :max-length="30" />
             </h2>
             <p class="event-time">
-              {{ formatTime(day.events[getPrevEventIdx(day)]!.from) }} - {{ formatTime(day.events[getPrevEventIdx(day)]!.to) }}
+              {{ formatTime(day.events[getPrevEventIdx(day)]!.from) }} - {{
+                formatTime(day.events[getPrevEventIdx(day)]!.to)
+              }}
             </p>
           </div>
         </div>
 
         <!-- Events -->
-        <div
-          v-if="day.events.length > 0"
-          class="day-events"
-        >
-          <div
-            v-for="(event, index) in day.events.slice(0, 7)"
-            :key="event.id"
-            class="event-dot"
+        <div v-if="day.events.length > 0" class="day-events">
+          <div v-for="(event, index) in day.events.slice(0, 7)" :key="event.id" class="event-dot"
             :class="{ 'is-selected-event': day.isSelected && selectedEventIdx === index }"
-            :style="{ backgroundColor: event.color || 'var(--sui-p)' }"
-            :title="event.title"
-            :aria-label="`Event: ${event.title}`"
-            role="button"
-            tabindex="-1"
-            @click.stop="onEventClick(event)"
-            @keydown.enter.stop.prevent="onEventClick(event)"
-            @keydown.space.stop.prevent="onEventClick(event)"
-          />
-          <span
-            v-if="day.events.length > 7"
-            class="more-events"
-            :title="`${day.events.length - 7} more events`"
-            :aria-label="`${day.events.length - 7} more events`"
-          >
+            :style="{ backgroundColor: event.color || 'var(--sui-p)' }" :title="event.title"
+            :aria-label="`Event: ${event.title}`" role="button" tabindex="-1" @click.stop="onEventClick(event)"
+            @keydown.enter.stop.prevent="onEventClick(event)" @keydown.space.stop.prevent="onEventClick(event)" />
+          <span v-if="day.events.length > 7" class="more-events" :title="`${day.events.length - 7} more events`"
+            :aria-label="`${day.events.length - 7} more events`">
             +{{ day.events.length - 7 }}
           </span>
         </div>
@@ -528,254 +452,241 @@ onMounted(() => {
 
 <style scoped>
 .event-preview {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    border-left-width: 2px;
-    border-left-style: solid;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-left-width: 2px;
+  border-left-style: solid;
 }
 
 .event-details {
-    width: 100%;
+  width: 100%;
 }
 
 .event-title {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    font-weight: normal;
-    font-size: 0.875rem;
-    margin: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: normal;
+  font-size: 0.875rem;
+  margin: 0;
 }
 
 .event-time {
-    font-size: 0.65rem;
-    margin: 0;
+  font-size: 0.65rem;
+  margin: 0;
 }
 
 .ui-calendar {
-    background-color: var(--sui-bg);
-    border-radius: var(--sui-border-radius);
-    box-shadow: var(--sui-box-shadow);
-    padding: 1rem;
-    max-width: 100%;
-    font-family: Arial, sans-serif;
-    outline: none;
+  background-color: var(--sui-bg);
+  border-radius: var(--sui-border-radius);
+  box-shadow: var(--sui-box-shadow);
+  padding: 1rem;
+  max-width: 100%;
+  font-family: Arial, sans-serif;
+  outline: none;
 }
 
 .ui-calendar:focus {
-    box-shadow: var(--sui-box-shadow), 0 0 0 2px var(--sui-p);
-}
-
-.keyboard-help {
-    margin-bottom: 1rem;
-    padding: 0.5rem;
-    background-color: var(--sui-active-bg);
-    border-radius: var(--sui-border-radius);
-    border: 1px solid var(--sui-border);
-}
-
-.keyboard-help small {
-    color: var(--sui-fg-muted);
-    line-height: 1.4;
+  box-shadow: var(--sui-box-shadow), 0 0 0 2px var(--sui-p);
 }
 
 .range-status {
-    margin-bottom: 1rem;
-    padding: 0.5rem;
-    background-color: var(--sui-p);
-    color: var(--sui-bg);
-    border-radius: var(--sui-border-radius);
-    text-align: center;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  background-color: var(--sui-p);
+  color: var(--sui-bg);
+  border-radius: var(--sui-border-radius);
+  text-align: center;
 }
 
 .range-status small {
-    color: inherit;
-    line-height: 1.4;
+  color: inherit;
+  line-height: 1.4;
 }
 
 .calendar-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
 }
 
 .calendar-nav {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
 }
 
 .calendar-controls {
-    display: flex;
-    gap: 1rem;
-    font-size: 1.25rem;
-    font-weight: bold;
-    margin: 0;
-    min-width: 200px;
+  display: flex;
+  gap: 1rem;
+  font-size: 1.25rem;
+  font-weight: bold;
+  margin: 0;
+  min-width: 200px;
 }
 
 .calendar-controls-month {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
 }
 
 .calendar-weekdays {
-    display: grid;
-    grid-template-columns: repeat(7, calc(100% / 7 - 1px));
-    gap: 1px;
-    margin-bottom: 1px;
+  display: grid;
+  grid-template-columns: repeat(7, calc(100% / 7 - 1px));
+  gap: 1px;
+  margin-bottom: 1px;
 }
 
 .weekday-header {
-    padding: 0.5rem;
-    text-align: center;
-    font-weight: bold;
-    background-color: var(--sui-active-bg);
-    font-size: 0.875rem;
+  padding: 0.5rem;
+  text-align: center;
+  font-weight: bold;
+  background-color: var(--sui-active-bg);
+  font-size: 0.875rem;
 }
 
 .calendar-grid {
-    display: grid;
-    grid-template-columns: repeat(7, calc(100% / 7 - 1px));
-    gap: 1px;
-    background-color: var(--sui-active-bg);
+  display: grid;
+  grid-template-columns: repeat(7, calc(100% / 7 - 1px));
+  gap: 1px;
+  background-color: var(--sui-active-bg);
 }
 
 .calendar-day {
-    background-color: var(--sui-bg);
-    min-height: 80px;
-    padding: 0.25rem;
-    cursor: pointer;
-    transition: background-color 0.2s ease;
-    position: relative;
-    display: flex;
-    flex-direction: column;
+  background-color: var(--sui-bg);
+  min-height: 80px;
+  padding: 0.25rem;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  position: relative;
+  display: flex;
+  flex-direction: column;
 }
 
 .calendar-day:hover {
-    background-color: var(--sui-hover-bg);
+  background-color: var(--sui-hover-bg);
 }
 
 .calendar-day.is-other-month {
-    color: #999;
-    background-color: var(--sui-active-bg);
+  color: #999;
+  background-color: var(--sui-active-bg);
 }
 
 .calendar-day.is-today {
-    background-color: var(--sui-hover-bg);
+  background-color: var(--sui-hover-bg);
 }
 
 .calendar-day.is-selected {
-    background-color: var(--sui-active-bg);
-    border: 2px solid var(--sui-p);
+  background-color: var(--sui-active-bg);
+  border: 2px solid var(--sui-p);
 }
 
 .calendar-day.is-selected-from {
-    background-color: var(--sui-p);
-    color: var(--sui-bg);
-    border-radius: 8px 0 0 8px;
+  background-color: var(--sui-p);
+  color: var(--sui-bg);
+  border-radius: 8px 0 0 8px;
 }
 
 .calendar-day.is-selected-to {
-    background-color: var(--sui-p);
-    color: var(--sui-bg);
-    border-radius: 0 8px 8px 0;
+  background-color: var(--sui-p);
+  color: var(--sui-bg);
+  border-radius: 0 8px 8px 0;
 }
 
 .calendar-day.is-selected-from.is-selected-to {
-    border-radius: 8px;
+  border-radius: 8px;
 }
 
 .calendar-day.is-in-range {
-    background-color: color-mix(in srgb, var(--sui-p) 20%, transparent);
+  background-color: color-mix(in srgb, var(--sui-p) 20%, transparent);
 }
 
 .day-number {
-    font-weight: bold;
-    font-size: 0.875rem;
-    margin-bottom: 0.25rem;
+  font-weight: bold;
+  font-size: 0.875rem;
+  margin-bottom: 0.25rem;
 }
 
 .day-events {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2px;
-    align-items: center;
-    margin-top: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px;
+  align-items: center;
+  margin-top: auto;
 }
 
 .event-dot {
-    width: 6px;
-    height: 6px;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: transform 0.2s ease;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: transform 0.2s ease;
 }
 
 .event-dot:hover {
-    transform: scale(1.2);
+  transform: scale(1.2);
 }
 
 .event-dot.is-selected-event {
-    transform: scale(1.3);
-    box-shadow: 0 0 0 2px var(--sui-bg), 0 0 0 4px var(--sui-p);
+  transform: scale(1.3);
+  box-shadow: 0 0 0 2px var(--sui-bg), 0 0 0 4px var(--sui-p);
 }
 
 .event-preview.is-selected-event {
-    background-color: var(--sui-hover-bg);
+  background-color: var(--sui-hover-bg);
 }
 
 .calendar-day:focus {
-    outline: 2px solid var(--sui-p);
-    outline-offset: -2px;
+  outline: 2px solid var(--sui-p);
+  outline-offset: -2px;
 }
 
 .more-events {
-    font-size: 0.625rem;
-    color: var(--sui-fg);
-    margin-left: 2px;
-    cursor: pointer;
+  font-size: 0.625rem;
+  color: var(--sui-fg);
+  margin-left: 2px;
+  cursor: pointer;
 }
 
 /* Responsive design */
 @media (max-width: 768px) {
-    .ui-calendar {
-        padding: 0.5rem;
-    }
+  .ui-calendar {
+    padding: 0.5rem;
+  }
 
-    .calendar-day {
-        min-height: 60px;
-        padding: 0.125rem;
-    }
+  .calendar-day {
+    min-height: 60px;
+    padding: 0.125rem;
+  }
 
-    .calendar-title {
-        font-size: 1rem;
-        min-width: 150px;
-    }
+  .calendar-title {
+    font-size: 1rem;
+    min-width: 150px;
+  }
 
-    .weekday-header {
-        padding: 0.25rem;
-        font-size: 0.75rem;
-    }
+  .weekday-header {
+    padding: 0.25rem;
+    font-size: 0.75rem;
+  }
 
-    .day-number {
-        font-size: 0.75rem;
-    }
+  .day-number {
+    font-size: 0.75rem;
+  }
 }
 
 @media (max-width: 480px) {
-    .calendar-day {
-        min-height: 50px;
-    }
+  .calendar-day {
+    min-height: 50px;
+  }
 
-    .weekday-header {
-        padding: 0.125rem;
-    }
+  .weekday-header {
+    padding: 0.125rem;
+  }
 
-    .calendar-title {
-        min-width: 120px;
-    }
+  .calendar-title {
+    min-width: 120px;
+  }
 }
 </style>
