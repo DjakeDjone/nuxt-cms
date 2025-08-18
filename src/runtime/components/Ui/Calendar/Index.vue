@@ -325,48 +325,83 @@ onMounted(() => {
 </script>
 
 <template>
-  <div ref="calendarRef" class="ui-calendar" tabindex="0" role="application"
+  <div
+    ref="calendarRef"
+    class="ui-calendar"
+    tabindex="0"
+    role="application"
     aria-label="Calendar navigation. Use arrow keys to navigate dates, click to select date range, Enter to select events, T for today, Escape to clear selection, Page Up/Down for months"
-    @keydown="handleKeyDown" @focus="() => { }">
+    @keydown="handleKeyDown"
+    @focus="() => { }"
+  >
     <!-- Calendar Header -->
     <div class="calendar-header">
       <div class="calendar-nav">
         <div class="calendar-controls">
           <div class="calendar-controls-month">
-            <UiBtn aria-label="Previous month (Page Up)" title="Previous month (Page Up)"
-              @click="navigateMonth('prev')">
+            <UiBtn
+              aria-label="Previous month (Page Up)"
+              title="Previous month (Page Up)"
+              @click="navigateMonth('prev')"
+            >
               &#8249;
             </UiBtn>
-            <UiOptions anchor="left" :nesting-count="2">
+            <UiOptions
+              anchor="left"
+              :nesting-count="2"
+            >
               <template #trigger>
                 {{ monthNames[currentMonth] }}
               </template>
               <template #options>
                 <UiBtnGroup>
-                  <UiBtn v-for="(month, index) in monthNames" :key="index" @click="currentMonth = index">
+                  <UiBtn
+                    v-for="(month, index) in monthNames"
+                    :key="index"
+                    @click="currentMonth = index"
+                  >
                     {{ month }}
                   </UiBtn>
                 </UiBtnGroup>
               </template>
             </UiOptions>
-            <UiBtn aria-label="Next month (Page Down)" title="Next month (Page Down)" @click="navigateMonth('next')">
+            <UiBtn
+              aria-label="Next month (Page Down)"
+              title="Next month (Page Down)"
+              @click="navigateMonth('next')"
+            >
               &#8250;
             </UiBtn>
           </div>
-          <UiNumberInput :model-value="currentYear" @update:model-value="setCurrentYear($event)" />
+          <UiNumberInput
+            :model-value="currentYear"
+            @update:model-value="setCurrentYear($event)"
+          />
         </div>
       </div>
-      <UiBtn :active="isToday" title="Go to today (T)" aria-label="Go to today (T)" @click="goToToday">
+      <UiBtn
+        :active="isToday"
+        title="Go to today (T)"
+        aria-label="Go to today (T)"
+        @click="goToToday"
+      >
         Today {{ isToday ? '✓' : '' }}
       </UiBtn>
-      <UiBtn v-if="isSelectingRange" title="Clear selection (Escape)" aria-label="Clear selection (Escape)"
-        @click="clearSelection">
+      <UiBtn
+        v-if="isSelectingRange"
+        title="Clear selection (Escape)"
+        aria-label="Clear selection (Escape)"
+        @click="clearSelection"
+      >
         Clear Selection
       </UiBtn>
     </div>
 
     <!-- Range Selection Status -->
-    <div v-if="selectedDateFrom.toDateString() !== selectedDateTo.toDateString()" class="range-status">
+    <div
+      v-if="selectedDateFrom.toDateString() !== selectedDateTo.toDateString()"
+      class="range-status"
+    >
       <small>
         <strong>Selected Range:</strong>
         {{ selectedDateFrom.toLocaleDateString() }} - {{ selectedDateTo.toLocaleDateString() }}
@@ -376,7 +411,9 @@ onMounted(() => {
 
     <!-- Keyboard shortcuts help -->
     <UiKeyboardHelp>
-      <template #title>Keyboard shortcuts:</template>
+      <template #title>
+        Keyboard shortcuts:
+      </template>
       <template>
         Arrow keys to navigate • Click twice to select date range • Enter/Space
         to
@@ -388,42 +425,70 @@ onMounted(() => {
 
     <!-- Days of Week Header -->
     <div class="calendar-weekdays">
-      <div v-for="day in daysOfWeek" :key="day" class="weekday-header">
+      <div
+        v-for="day in daysOfWeek"
+        :key="day"
+        class="weekday-header"
+      >
         {{ day }}
       </div>
     </div>
 
     <!-- Calendar Grid -->
-    <div class="calendar-grid" role="grid" aria-label="Calendar grid">
-      <div v-for="day in calendarDays" :key="day.date.getTime()" class="calendar-day" :class="{
-        'is-other-month': !day.isCurrentMonth,
-        'is-today': day.isToday,
-        'is-selected': day.isSelected,
-        'is-selected-from': day.isSelectedFrom,
-        'is-selected-to': day.isSelectedTo,
-        'is-in-range': day.isInSelectedRange && !day.isSelected,
-        'has-events': day.events.length > 0,
-      }" role="gridcell" :aria-label="`${day.date.toLocaleDateString()}, ${day.events.length} events`"
-        :aria-selected="day.isSelected" tabindex="-1" @click="selectDate(day.date)"
-        @keydown.enter.prevent="selectDate(day.date)" @keydown.space.prevent="selectDate(day.date)">
+    <div
+      class="calendar-grid"
+      role="grid"
+      aria-label="Calendar grid"
+    >
+      <div
+        v-for="day in calendarDays"
+        :key="day.date.getTime()"
+        class="calendar-day"
+        :class="{
+          'is-other-month': !day.isCurrentMonth,
+          'is-today': day.isToday,
+          'is-selected': day.isSelected,
+          'is-selected-from': day.isSelectedFrom,
+          'is-selected-to': day.isSelectedTo,
+          'is-in-range': day.isInSelectedRange && !day.isSelected,
+          'has-events': day.events.length > 0,
+        }"
+        role="gridcell"
+        :aria-label="`${day.date.toLocaleDateString()}, ${day.events.length} events`"
+        :aria-selected="day.isSelected"
+        tabindex="-1"
+        @click="selectDate(day.date)"
+        @keydown.enter.prevent="selectDate(day.date)"
+        @keydown.space.prevent="selectDate(day.date)"
+      >
         <span class="day-number">
           {{ day.date.getDate() }}
         </span>
 
         <!-- show 1 event in preview -->
-        <div v-if="day.events[getPrevEventIdx(day)]"
-          :style="{ borderLeftColor: day.events[getPrevEventIdx(day)]!.color || 'var(--sui-p)' }" class="event-preview"
-          :class="{ 'is-selected-event': day.isSelected && selectedEventIdx === getPrevEventIdx(day) }">
-          <div class="event-line"
+        <div
+          v-if="day.events[getPrevEventIdx(day)]"
+          :style="{ borderLeftColor: day.events[getPrevEventIdx(day)]!.color || 'var(--sui-p)' }"
+          class="event-preview"
+          :class="{ 'is-selected-event': day.isSelected && selectedEventIdx === getPrevEventIdx(day) }"
+        >
+          <div
+            class="event-line"
             :style="{ backgroundColor: day.events[getPrevEventIdx(day)]!.color || 'var(--sui-p)' }"
             :title="day.events[getPrevEventIdx(day)]!.title"
             :aria-label="`Event: ${day.events[getPrevEventIdx(day)]!.title} from ${formatTime(day.events[getPrevEventIdx(day)]!.from)} to ${formatTime(day.events[getPrevEventIdx(day)]!.to)}`"
-            role="button" tabindex="-1" @click.stop="onEventClick(day.events[getPrevEventIdx(day)]!)"
+            role="button"
+            tabindex="-1"
+            @click.stop="onEventClick(day.events[getPrevEventIdx(day)]!)"
             @keydown.enter.stop.prevent="onEventClick(day.events[getPrevEventIdx(day)]!)"
-            @keydown.space.stop.prevent="onEventClick(day.events[getPrevEventIdx(day)]!)" />
+            @keydown.space.stop.prevent="onEventClick(day.events[getPrevEventIdx(day)]!)"
+          />
           <div class="event-details">
             <h2 class="event-title">
-              <UiStrippedTxt :txt="day.events[getPrevEventIdx(day)]!.title" :max-length="30" />
+              <UiStrippedTxt
+                :txt="day.events[getPrevEventIdx(day)]!.title"
+                :max-length="30"
+              />
             </h2>
             <p class="event-time">
               {{ formatTime(day.events[getPrevEventIdx(day)]!.from) }} - {{
@@ -434,14 +499,30 @@ onMounted(() => {
         </div>
 
         <!-- Events -->
-        <div v-if="day.events.length > 0" class="day-events">
-          <div v-for="(event, index) in day.events.slice(0, 7)" :key="event.id" class="event-dot"
+        <div
+          v-if="day.events.length > 0"
+          class="day-events"
+        >
+          <div
+            v-for="(event, index) in day.events.slice(0, 7)"
+            :key="event.id"
+            class="event-dot"
             :class="{ 'is-selected-event': day.isSelected && selectedEventIdx === index }"
-            :style="{ backgroundColor: event.color || 'var(--sui-p)' }" :title="event.title"
-            :aria-label="`Event: ${event.title}`" role="button" tabindex="-1" @click.stop="onEventClick(event)"
-            @keydown.enter.stop.prevent="onEventClick(event)" @keydown.space.stop.prevent="onEventClick(event)" />
-          <span v-if="day.events.length > 7" class="more-events" :title="`${day.events.length - 7} more events`"
-            :aria-label="`${day.events.length - 7} more events`">
+            :style="{ backgroundColor: event.color || 'var(--sui-p)' }"
+            :title="event.title"
+            :aria-label="`Event: ${event.title}`"
+            role="button"
+            tabindex="-1"
+            @click.stop="onEventClick(event)"
+            @keydown.enter.stop.prevent="onEventClick(event)"
+            @keydown.space.stop.prevent="onEventClick(event)"
+          />
+          <span
+            v-if="day.events.length > 7"
+            class="more-events"
+            :title="`${day.events.length - 7} more events`"
+            :aria-label="`${day.events.length - 7} more events`"
+          >
             +{{ day.events.length - 7 }}
           </span>
         </div>

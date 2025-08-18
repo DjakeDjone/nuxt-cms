@@ -1,17 +1,16 @@
 <script setup lang="ts">
 defineOptions({
-    name: 'UiKeyboardHelp',
+  name: 'UiKeyboardHelp',
 })
-
 </script>
 
 <template>
-    <div class="keyboard-help">
-        <b>
-            <slot name="title">Keyboard Shortcuts</slot>
-        </b>
-        <slot></slot>
-    </div>
+  <div class="keyboard-help">
+    <b>
+      <slot name="title">Keyboard Shortcuts</slot>
+    </b>
+    <slot />
+  </div>
 </template>
 
 <style>

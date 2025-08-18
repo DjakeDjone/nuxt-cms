@@ -34,13 +34,15 @@ onUnmounted(() => {
 </script>
 
 <template>
-  <button
-    v-if="saveHandler.hasChanges.value"
-    class="saveBtn"
-    @click="save"
-  >
-    Save ({{ saveHandler.getSaveEvents().value.length }})
-  </button>
+  <ClientOnly>
+    <button
+      v-if="saveHandler.hasChanges.value"
+      class="saveBtn"
+      @click="save"
+    >
+      Save ({{ saveHandler.getSaveEvents().value.length }})
+    </button>
+  </ClientOnly>
 </template>
 
 <style scoped>
