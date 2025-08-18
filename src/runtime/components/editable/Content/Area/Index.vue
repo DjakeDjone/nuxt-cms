@@ -25,8 +25,8 @@ const {
     :content="content"
   >
     <div
-      v-html="content.content"
       :class="props.class"
+      v-html="content.content"
     />
   </slot>
   <slot
