@@ -1,4 +1,3 @@
-
 import { defineEventHandler, getRouterParam, readBody } from 'h3'
 import { defaultCalendarEvent, type CalendarEvent } from '~/src/runtime/model/calendar'
 import type { ApiResponse } from '~/src/runtime/server/model/response'
@@ -13,7 +12,7 @@ export default defineEventHandler(async (event) => {
   const storage = useCalendarStorage()
   const calendarEntry = await storage.getItem<CalendarEvent[]>(id) ?? []
 
-  const updatedCalendar = calendarEntry.filter(event => {
+  const updatedCalendar = calendarEntry.filter((event) => {
     console.log(`Checking eventid !${event.id}! against !${eventId}!`)
     console.log(`Result: ${event.id.toString() !== eventId}`)
     return event.id.toString() !== eventId

@@ -1,7 +1,7 @@
 <script setup>
 import { ref, onMounted, onUnmounted, watch } from 'vue'
 
-const opened = defineModel('open');
+const opened = defineModel('open')
 
 const dialogRef = ref(null)
 const previouslyFocused = ref(null)
@@ -10,7 +10,8 @@ watch(() => opened.value, (isOpen) => {
   if (isOpen) {
     previouslyFocused.value = document.activeElement
     dialogRef.value?.focus()
-  } else {
+  }
+  else {
     previouslyFocused.value?.focus()
   }
 })
@@ -30,9 +31,15 @@ onUnmounted(() => document.removeEventListener('keydown', onKeydown))
 <template>
   <teleport to="body">
     <Transition name="fade">
-      <div v-if="opened" class="snabb-ui popup-container">
+      <div
+        v-if="opened"
+        class="snabb-ui popup-container"
+      >
         <!-- backdrop -->
-        <div class="popup-backdrop" @click="close"></div>
+        <div
+          class="popup-backdrop"
+          @click="close"
+        />
 
         <!-- dialog -->
         <div

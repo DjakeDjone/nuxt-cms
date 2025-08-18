@@ -11,10 +11,10 @@ interface Props {
   events?: CalendarEvent[]
 }
 
-const selectedDateFrom = defineModel<Date>("selectedDateFrom", {
+const selectedDateFrom = defineModel<Date>('selectedDateFrom', {
   default: () => new Date(),
 })
-const selectedDateTo = defineModel<Date>("selectedDateTo", {
+const selectedDateTo = defineModel<Date>('selectedDateTo', {
   default: () => new Date(),
 })
 
@@ -49,16 +49,16 @@ const isDateInRange = (date: Date, from: Date, to: Date): boolean => {
   const dateStr = date.toDateString()
   const fromStr = from.toDateString()
   const toStr = to.toDateString()
-  
+
   // If from and to are the same, only that date is selected
   if (fromStr === toStr) {
     return dateStr === fromStr
   }
-  
+
   // Ensure from is before to
   const startDate = from <= to ? from : to
   const endDate = from <= to ? to : from
-  
+
   return date >= startDate && date <= endDate
 }
 
@@ -118,17 +118,19 @@ const navigateMonth = (direction: 'prev' | 'next') => {
 
 const selectDate = (date: Date) => {
   const clickedDate = new Date(date)
-  
+
   // If no range is being selected, start a new range
   if (!isSelectingRange.value) {
     selectedDateFrom.value = new Date(clickedDate)
     selectedDateTo.value = new Date(clickedDate)
     isSelectingRange.value = true
-  } else {
+  }
+  else {
     // If we're selecting a range, set the end date
     if (clickedDate >= selectedDateFrom.value) {
       selectedDateTo.value = new Date(clickedDate)
-    } else {
+    }
+    else {
       // If clicked date is before the start date, swap them
       selectedDateTo.value = new Date(selectedDateFrom.value)
       selectedDateFrom.value = new Date(clickedDate)
@@ -136,7 +138,7 @@ const selectDate = (date: Date) => {
     isSelectingRange.value = false
     emit('range-select', new Date(selectedDateFrom.value), new Date(selectedDateTo.value))
   }
-  
+
   selectedEventIdx.value = 0
   emit('date-select', new Date(clickedDate))
 }
@@ -396,12 +398,12 @@ onMounted(() => {
     </div>
 
     <!-- Range Selection Status -->
-    <div 
+    <div
       v-if="selectedDateFrom.toDateString() !== selectedDateTo.toDateString()"
       class="range-status"
     >
       <small>
-        <strong>Selected Range:</strong> 
+        <strong>Selected Range:</strong>
         {{ selectedDateFrom.toLocaleDateString() }} - {{ selectedDateTo.toLocaleDateString() }}
         ({{ Math.ceil((selectedDateTo.getTime() - selectedDateFrom.getTime()) / (1000 * 60 * 60 * 24)) + 1 }} days)
       </small>

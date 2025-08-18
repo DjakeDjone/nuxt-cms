@@ -6,13 +6,12 @@ defineOptions({
   name: 'UiCalendarPreview',
 })
 
-
 const props = defineProps<{
   events: CalendarEvent[]
 }>()
 
-const fromDate = defineModel<Date>("from");
-const toDate = defineModel<Date>("to");
+const fromDate = defineModel<Date>('from')
+const toDate = defineModel<Date>('to')
 
 const constructDefaultEvent = (): CalendarEvent => {
   return {
@@ -20,12 +19,12 @@ const constructDefaultEvent = (): CalendarEvent => {
     to: toDate.value ?? new Date(),
     title: '',
     details: '',
-    id: ''
+    id: '',
   }
 }
-const newEvent = useState<CalendarEvent>("newEvent", () => constructDefaultEvent())
-const creatingEvent = useState<boolean>("creatingEvent", () => false)
-const editEventOpen = useState<boolean>("editEvent", () => false)
+const newEvent = useState<CalendarEvent>('newEvent', () => constructDefaultEvent())
+const creatingEvent = useState<boolean>('creatingEvent', () => false)
+const editEventOpen = useState<boolean>('editEvent', () => false)
 
 const emit = defineEmits<{
   (e: 'edit-event', event: CalendarEvent): void
@@ -54,11 +53,11 @@ const saveEvent = () => {
   editEventOpen.value = false
   if (creatingEvent.value) {
     emit('create-event', newEvent.value)
-  } else {
+  }
+  else {
     emit('edit-event', newEvent.value)
   }
 }
-
 </script>
 
 <template>
@@ -72,18 +71,32 @@ const saveEvent = () => {
       </UiBtn>
     </div>
     <UiPopup v-model:open="editEventOpen">
-      <input v-model="newEvent.title" placeholder="Event title" />
-      <UiBtn @click="saveEvent">Save</UiBtn>
+      <input
+        v-model="newEvent.title"
+        placeholder="Event title"
+      >
+      <UiBtn @click="saveEvent">
+        Save
+      </UiBtn>
     </UiPopup>
-    <UiList v-if="props.events && props.events.length" animate-on-change>
-      <li v-for="event in props.events" :key="event.id">
+    <UiList
+      v-if="props.events && props.events.length"
+      animate-on-change
+    >
+      <li
+        v-for="event in props.events"
+        :key="event.id"
+      >
         <div class="event-header">
           <h3>
             -{{ event.id }}-
             {{ event.title }}
           </h3>
           <div>
-            <slot name="event-actions" :event="event">
+            <slot
+              name="event-actions"
+              :event="event"
+            >
               <UiBtnGroup>
                 <UiBtn @click="editEvent(event)">
                   <Icon name="mdi:pencil" />

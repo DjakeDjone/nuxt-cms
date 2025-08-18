@@ -11,8 +11,7 @@ const props = defineProps<{
   calendarId: string
 }>()
 
-
-const notify = useNotificationHandler();
+const notify = useNotificationHandler()
 
 const selectedDateFrom = useState<Date>('selectedDateFrom', () => new Date())
 const selectedDateTo = useState<Date>('selectedDateTo', () => new Date())
@@ -29,15 +28,15 @@ const {
     if (!data?.content) return null
     return {
       ...data,
-      content: data.content.map(parseCalendarEvent)
+      content: data.content.map(parseCalendarEvent),
     }
   },
-  deep: true
+  deep: true,
 })
 
 const createEvent = async (event: CalendarEvent) => {
   const response = await $fetch(`/api/editable/calendar/${props.calendarId}/${event.id}`, {
-    method: 'PATCH',  // TODO: change to post
+    method: 'PATCH', // TODO: change to post
     body: { event },
   })
 
@@ -48,7 +47,7 @@ const createEvent = async (event: CalendarEvent) => {
       message: 'Event created successfully',
       type: 'success',
     })
-    console.log('Updated events:', events.value.content);
+    console.log('Updated events:', events.value.content)
   }
 }
 
@@ -74,18 +73,18 @@ const deleteEvent = async (event: CalendarEvent) => {
       type: 'success',
     })
     if (events.value) {
-      events.value.content = events.value.content.filter((e) => e.id != event.id);
-      console.log('Updated events:', events.value.content);
+      events.value.content = events.value.content.filter(e => e.id != event.id)
+      console.log('Updated events:', events.value.content)
     }
   })
 }
 
 const selectedEvents = computed(() => {
   if (!events.value?.content) return []
-  
+
   const fromTime = selectedDateFrom.value.getTime()
   const toTime = selectedDateTo.value.getTime()
-  
+
   return events.value.content.filter((event) => {
     if (!event.from) return false
     const eventTime = event.from.getTime()
@@ -97,12 +96,19 @@ const selectedEvents = computed(() => {
 <template>
   <div class="editable-calendar-admin">
     {{ events?.content.length }}
-    <UiCalendar v-model:selected-date-from="selectedDateFrom" v-model:selected-date-to="selectedDateTo"
-      :events="events?.content ?? []" />
-    <UiCalendarPreview :events="selectedEvents!" @edit-event="editEvent" @delete-event="deleteEvent"
+    <UiCalendar
+      v-model:selected-date-from="selectedDateFrom"
+      v-model:selected-date-to="selectedDateTo"
+      :events="events?.content ?? []"
+    />
+    <UiCalendarPreview
       v-model:from="selectedDateFrom"
       v-model:to="selectedDateTo"
-      @create-event="createEvent" />
+      :events="selectedEvents!"
+      @edit-event="editEvent"
+      @delete-event="deleteEvent"
+      @create-event="createEvent"
+    />
   </div>
 </template>
 
@@ -119,4 +125,3 @@ const selectedEvents = computed(() => {
   }
 }
 </style>
-

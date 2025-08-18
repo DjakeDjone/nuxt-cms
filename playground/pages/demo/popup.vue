@@ -1,5 +1,5 @@
 <script setup lang="ts">
-const popupOpened = ref(false);
+const popupOpened = ref(false)
 </script>
 
 <template>
@@ -7,7 +7,10 @@ const popupOpened = ref(false);
     <UiBtn @click="popupOpened = true">
       Open Popup
     </UiBtn>
-    <UiPopup v-model:open="popupOpened" class="sui-prose">
+    <UiPopup
+      v-model:open="popupOpened"
+      class="sui-prose"
+    >
       <h1>
         Hello, this is a popup!
       </h1>
