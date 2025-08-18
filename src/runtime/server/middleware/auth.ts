@@ -35,7 +35,7 @@ export default defineEventHandler(async (event) => {
 
   if (matchedRule.roles.includes('*')) {
     // allow all roles
-    console.log(
+    (
       `✅ Access granted to ${requestUrl.pathname} with method ${method}`,
     )
     return
@@ -67,7 +67,7 @@ export default defineEventHandler(async (event) => {
   }
 
   // allow access
-  console.log(
+  (
     `✅ User ${user.username} with role ${user.role} accessed ${requestUrl.pathname} with method ${method}`,
   )
   return

@@ -202,7 +202,7 @@ const getPrevEventIdx = (day: CalendarDay) => {
 
 const setCurrentYear = (year: number) => {
   currentDate.value = new Date(currentDate.value.setFullYear(year))
-  console.log('Current year set to:', year)
+  ('Current year set to:', year)
 }
 
 const isToday = computed(() => {

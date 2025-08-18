@@ -5,11 +5,11 @@ import { useCalendarStorage } from '../../../../util/storage'
 import { getRouterParams } from '#imports'
 
 export default defineEventHandler(async (event) => {
-  console.log(`Router params: ${JSON.stringify(getRouterParams(event))}`)
+  (`Router params: ${JSON.stringify(getRouterParams(event))}`)
   const id = getRouterParam(event, 'id') ?? 'calendar'
   const eventId = getRouterParam(event, 'event')
   const body = await readBody<{ event: CalendarEvent }>(event)
-  console.log(`Updating event ${eventId} in calendar ${id}, body: ${JSON.stringify(body)}`)
+  (`Updating event ${eventId} in calendar ${id}, body: ${JSON.stringify(body)}`)
 
   // TODO: Check auth
 

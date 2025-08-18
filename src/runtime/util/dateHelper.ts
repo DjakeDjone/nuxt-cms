@@ -31,6 +31,6 @@ export const fixDates = <T> (obj: any): T => {
       newObj[key] = obj[key]
     }
   }
-  console.log(newObj)
+  (newObj)
   return newObj as T
 }

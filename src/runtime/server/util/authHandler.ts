@@ -42,7 +42,7 @@ export const useAuthHandler = () => {
     username: string,
     user: BaseAuthUser,
   ): Promise<void> => {
-    console.log(`Updating user with username: ${username}`, user)
+    (`Updating user with username: ${username}`, user)
     await storage.setItem(`${username}`, user)
   }
 
@@ -142,7 +142,7 @@ export const useAuthHandler = () => {
     event: H3Event,
   ): Promise<SanitizedUser<PublicUserData, Roles> | null> => {
     const token = getCookie(event, 'auth_token')
-    console.log('Validating auth token:', token)
+    ('Validating auth token:', token)
     if (!token) {
       console.warn('No auth token found in cookies')
       return null

@@ -13,11 +13,11 @@ export default defineEventHandler(async (event) => {
   const calendarEntry = await storage.getItem<CalendarEvent[]>(id) ?? []
 
   const updatedCalendar = calendarEntry.filter((event) => {
-    console.log(`Checking eventid !${event.id}! against !${eventId}!`)
-    console.log(`Result: ${event.id.toString() !== eventId}`)
+    (`Checking eventid !${event.id}! against !${eventId}!`)
+    (`Result: ${event.id.toString() !== eventId}`)
     return event.id.toString() !== eventId
   })
-  console.log('Updated calendar:', updatedCalendar)
+  ('Updated calendar:', updatedCalendar)
   storage.setItem(id, updatedCalendar)
 
   return {

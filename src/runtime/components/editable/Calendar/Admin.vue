@@ -42,13 +42,13 @@ const createEvent = async (event: CalendarEvent) => {
   })
 
   if (events.value) {
-    console.log('Event created:', event.title)
+    ('Event created:', event.title)
     events.value.content.push(event)
     notify.notify({
       message: 'Event created successfully',
       type: 'success',
     })
-    console.log('Updated events:', events.value.content)
+    ('Updated events:', events.value.content)
   }
 }
 
@@ -75,7 +75,7 @@ const deleteEvent = async (event: CalendarEvent) => {
     })
     if (events.value) {
       events.value.content = events.value.content.filter(e => e.id != event.id)
-      console.log('Updated events:', events.value.content)
+      ('Updated events:', events.value.content)
     }
   })
 }
