@@ -79,6 +79,13 @@ body {
   min-height: calc(100vh - var(--sui-header-height));
 }
 
+.snabb-ui-flex-between {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
 /* mobile */
 @media (max-width: 768px) {
   .snabb-ui .page {
@@ -179,4 +186,20 @@ input:focus {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+}
+
+.snabb-ui .popup-dialog {
+  border-radius: 0.75rem;
+  box-shadow: var(--sui-box-shadow);
+  padding: 1.5rem;
+  background-color: var(--sui-bg);
+}
+
+/* mobile popup adjustments */
+@media (max-width: 768px) {
+  .snabb-ui .popup-dialog {
+    padding: 1rem;
+    max-width: calc(100vw - 2rem);
+    margin: 1rem;
+  }
 }

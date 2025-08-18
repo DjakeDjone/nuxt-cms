@@ -109,6 +109,22 @@ export default defineNuxtModule<ModuleOptions>({
     })
 
     addServerHandler({
+      route: '/api/editable/calendar/:id/:event',
+      method: 'patch',
+      handler: resolver.resolve(
+        './runtime/server/api/editable/calendar/[id]/[event].patch',
+      ),
+    })
+
+    addServerHandler({
+      route: '/api/editable/calendar/:id/:event',
+      method: 'delete',
+      handler: resolver.resolve(
+        './runtime/server/api/editable/calendar/[id]/[event].delete',
+      ),
+    })
+
+    addServerHandler({
       route: '/api/auth/login',
       method: 'post',
       handler: resolver.resolve('./runtime/server/api/auth/login.post'),
@@ -124,6 +140,7 @@ export default defineNuxtModule<ModuleOptions>({
       handler: resolver.resolve('./runtime/server/middleware/auth'),
     })
 
+    addImportsDir(resolver.resolve('runtime/model'))
     addImportsDir(resolver.resolve('runtime/server/util'))
     addImportsDir(resolver.resolve('runtime/util'))
     addImportsDir(resolver.resolve('runtime/shared'))

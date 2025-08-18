@@ -11,7 +11,10 @@ interface Props {
   events?: CalendarEvent[]
 }
 
-const selectedDate = defineModel<Date>({
+const selectedDateFrom = defineModel<Date>("selectedDateFrom", {
+  default: () => new Date(),
+})
+const selectedDateTo = defineModel<Date>("selectedDateTo", {
   default: () => new Date(),
 })
 
@@ -21,12 +24,14 @@ const props = withDefaults(defineProps<Props>(), {
 
 const emit = defineEmits<{
   'date-select': [date: Date]
+  'range-select': [from: Date, to: Date]
   'event-click': [event: CalendarEvent]
 }>()
 
-const currentDate = ref(new Date(selectedDate.value))
+const currentDate = ref(new Date(selectedDateFrom.value))
 const selectedEventIdx = ref<number>(0)
 const calendarRef = ref<HTMLElement>()
+const isSelectingRange = ref<boolean>(false)
 
 const currentMonth = computed(() => currentDate.value.getMonth())
 const currentYear = computed(() => currentDate.value.getFullYear())
@@ -38,6 +43,24 @@ const monthNames = Array.from({ length: 12 }, (_, i) => {
 const daysOfWeek = Array.from({ length: 7 }, (_, i) => {
   return new Date(2000, 0, i + 2).toLocaleString('default', { weekday: 'short' })
 })
+
+// Helper function to check if a date is in the selected range
+const isDateInRange = (date: Date, from: Date, to: Date): boolean => {
+  const dateStr = date.toDateString()
+  const fromStr = from.toDateString()
+  const toStr = to.toDateString()
+  
+  // If from and to are the same, only that date is selected
+  if (fromStr === toStr) {
+    return dateStr === fromStr
+  }
+  
+  // Ensure from is before to
+  const startDate = from <= to ? from : to
+  const endDate = from <= to ? to : from
+  
+  return date >= startDate && date <= endDate
+}
 
 const calendarDays = computed(() => {
   const firstDay = new Date(currentYear.value, currentMonth.value, 1)
@@ -59,11 +82,19 @@ const calendarDays = computed(() => {
         && current <= new Date(event.to.toDateString())
     })
 
+    // Check if current day is in selected range
+    const isInSelectedRange = isDateInRange(current, selectedDateFrom.value, selectedDateTo.value)
+    const isSelectedFrom = current.toDateString() === selectedDateFrom.value.toDateString()
+    const isSelectedTo = current.toDateString() === selectedDateTo.value.toDateString()
+
     days.push({
       date: new Date(current),
       isCurrentMonth: current.getMonth() === currentMonth.value,
       isToday: current.toDateString() === new Date().toDateString(),
-      isSelected: current.toDateString() === selectedDate.value.toDateString(),
+      isSelected: isSelectedFrom || isSelectedTo,
+      isSelectedFrom,
+      isSelectedTo,
+      isInSelectedRange,
       events: dayEvents,
     })
 
@@ -86,16 +117,45 @@ const navigateMonth = (direction: 'prev' | 'next') => {
 }
 
 const selectDate = (date: Date) => {
-  selectedDate.value = new Date(date)
+  const clickedDate = new Date(date)
+  
+  // If no range is being selected, start a new range
+  if (!isSelectingRange.value) {
+    selectedDateFrom.value = new Date(clickedDate)
+    selectedDateTo.value = new Date(clickedDate)
+    isSelectingRange.value = true
+  } else {
+    // If we're selecting a range, set the end date
+    if (clickedDate >= selectedDateFrom.value) {
+      selectedDateTo.value = new Date(clickedDate)
+    } else {
+      // If clicked date is before the start date, swap them
+      selectedDateTo.value = new Date(selectedDateFrom.value)
+      selectedDateFrom.value = new Date(clickedDate)
+    }
+    isSelectingRange.value = false
+    emit('range-select', new Date(selectedDateFrom.value), new Date(selectedDateTo.value))
+  }
+  
   selectedEventIdx.value = 0
-  emit('date-select', new Date(date))
+  emit('date-select', new Date(clickedDate))
 }
 
 const goToToday = () => {
   const today = new Date()
   currentDate.value = new Date(today)
-  selectDate(today)
+  selectedDateFrom.value = new Date(today)
+  selectedDateTo.value = new Date(today)
+  isSelectingRange.value = false
   emit('date-select', new Date(today))
+  emit('range-select', new Date(today), new Date(today))
+}
+
+const clearSelection = () => {
+  const today = new Date()
+  selectedDateFrom.value = new Date(today)
+  selectedDateTo.value = new Date(today)
+  isSelectingRange.value = false
 }
 
 const onEventClick = (event: CalendarEvent) => {
@@ -116,12 +176,12 @@ const setCurrentYear = (year: number) => {
 }
 
 const isToday = computed(() => {
-  return selectedDate.value.toDateString() === new Date().toDateString()
+  return selectedDateFrom.value.toDateString() === new Date().toDateString()
 })
 
 // Keyboard navigation helpers
 const navigateDate = (direction: 'up' | 'down' | 'left' | 'right') => {
-  const newDate = new Date(selectedDate.value)
+  const newDate = new Date(selectedDateFrom.value)
 
   switch (direction) {
     case 'left':
@@ -244,6 +304,8 @@ const handleKeyDown = (event: KeyboardEvent) => {
       }
       break
     case 'Escape':
+      event.preventDefault()
+      clearSelection()
       // Clear focus from calendar
       if (calendarRef.value) {
         calendarRef.value.blur()
@@ -266,7 +328,7 @@ onMounted(() => {
     class="ui-calendar"
     tabindex="0"
     role="application"
-    aria-label="Calendar navigation. Use arrow keys to navigate dates, Enter to select events, T for today, Page Up/Down for months"
+    aria-label="Calendar navigation. Use arrow keys to navigate dates, click to select date range, Enter to select events, T for today, Escape to clear selection, Page Up/Down for months"
     @keydown="handleKeyDown"
     @focus="() => { }"
   >
@@ -323,6 +385,26 @@ onMounted(() => {
       >
         Today {{ isToday ? '✓' : '' }}
       </UiBtn>
+      <UiBtn
+        v-if="isSelectingRange"
+        title="Clear selection (Escape)"
+        aria-label="Clear selection (Escape)"
+        @click="clearSelection"
+      >
+        Clear Selection
+      </UiBtn>
+    </div>
+
+    <!-- Range Selection Status -->
+    <div 
+      v-if="selectedDateFrom.toDateString() !== selectedDateTo.toDateString()"
+      class="range-status"
+    >
+      <small>
+        <strong>Selected Range:</strong> 
+        {{ selectedDateFrom.toLocaleDateString() }} - {{ selectedDateTo.toLocaleDateString() }}
+        ({{ Math.ceil((selectedDateTo.getTime() - selectedDateFrom.getTime()) / (1000 * 60 * 60 * 24)) + 1 }} days)
+      </small>
     </div>
 
     <!-- Keyboard shortcuts help -->
@@ -331,9 +413,8 @@ onMounted(() => {
       title="Keyboard shortcuts"
     >
       <small>
-        <strong>Keyboard shortcuts:</strong> Arrow keys to navigate • Enter/Space to select event • T for today
-        • Page
-        Up/Down for months • Home/End for month boundaries • Tab/Shift+Tab to cycle events
+        <strong>Keyboard shortcuts:</strong> Arrow keys to navigate • Click twice to select date range • Enter/Space to select event • T for today
+        • Page Up/Down for months • Home/End for month boundaries • Tab/Shift+Tab to cycle events • Escape to clear selection
       </small>
     </div>
 
@@ -362,6 +443,9 @@ onMounted(() => {
           'is-other-month': !day.isCurrentMonth,
           'is-today': day.isToday,
           'is-selected': day.isSelected,
+          'is-selected-from': day.isSelectedFrom,
+          'is-selected-to': day.isSelectedTo,
+          'is-in-range': day.isInSelectedRange && !day.isSelected,
           'has-events': day.events.length > 0,
         }"
         role="gridcell"
@@ -494,6 +578,20 @@ onMounted(() => {
     line-height: 1.4;
 }
 
+.range-status {
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    background-color: var(--sui-p);
+    color: var(--sui-bg);
+    border-radius: var(--sui-border-radius);
+    text-align: center;
+}
+
+.range-status small {
+    color: inherit;
+    line-height: 1.4;
+}
+
 .calendar-header {
     display: flex;
     justify-content: space-between;
@@ -570,6 +668,26 @@ onMounted(() => {
 .calendar-day.is-selected {
     background-color: var(--sui-active-bg);
     border: 2px solid var(--sui-p);
+}
+
+.calendar-day.is-selected-from {
+    background-color: var(--sui-p);
+    color: var(--sui-bg);
+    border-radius: 8px 0 0 8px;
+}
+
+.calendar-day.is-selected-to {
+    background-color: var(--sui-p);
+    color: var(--sui-bg);
+    border-radius: 0 8px 8px 0;
+}
+
+.calendar-day.is-selected-from.is-selected-to {
+    border-radius: 8px;
+}
+
+.calendar-day.is-in-range {
+    background-color: color-mix(in srgb, var(--sui-p) 20%, transparent);
 }
 
 .day-number {
