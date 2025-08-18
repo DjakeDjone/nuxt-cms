@@ -49,7 +49,7 @@ const daysOfWeek = Array.from({ length: 7 }, (_, i) => {
 // Helper function to check if a date is in the selected range
 const isDateInRange = (date: Date, from: Date | null, to: Date | null): boolean => {
   if (!from || !to) return false
-  
+
   const dateStr = date.toDateString()
   const fromStr = from.toDateString()
   const toStr = to.toDateString()
@@ -130,7 +130,8 @@ const selectDate = (date: Date) => {
     isSelectingRange.value = false
     emit('date-select', new Date(clickedDate))
     emit('range-select', new Date(clickedDate), new Date(clickedDate))
-  } else {
+  }
+  else {
     // Range selection mode
     // If no range is being selected, start a new range
     if (!isSelectingRange.value) {
@@ -180,10 +181,10 @@ const clearSelection = () => {
 const toggleSelectionMode = () => {
   const newMode = selectionMode.value === 'single' ? 'range' : 'single'
   selectionMode.value = newMode
-  
+
   // Clear current selection when switching modes
   clearSelection()
-  
+
   emit('selection-mode-change', newMode)
 }
 
