@@ -13,8 +13,9 @@ const props = defineProps<{
 
 const notify = useNotificationHandler()
 
-const selectedDateFrom = useState<Date>('selectedDateFrom', () => new Date())
-const selectedDateTo = useState<Date>('selectedDateTo', () => new Date())
+const selectedDateFrom = useState<Date | null>('selectedDateFrom', () => null)
+// TO is tomorrow
+const selectedDateTo = useState<Date | null>('selectedDateTo', () => null)
 
 const {
   data: events,
@@ -80,7 +81,7 @@ const deleteEvent = async (event: CalendarEvent) => {
 }
 
 const selectedEvents = computed(() => {
-  if (!events.value?.content) return []
+  if (!events.value?.content || !selectedDateFrom.value || !selectedDateTo.value) return []
 
   const fromTime = selectedDateFrom.value.getTime()
   const toTime = selectedDateTo.value.getTime()
@@ -101,6 +102,7 @@ const selectedEvents = computed(() => {
       :events="events?.content ?? []"
     />
     <UiCalendarPreview
+      v-if="selectedDateFrom && selectedDateTo"
       v-model:from="selectedDateFrom"
       v-model:to="selectedDateTo"
       :events="selectedEvents!"
@@ -113,14 +115,14 @@ const selectedEvents = computed(() => {
 
 <style scoped>
 .editable-calendar-admin {
-  display: flex;
-  flex-direction: row;
+  display: grid;
+  grid-template-columns: 1fr 15rem;
   gap: 1rem;
 }
 
 @media (max-width: 768px) {
   .editable-calendar-admin {
-    flex-direction: column;
+    grid-template-columns: 1fr;
   }
 }
 </style>

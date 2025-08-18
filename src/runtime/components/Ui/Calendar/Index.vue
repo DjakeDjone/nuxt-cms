@@ -11,11 +11,11 @@ interface Props {
   events?: CalendarEvent[]
 }
 
-const selectedDateFrom = defineModel<Date>('selectedDateFrom', {
-  default: () => new Date(),
+const selectedDateFrom = defineModel<Date | null>('selectedDateFrom', {
+  default: () => null,
 })
-const selectedDateTo = defineModel<Date>('selectedDateTo', {
-  default: () => new Date(),
+const selectedDateTo = defineModel<Date | null>('selectedDateTo', {
+  default: () => null,
 })
 
 const props = withDefaults(defineProps<Props>(), {
@@ -26,12 +26,14 @@ const emit = defineEmits<{
   'date-select': [date: Date]
   'range-select': [from: Date, to: Date]
   'event-click': [event: CalendarEvent]
+  'selection-mode-change': [mode: 'single' | 'range']
 }>()
 
-const currentDate = ref(new Date(selectedDateFrom.value))
+const currentDate = ref(new Date())
 const selectedEventIdx = ref<number>(0)
 const calendarRef = ref<HTMLElement>()
 const isSelectingRange = ref<boolean>(false)
+const selectionMode = ref<'single' | 'range'>('single')
 
 const currentMonth = computed(() => currentDate.value.getMonth())
 const currentYear = computed(() => currentDate.value.getFullYear())
@@ -45,7 +47,9 @@ const daysOfWeek = Array.from({ length: 7 }, (_, i) => {
 })
 
 // Helper function to check if a date is in the selected range
-const isDateInRange = (date: Date, from: Date, to: Date): boolean => {
+const isDateInRange = (date: Date, from: Date | null, to: Date | null): boolean => {
+  if (!from || !to) return false
+  
   const dateStr = date.toDateString()
   const fromStr = from.toDateString()
   const toStr = to.toDateString()
@@ -84,8 +88,8 @@ const calendarDays = computed(() => {
 
     // Check if current day is in selected range
     const isInSelectedRange = isDateInRange(current, selectedDateFrom.value, selectedDateTo.value)
-    const isSelectedFrom = current.toDateString() === selectedDateFrom.value.toDateString()
-    const isSelectedTo = current.toDateString() === selectedDateTo.value.toDateString()
+    const isSelectedFrom = selectedDateFrom.value ? current.toDateString() === selectedDateFrom.value.toDateString() : false
+    const isSelectedTo = selectedDateTo.value ? current.toDateString() === selectedDateTo.value.toDateString() : false
 
     days.push({
       date: new Date(current),
@@ -119,28 +123,42 @@ const navigateMonth = (direction: 'prev' | 'next') => {
 const selectDate = (date: Date) => {
   const clickedDate = new Date(date)
 
-  // If no range is being selected, start a new range
-  if (!isSelectingRange.value) {
+  if (selectionMode.value === 'single') {
+    // Single date selection mode
     selectedDateFrom.value = new Date(clickedDate)
     selectedDateTo.value = new Date(clickedDate)
-    isSelectingRange.value = true
-  }
-  else {
-    // If we're selecting a range, set the end date
-    if (clickedDate >= selectedDateFrom.value) {
+    isSelectingRange.value = false
+    emit('date-select', new Date(clickedDate))
+    emit('range-select', new Date(clickedDate), new Date(clickedDate))
+  } else {
+    // Range selection mode
+    // If no range is being selected, start a new range
+    if (!isSelectingRange.value) {
+      selectedDateFrom.value = new Date(clickedDate)
       selectedDateTo.value = new Date(clickedDate)
+      isSelectingRange.value = true
     }
     else {
-      // If clicked date is before the start date, swap them
-      selectedDateTo.value = new Date(selectedDateFrom.value)
-      selectedDateFrom.value = new Date(clickedDate)
+      // If we're selecting a range, set the end date
+      if (selectedDateFrom.value && clickedDate >= selectedDateFrom.value) {
+        selectedDateTo.value = new Date(clickedDate)
+      }
+      else {
+        // If clicked date is before the start date, swap them
+        if (selectedDateFrom.value) {
+          selectedDateTo.value = new Date(selectedDateFrom.value)
+        }
+        selectedDateFrom.value = new Date(clickedDate)
+      }
+      isSelectingRange.value = false
+      if (selectedDateFrom.value && selectedDateTo.value) {
+        emit('range-select', new Date(selectedDateFrom.value), new Date(selectedDateTo.value))
+      }
     }
-    isSelectingRange.value = false
-    emit('range-select', new Date(selectedDateFrom.value), new Date(selectedDateTo.value))
+    emit('date-select', new Date(clickedDate))
   }
 
   selectedEventIdx.value = 0
-  emit('date-select', new Date(clickedDate))
 }
 
 const goToToday = () => {
@@ -154,10 +172,19 @@ const goToToday = () => {
 }
 
 const clearSelection = () => {
-  const today = new Date()
-  selectedDateFrom.value = new Date(today)
-  selectedDateTo.value = new Date(today)
+  selectedDateFrom.value = null
+  selectedDateTo.value = null
   isSelectingRange.value = false
+}
+
+const toggleSelectionMode = () => {
+  const newMode = selectionMode.value === 'single' ? 'range' : 'single'
+  selectionMode.value = newMode
+  
+  // Clear current selection when switching modes
+  clearSelection()
+  
+  emit('selection-mode-change', newMode)
 }
 
 const onEventClick = (event: CalendarEvent) => {
@@ -178,12 +205,14 @@ const setCurrentYear = (year: number) => {
 }
 
 const isToday = computed(() => {
-  return selectedDateFrom.value.toDateString() === new Date().toDateString()
+  return selectedDateFrom.value?.toDateString() === new Date().toDateString()
 })
 
 // Keyboard navigation helpers
 const navigateDate = (direction: 'up' | 'down' | 'left' | 'right') => {
-  const newDate = new Date(selectedDateFrom.value)
+  // If no date is selected, start with today
+  const baseDate = selectedDateFrom.value || new Date()
+  const newDate = new Date(baseDate)
 
   switch (direction) {
     case 'left':
@@ -379,27 +408,37 @@ onMounted(() => {
           />
         </div>
       </div>
-      <UiBtn
-        :active="isToday"
-        title="Go to today (T)"
-        aria-label="Go to today (T)"
-        @click="goToToday"
-      >
-        Today {{ isToday ? '✓' : '' }}
-      </UiBtn>
-      <UiBtn
-        v-if="isSelectingRange"
-        title="Clear selection (Escape)"
-        aria-label="Clear selection (Escape)"
-        @click="clearSelection"
-      >
-        Clear Selection
-      </UiBtn>
+      <div class="calendar-actions">
+        <UiBtn
+          :active="selectionMode === 'range'"
+          :title="`Switch to ${selectionMode === 'single' ? 'range' : 'single'} selection mode`"
+          :aria-label="`Current mode: ${selectionMode} selection. Click to switch to ${selectionMode === 'single' ? 'range' : 'single'} selection`"
+          @click="toggleSelectionMode"
+        >
+          {{ selectionMode === 'single' ? '📅 Single' : '📅 Range' }}
+        </UiBtn>
+        <UiBtn
+          :active="isToday"
+          title="Go to today (T)"
+          aria-label="Go to today (T)"
+          @click="goToToday"
+        >
+          Today {{ isToday ? '✓' : '' }}
+        </UiBtn>
+        <UiBtn
+          v-if="isSelectingRange || (selectedDateFrom && selectedDateTo)"
+          title="Clear selection (Escape)"
+          aria-label="Clear selection (Escape)"
+          @click="clearSelection"
+        >
+          Clear Selection
+        </UiBtn>
+      </div>
     </div>
 
     <!-- Range Selection Status -->
     <div
-      v-if="selectedDateFrom.toDateString() !== selectedDateTo.toDateString()"
+      v-if="selectedDateFrom && selectedDateTo && selectedDateFrom.toDateString() !== selectedDateTo.toDateString()"
       class="range-status"
     >
       <small>
@@ -409,13 +448,21 @@ onMounted(() => {
       </small>
     </div>
 
+    <!-- Selection Mode Status -->
+    <div class="selection-mode-status">
+      <small>
+        <strong>Selection Mode:</strong> {{ selectionMode === 'single' ? 'Single Date' : 'Date Range' }}
+        {{ selectionMode === 'range' && isSelectingRange ? '(selecting range...)' : '' }}
+      </small>
+    </div>
+
     <!-- Keyboard shortcuts help -->
     <UiKeyboardHelp>
       <template #title>
         Keyboard shortcuts:
       </template>
       <template>
-        Arrow keys to navigate • Click twice to select date range • Enter/Space
+        Arrow keys to navigate • Click to select ({{ selectionMode === 'single' ? 'single date' : 'click twice for range' }}) • Enter/Space
         to
         select event • T for today
         • Page Up/Down for months • Home/End for month boundaries • Tab/Shift+Tab to cycle events • Escape to clear
@@ -586,11 +633,31 @@ onMounted(() => {
   line-height: 1.4;
 }
 
+.selection-mode-status {
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  background-color: var(--sui-hover-bg);
+  border-radius: var(--sui-border-radius);
+  text-align: center;
+  border: 1px solid var(--sui-active-bg);
+}
+
+.selection-mode-status small {
+  color: var(--sui-fg);
+  line-height: 1.4;
+}
+
 .calendar-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1rem;
+}
+
+.calendar-actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
 }
 
 .calendar-nav {
