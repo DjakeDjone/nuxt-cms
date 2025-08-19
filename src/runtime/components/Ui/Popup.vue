@@ -1,7 +1,14 @@
 <script setup lang="ts">
 import { ref, onMounted, onUnmounted, watch } from 'vue'
 
+defineOptions({
+  name: 'UiPopup',
+})
 const opened = defineModel('open')
+
+const props = defineProps<{
+  class: string
+}>()
 
 const dialogRef = ref<HTMLElement | null>(null)
 const previouslyFocused = ref<Element | null>(null)
@@ -28,25 +35,13 @@ onMounted(() => document.addEventListener('keydown', onKeydown))
 onUnmounted(() => document.removeEventListener('keydown', onKeydown))
 </script>
 
-<script lang="ts">
-export default {
-  name: 'UiPopup', // Multi-word component name
-  props: {
-    open: {
-      type: Boolean,
-      required: false,
-      default: false,
-    },
-  },
-}
-</script>
-
 <template>
   <teleport to="body">
     <Transition name="fade">
       <div
         v-if="opened"
         class="snabb-ui popup-container"
+        :class="props.class"
       >
         <!-- backdrop -->
         <div
