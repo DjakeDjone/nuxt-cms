@@ -1,7 +1,7 @@
 import { defineEventHandler, getRouterParam, readBody } from 'h3'
 import type { ApiResponse } from '../../../model/response'
 import { useCalendarStorage } from '../../../util/storage'
-import { defaultCalendarEvent, type CalendarEvent } from '~/src/runtime/model/calendar'
+import type { CalendarEvent } from '~/src/runtime/model/calendar'
 
 export default defineEventHandler(async (event) => {
   const id = getRouterParam(event, 'id') ?? 'calendar'

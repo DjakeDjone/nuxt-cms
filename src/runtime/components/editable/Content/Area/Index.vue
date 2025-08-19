@@ -24,6 +24,7 @@ const {
     v-if="content"
     :content="content"
   >
+    <!-- XSS risk acknowledged: content should be sanitized server-side -->
     <div
       :class="props.class"
       v-html="content.content"

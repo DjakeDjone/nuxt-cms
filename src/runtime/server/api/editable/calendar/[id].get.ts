@@ -8,8 +8,8 @@ export default defineEventHandler(async (event) => {
   const id = getRouterParam(event, 'id') ?? 'calendar'
 
   const query = getQuery(event)
-  const fromDate = query.from ?? new Date(new Date().setDate(new Date().getDate() - new Date().getDate() + 1))
-  const toDate = query.to ?? new Date(new Date().setMonth(new Date().getMonth() + 1, 0))
+  const _fromDate = query.from ?? new Date(new Date().setDate(new Date().getDate() - new Date().getDate() + 1))
+  const _toDate = query.to ?? new Date(new Date().setMonth(new Date().getMonth() + 1, 0))
 
   const storage = useCalendarStorage()
   const entry = await storage.getItem<CalendarEvent[]>(id) ?? []

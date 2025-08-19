@@ -8,29 +8,29 @@ export const formatDate = (date: Date) => {
 
 export const tryConvertToDate = (value: string): Date | null => {
   const date = new Date(value.toString())
-  return isNaN(date.getTime()) ? null : date
+  return Number.isNaN(date.getTime()) ? null : date
 }
 
-export const fixDates = <T> (obj: any): T => {
-  if (!obj) return obj
+export const fixDates = <T>(obj: unknown): T => {
+  if (!obj) return obj as T
   if (Array.isArray(obj)) {
     return obj.map(item => fixDates(item)) as T
   }
   // fix dates in the ojb
-  const newObj: any = {}
-  for (const key in obj) {
+  const newObj: Record<string, unknown> = {}
+  for (const key in obj as Record<string, unknown>) {
     // check if the value can be converted to an Date
-    if (typeof obj[key] === 'string') {
-      const date = tryConvertToDate(obj[key])
-      newObj[key] = date ?? obj[key]
+    if (typeof (obj as Record<string, unknown>)[key] === 'string') {
+      const date = tryConvertToDate((obj as Record<string, unknown>)[key] as string)
+      newObj[key] = date ?? (obj as Record<string, unknown>)[key]
     }
-    else if (typeof obj[key] === 'object' && obj[key] !== null) {
-      newObj[key] = fixDates(obj[key])
+    else if (typeof (obj as Record<string, unknown>)[key] === 'object' && (obj as Record<string, unknown>)[key] !== null) {
+      newObj[key] = fixDates((obj as Record<string, unknown>)[key])
     }
     else {
-      newObj[key] = obj[key]
+      newObj[key] = (obj as Record<string, unknown>)[key]
     }
   }
-  (newObj)
+  console.log(newObj)
   return newObj as T
 }

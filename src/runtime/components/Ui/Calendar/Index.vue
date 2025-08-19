@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, onUnmounted } from 'vue'
-import type { CalendarDay, CalendarEvent } from '../../../model/calendar'
+import { ref, computed, onMounted } from 'vue'
+import type { CalendarEvent } from '../../../model/calendar'
 import { formatTime } from '#imports'
 
 defineOptions({

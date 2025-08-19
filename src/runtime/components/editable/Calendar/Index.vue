@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { useFetch, useState } from '#app'
+import { watch } from 'vue'
 import { fixDates } from '#imports'
-import type { CalendarEvent } from '~/src/runtime/model/calendar'
 
 defineOptions({
   name: 'EditableCalendar',
