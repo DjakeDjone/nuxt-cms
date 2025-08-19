@@ -27,14 +27,14 @@ export const defaultCalendarEvent: CalendarEvent = {
   color: '',
 }
 
-export const parseCalendarEvent = (data: any): CalendarEvent => {
+export const parseCalendarEvent = (data: Record<string, unknown>): CalendarEvent => {
   return {
-    id: data.id || '',
-    title: data.title || '',
-    from: new Date(data.from) || new Date(),
-    details: data.details || '',
-    to: new Date(data.to) || new Date(new Date().setHours(new Date().getHours() + 1)),
-    color: data.color || '',
+    id: typeof data.id === 'string' ? data.id : '',
+    title: typeof data.title === 'string' ? data.title : '',
+    from: data.from ? new Date(data.from as string) : new Date(),
+    details: typeof data.details === 'string' ? data.details : '',
+    to: data.to ? new Date(data.to as string) : new Date(new Date().setHours(new Date().getHours() + 1)),
+    color: typeof data.color === 'string' ? data.color : '',
   }
 }
 

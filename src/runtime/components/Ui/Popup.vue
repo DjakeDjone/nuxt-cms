@@ -1,10 +1,10 @@
-<script setup>
+<script setup lang="ts">
 import { ref, onMounted, onUnmounted, watch } from 'vue'
 
 const opened = defineModel('open')
 
-const dialogRef = ref(null)
-const previouslyFocused = ref(null)
+const dialogRef = ref<HTMLElement | null>(null)
+const previouslyFocused = ref<Element | null>(null)
 
 watch(() => opened.value, (isOpen) => {
   if (isOpen) {
@@ -12,7 +12,7 @@ watch(() => opened.value, (isOpen) => {
     dialogRef.value?.focus()
   }
   else {
-    previouslyFocused.value?.focus()
+    (previouslyFocused.value as HTMLElement | null)?.focus()
   }
 })
 
@@ -20,12 +20,24 @@ function close() {
   opened.value = false
 }
 
-function onKeydown(e) {
+function onKeydown(e: KeyboardEvent) {
   if (e.key === 'Escape') close()
 }
 
 onMounted(() => document.addEventListener('keydown', onKeydown))
 onUnmounted(() => document.removeEventListener('keydown', onKeydown))
+</script>
+
+<script lang="ts">
+export default {
+  name: 'UiPopup', // Multi-word component name
+  props: {
+    open: {
+      type: Boolean,
+      required: false,
+    },
+  },
+}
 </script>
 
 <template>

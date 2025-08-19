@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useFetch, useState } from '#app'
-import { watch, fixDates, computed, useNotificationHandler } from '#imports'
+import { computed, useNotificationHandler } from '#imports'
 import { type CalendarEvent, parseCalendarEvent } from '#imports'
 
 defineOptions({
@@ -36,7 +36,7 @@ const {
 })
 
 const createEvent = async (event: CalendarEvent) => {
-  const response = await $fetch(`/api/editable/calendar/${props.calendarId}/${event.id}`, {
+  await $fetch(`/api/editable/calendar/${props.calendarId}/${event.id}`, {
     method: 'PATCH', // TODO: change to post
     body: { event },
   })
@@ -51,14 +51,14 @@ const createEvent = async (event: CalendarEvent) => {
 }
 
 const editEvent = async (event: CalendarEvent) => {
-  const response = await $fetch(`/api/editable/calendar/${props.calendarId}/${event.id}`, {
+  await $fetch(`/api/editable/calendar/${props.calendarId}/${event.id}`, {
     method: 'PATCH',
     body: { event },
   })
 }
 
 const deleteEvent = async (event: CalendarEvent) => {
-  const response = await $fetch(`/api/editable/calendar/${props.calendarId}/${event.id}`, {
+  await $fetch(`/api/editable/calendar/${props.calendarId}/${event.id}`, {
     method: 'DELETE',
   }).catch((error) => {
     console.error('Error deleting event:', error)

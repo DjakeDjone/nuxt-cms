@@ -2,7 +2,7 @@
 const saveHandler = useSaveHandler()
 
 const _save = async () => {
-  ('Saving all changes...')
+  console.log('Saving all changes...')
   await saveHandler.saveAll()
 }
 </script>

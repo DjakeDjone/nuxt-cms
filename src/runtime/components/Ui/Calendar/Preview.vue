@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { defaultCalendarEvent, type CalendarEvent } from '#imports'
+import type { CalendarEvent } from '#imports'
 import { formatDate, useState } from '#imports'
 
 defineOptions({
@@ -27,9 +27,7 @@ const creatingEvent = useState<boolean>('creatingEvent', () => false)
 const editEventOpen = useState<boolean>('editEvent', () => false)
 
 const emit = defineEmits<{
-  (e: 'edit-event', event: CalendarEvent): void
-  (e: 'delete-event', event: CalendarEvent): void
-  (e: 'create-event', event: CalendarEvent): void
+  (e: 'edit-event' | 'delete-event' | 'create-event', event: CalendarEvent): void
 }>()
 
 const editEvent = (event: CalendarEvent) => {

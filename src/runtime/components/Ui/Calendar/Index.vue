@@ -77,10 +77,6 @@ const calendarDays = computed(() => {
   // Generate 42 days (6 weeks)
   for (let i = 0; i < 42; i++) {
     const dayEvents = props.events.filter((event) => {
-      const currentDateString = current.toDateString()
-      const eventFromString = event.from.toDateString()
-      const eventToString = event.to.toDateString()
-
       // Check if the current day is within the event's date range
       return current >= new Date(event.from.toDateString())
         && current <= new Date(event.to.toDateString())

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { useFetch, useState } from '#app'
-import { watch, fixDates } from '#imports'
+import { fixDates } from '#imports'
 import type { CalendarEvent } from '~/src/runtime/model/calendar'
 
 defineOptions({
@@ -16,8 +16,7 @@ const toDate = new Date()
 
 const {
   data: events,
-  error,
-  status,
+  // error and status removed to fix lint errors
 } = useFetch(`/api/editable/calendar/${props.calendarId}`, {
   query: {
     from: fromDate,
