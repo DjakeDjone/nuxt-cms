@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.1.15
+
+[compare changes](https://github.com/DjakeDjone/nuxt-cms/compare/v0.1.14...v0.1.15)
+
+### 💅 Refactors
+
+- Convert UiPopup to script setup and remove options API ([9a6d6e9](https://github.com/DjakeDjone/nuxt-cms/commit/9a6d6e9))
+
+### ❤️ Contributors
+
+- DjakeDjone <benjamin.friedl@htlstp.at>
+
 ## v0.1.14
 
 [compare changes](https://github.com/DjakeDjone/nuxt-cms/compare/v0.1.13...v0.1.14)
