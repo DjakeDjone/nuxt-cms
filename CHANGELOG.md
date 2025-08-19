@@ -1,5 +1,39 @@
 # Changelog
 
+## v0.1.13
+
+[compare changes](https://github.com/DjakeDjone/nuxt-cms/compare/v0.1.12...v0.1.13)
+
+### 🚀 Enhancements
+
+- Styled header ([cd59c95](https://github.com/DjakeDjone/nuxt-cms/commit/cd59c95))
+- Basic sui calendar component ([36b145c](https://github.com/DjakeDjone/nuxt-cms/commit/36b145c))
+- Enhance calendar component with keyboard navigation and accessibility improvements ([2e7b9a9](https://github.com/DjakeDjone/nuxt-cms/commit/2e7b9a9))
+- Implement calendar management with CRUD operations and UI components ([bf00d71](https://github.com/DjakeDjone/nuxt-cms/commit/bf00d71))
+- Add event editing functionality and improve calendar API endpoints ([cbe7215](https://github.com/DjakeDjone/nuxt-cms/commit/cbe7215))
+- Implement calendar range selection and event management with CRUD operations ([709cfd8](https://github.com/DjakeDjone/nuxt-cms/commit/709cfd8))
+- Enhance calendar UI with improved accessibility and keyboard shortcuts ([096f34b](https://github.com/DjakeDjone/nuxt-cms/commit/096f34b))
+- Improve calendar accessibility and enhance keyboard navigation support ([7d652e8](https://github.com/DjakeDjone/nuxt-cms/commit/7d652e8))
+- Update calendar selection logic to support null values and improve event filtering ([77af827](https://github.com/DjakeDjone/nuxt-cms/commit/77af827))
+
+### 🩹 Fixes
+
+- Apply dark mode to all elements correctly ([af0d8da](https://github.com/DjakeDjone/nuxt-cms/commit/af0d8da))
+- Close dropdown when clicking outside ([6c674bd](https://github.com/DjakeDjone/nuxt-cms/commit/6c674bd))
+- Add emit definition for close event in Notification components ([c2235bb](https://github.com/DjakeDjone/nuxt-cms/commit/c2235bb))
+- Ssr hydration ([b728641](https://github.com/DjakeDjone/nuxt-cms/commit/b728641))
+- Problems ([95a5790](https://github.com/DjakeDjone/nuxt-cms/commit/95a5790))
+- Lint ([fab12bc](https://github.com/DjakeDjone/nuxt-cms/commit/fab12bc))
+
+### 💅 Refactors
+
+- Clean up code formatting and improve readability across components ([215ff28](https://github.com/DjakeDjone/nuxt-cms/commit/215ff28))
+- Simplify event handling and logging in calendar components ([89860fb](https://github.com/DjakeDjone/nuxt-cms/commit/89860fb))
+
+### ❤️ Contributors
+
+- DjakeDjone <benjamin.friedl@htlstp.at>
+
 ## v0.1.12
 
 [compare changes](https://github.com/DjakeDjone/nuxt-cms/compare/v0.1.10...v0.1.12)
