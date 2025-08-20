@@ -1,5 +1,21 @@
 # Changelog
 
+## v0.1.18
+
+[compare changes](https://github.com/DjakeDjone/nuxt-cms/compare/v0.1.17...v0.1.18)
+
+### 🚀 Enhancements
+
+- Server model to autoimports ([ae08640](https://github.com/DjakeDjone/nuxt-cms/commit/ae08640))
+
+### 🏡 Chore
+
+- **release:** V0.1.17 ([42d69c5](https://github.com/DjakeDjone/nuxt-cms/commit/42d69c5))
+
+### ❤️ Contributors
+
+- DjakeDjone <benjamin.friedl@htlstp.at>
+
 ## v0.1.17
 
 [compare changes](https://github.com/DjakeDjone/nuxt-cms/compare/v0.1.16...v0.1.17)
