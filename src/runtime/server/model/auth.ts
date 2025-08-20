@@ -1,4 +1,4 @@
-export type BaseAuthUserRoles = 'admin' | 'user'
+export type BaseAuthUserRoles = 'sudo' | 'admin' | 'user'
 
 export type UserCredentials = {
   username: string
