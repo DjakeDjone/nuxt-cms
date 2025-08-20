@@ -70,5 +70,6 @@ export default defineEventHandler(async (event) => {
   console.log(
     `✅ User ${user.username} with role ${user.role} accessed ${requestUrl.pathname} with method ${method}`,
   )
+  event.context.auth = { user }
   return
 })
