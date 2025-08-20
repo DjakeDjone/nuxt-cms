@@ -1,5 +1,17 @@
 # Changelog
 
+## v0.1.16
+
+[compare changes](https://github.com/DjakeDjone/nuxt-cms/compare/v0.1.15...v0.1.16)
+
+### 🚀 Enhancements
+
+- Extended the BaseAuthUserRoles ([34e4c41](https://github.com/DjakeDjone/nuxt-cms/commit/34e4c41))
+
+### ❤️ Contributors
+
+- DjakeDjone <benjamin.friedl@htlstp.at>
+
 ## v0.1.15
 
 [compare changes](https://github.com/DjakeDjone/nuxt-cms/compare/v0.1.14...v0.1.15)
