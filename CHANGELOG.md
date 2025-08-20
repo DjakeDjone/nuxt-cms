@@ -1,5 +1,21 @@
 # Changelog
 
+## v0.1.17
+
+[compare changes](https://github.com/DjakeDjone/nuxt-cms/compare/v0.1.16...v0.1.17)
+
+### 🚀 Enhancements
+
+- Added user to event context ([e97b936](https://github.com/DjakeDjone/nuxt-cms/commit/e97b936))
+
+### 🏡 Chore
+
+- **release:** V0.1.16 ([aeb7449](https://github.com/DjakeDjone/nuxt-cms/commit/aeb7449))
+
+### ❤️ Contributors
+
+- DjakeDjone <benjamin.friedl@htlstp.at>
+
 ## v0.1.16
 
 [compare changes](https://github.com/DjakeDjone/nuxt-cms/compare/v0.1.15...v0.1.16)
