@@ -161,7 +161,6 @@ export default defineNuxtModule<ModuleOptions>({
       ),
     })
 
-
     addImportsDir(resolver.resolve('runtime/model'))
     addImportsDir(resolver.resolve('runtime/server/model'))
     addImportsDir(resolver.resolve('runtime/server/util'))
