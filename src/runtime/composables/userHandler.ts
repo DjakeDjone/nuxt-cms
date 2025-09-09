@@ -12,9 +12,15 @@ export const useUserHandler = <T extends SanitizedUser = SanitizedUser>() => {
     loggedIn.value = true
   }
 
+  const logoutUser = () => {
+    user.value = undefined as any
+    loggedIn.value = false
+  }
+
   return {
     user,
     loggedIn: readonly(loggedIn),
     loginUser,
+    logoutUser,
   }
 }
