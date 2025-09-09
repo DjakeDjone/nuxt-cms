@@ -8,5 +8,6 @@
       class="w-full"
     />
     <!-- TODO: blog events etc. -->
+     <BlogPostAdmin id="123" />
   </main>
 </template>

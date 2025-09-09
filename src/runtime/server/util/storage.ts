@@ -21,3 +21,11 @@ export const useCalendarStorage = (): Storage<StorageValue> => {
   }
   return useStorage(`${storageKey}:calendar`)
 }
+
+export const useBlogStorage = (): Storage<StorageValue> => {
+  const storageKey = useRuntimeConfig().editableContent?.storageKey
+  if (!storageKey) {
+    return useDefaultStorage()
+  }
+  return useStorage(`${storageKey}:blog`)
+}

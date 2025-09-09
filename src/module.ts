@@ -140,6 +140,28 @@ export default defineNuxtModule<ModuleOptions>({
       handler: resolver.resolve('./runtime/server/middleware/auth'),
     })
 
+    // blog posts
+    addServerHandler({
+      route: '/api/blog/:id',
+      method: 'post',
+      handler: resolver.resolve(
+        './runtime/server/api/blog/[id].post',
+      ),
+    })
+    addServerHandler({
+      route: '/api/blog',
+      handler: resolver.resolve(
+        './runtime/server/api/blog/index.get',
+      ),
+    })
+    addServerHandler({
+      route: '/api/blog/:id',
+      handler: resolver.resolve(
+        './runtime/server/api/blog/[id].get',
+      ),
+    })
+
+
     addImportsDir(resolver.resolve('runtime/model'))
     addImportsDir(resolver.resolve('runtime/server/model'))
     addImportsDir(resolver.resolve('runtime/server/util'))
